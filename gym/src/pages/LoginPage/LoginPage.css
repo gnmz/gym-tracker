@@ -1,0 +1,25 @@
+.login-form {
+  margin: 50px auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+label {
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 20px;
+}
+span {
+  width: 60px;
+  display: block;
+  margin: 0;
+}
+.entr-btn {
+  width: 200px;
+  display: block;
+  margin: 0 auto;
+}
+
+.link-to-main {
+  text-decoration: none;
+  color: black;
+}
