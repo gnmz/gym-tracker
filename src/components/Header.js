@@ -6,10 +6,8 @@ class Header extends Component {
     return (
       <div className="header">
         <Link to="/">
-          <button>Home</button>
+          <h1>Gyms-Tracker</h1>
         </Link>
-
-        <h1>Gyms-Tracker</h1>
       </div>
     );
   }
