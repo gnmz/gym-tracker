@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import "./MainPage.css";
 
@@ -48,7 +49,7 @@ class MainPage extends Component {
           <tbody>
             {this.state.createdTrainingSessions.map((item) => (
               <tr key={item.id}>
-                <td>{item.date}</td>
+                <td>{dayjs(item.date).format('DD MMM YYYY')}</td>
                 <td>
                   <Link to={`/train/${item.id}`}>{item.title}</Link>
                 </td>

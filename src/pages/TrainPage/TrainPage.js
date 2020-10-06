@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import dayjs from "dayjs";
 import "./TrainPage.css";
 
 class TrainPage extends Component {
@@ -78,7 +79,7 @@ class TrainPage extends Component {
       <div className="train-page">
         <div>
           <h2>
-            {this.state.date}, {this.state.title}
+            {dayjs(this.state.date).format('DD MMM YYYY')}, {this.state.title}
           </h2>
         </div>
         <table>

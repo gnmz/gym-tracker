@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 import "./PastTrainingPage.css";
 
@@ -37,7 +38,7 @@ class PastTrainingPage extends Component {
             <button>В историю тренировок</button>
           </Link>
           <h2>
-            {date}, {title}
+            {dayjs(date).format('DD MMM YYYY')}, {title}
           </h2>
         </div>
 

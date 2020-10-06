@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 
 class TrainingHistory extends Component {
@@ -28,7 +29,7 @@ class TrainingHistory extends Component {
           <tbody>
             {this.state.historyTrainList.map((item) => (
               <tr key={item.id}>
-                <td>{item.date}</td>
+                <td>{dayjs(item.date).format('DD MMM YYYY')}</td>
                 <td>
                   <Link to={`/train-history/${item.id}`}>{item.title}</Link>
                 </td>

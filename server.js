@@ -144,10 +144,7 @@ let historyTrainList = [
   },
 ];
 app.use(cors());
-app.all("/", function (req, res, next) {
-  res.set("Access-Control-Allow-Origin", "http://localhost:3000");
-  next();
-});
+
 app.post("/", (req, res) => {
   const { login, password } = req.body;
   if (login === "test" && password === "123") {
