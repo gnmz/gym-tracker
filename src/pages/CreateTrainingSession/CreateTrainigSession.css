@@ -1,42 +1,111 @@
-.workout-list {
+.create-train-page {
+  padding: 0 30px 50px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.create-train-page__title {
+  margin: 0 0 20px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.create-train-page__properties {
+  margin-bottom: 40px;  
+}
+
+.create-train-property {
+  font-size: 14px;
+  text-align: left;
+  max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.create-train-property__input {
+  border: 1px solid #ababab;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.create-train-workout-list {
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
   padding: 0;
   list-style-type: none;
-}
-h2 {
-  text-align: center;
+  margin: 0 auto 40px;  
 }
 
-.workout-btn {
-  width: 100px;
+.create-train-workout-list__button {
   height: 50px;
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
 }
 
-.iteration,
-.weight {
-  width: 20px;
+.create-train-workout-list__button:hover {
+  color: #4285f4;
+  cursor: pointer;
+}
+
+.create-train-program {
+  margin-bottom: 40px;
+}
+
+.create-train-program-item {
+  display: flex;
+  align-items: baseline;
+}
+
+.create-train-program-item__title {
+  width: 200px;
+  margin: 0 30px 0 0;
+}
+
+.create-train-program-item__property {
+  display: flex;
+  align-items: baseline;
+  margin-right: 30px;
+}
+
+.create-train-program-item__input {
+  border: 1px solid #ababab;
+  padding: 5px 10px;
+  border-radius: 5px;
+  width: 40px;
+  box-sizing: border-box;
   margin-right: 5px;
 }
-.create-train-table {
-  text-align: center;
+
+.create-train-program-item__remove {
+  text-decoration: underline;
+  color: #f22;
+  background-color: #fff;
+  border: none;
+  font-size: 14px;
 }
-.save-session-button {
-  height: 60px;
-  margin: 20px auto;
+
+.create-train-program-item__remove:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.create-train-program__save {
   display: block;
-}
-.choose-workout-list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 1rem;
-  padding: 0;
-  list-style-type: none;
-}
-.add-workout-btn {
-  height: 50px;
+  margin: 0 auto;
   width: 100px;
-  box-sizing: border-box;
-  padding: 0;
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+}
+
+.create-train-program__save:hover {
+  color: #4285f4;
+  cursor: pointer;
 }
