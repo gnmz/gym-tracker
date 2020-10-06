@@ -106,27 +106,31 @@ class CreateTrainingSession extends Component {
   };
   render() {
     return (
-      <div>
-        <h2>Создай тренировку</h2>
-        <div>
-          <label>
+      <div className="create-train-page">
+        <h2 className="create-train-page__title">Запланируй тренировку</h2>
+        <div className="create-train-page__properties">
+          <label className="create-train-property">
             Дата тренировки
             <input
+              className="create-train-property__input"
               type="text"
+              placeholder="2020-05-09"
               value={this.state.trainDate}
               onChange={this.handleDate}
             />
           </label>
-          <label>
+          <label className="create-train-property">
             Название тренировки
             <input
+              className="create-train-property__input"
               type="text"
               value={this.state.trainName}
               onChange={this.handleTrainName}
             />
           </label>
         </div>
-        <div className="workout-list">
+        <h2 className="create-train-page__title">Выбери категорию</h2>
+        <div className="create-train-workout-list">
           {this.state.categoryOfExercises.map((item) => (
             <ChooseWorkout
               key={item.id}
@@ -137,72 +141,72 @@ class CreateTrainingSession extends Component {
             />
           ))}
         </div>
-        <div className="create-train-header">
-          <h3>Выбери упражнения</h3>
-          <div className="choose-workout-list">
-            {this.state.exercisesList.map((item) => (
-              <button
-                key={item.id}
-                className="add-workout-btn"
-                onClick={() => {
-                  this.addWorkout(item.title);
-                }}
-              >
-                {item.title}
-              </button>
-            ))}
+
+        {this.state.exercisesList.length ?
+          <div className="create-train-excersises">
+            <h2 className="create-train-page__title">Выбери упражнение</h2>
+            <div className="create-train-workout-list">
+              {this.state.exercisesList.map((item) => (
+                <button
+                  key={item.id}
+                  className="create-train-workout-list__button"
+                  onClick={() => {
+                    this.addWorkout(item.title);
+                  }}
+                >
+                  {item.title}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-        <table className="create-train-table">
-          <thead>
-            <tr>
-              <th>Название упражнения</th>
-              <th>Кол-во повторений</th>
-              <th>Рабочий вес</th>
-            </tr>
-          </thead>
-          <tbody>
+        : null}
+        
+        { this.state.createTrain.length ?
+          <div className="create-train-program">
+            <h2 className="create-train-page__title">Программа тренировки</h2>
             {this.state.createTrain.map((item) => (
-              <tr key={item.id}>
-                <td>{item.excersise_name}</td>
-                <td>
+              <div className="create-train-program-item" key={item.id}>
+                <p className="create-train-program-item__title">{item.excersise_name}</p>
+                <label className="create-train-program-item__property">
                   <input
                     type="text"
-                    className="iteration"
+                    className="create-train-program-item__input"
                     value={item.plan_rep ? item.plan_rep : ""}
                     onChange={(e) => {
                       this.handleNumberRepetitions(item.id, e);
                     }}
                   />
                   раз
-                </td>
-                <td>
+                </label>
+                <label className="create-train-program-item__property">
                   <input
                     type="text"
-                    className="weight"
+                    className="create-train-program-item__input"
                     value={item.plan_weight ? item.plan_weight : ""}
                     onChange={(e) => {
                       this.handleworkingWeight(item.id, e);
                     }}
                   />
-                  КГ
-                </td>
-                <td>
-                  <button
-                    onClick={() => {
-                      this.removeWorkout(item.id);
-                    }}
-                  >
-                    х
-                  </button>
-                </td>
-              </tr>
+                  кг
+                </label>
+                <button
+                  className="create-train-program-item__remove"
+                  onClick={() => {
+                    this.removeWorkout(item.id);
+                  }}
+                >
+                  удалить
+                </button>
+              </div>
             ))}
-          </tbody>
-        </table>
-        <button className="save-session-button" onClick={this.clickSaveTrain}>
-          Сохранить
-        </button>
+          </div>
+        : null}
+
+        { this.state.createTrain.length && this.state.trainName && this.state.trainDate ?
+          <button className="create-train-program__save" onClick={this.clickSaveTrain}>
+            Сохранить
+          </button>
+        : null }
       </div>
     );
   }
