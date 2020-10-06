@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import "./PastTrainingPage.css";
 
 class PastTrainingPage extends Component {
   state = {
@@ -30,9 +32,15 @@ class PastTrainingPage extends Component {
     const { date, title, excersises, comment } = this.state;
     return (
       <div>
-        <h2>
-          {date}, {title}
-        </h2>
+        <div className="header-past-train">
+          <Link to="/train-history">
+            <button>В историю тренировок</button>
+          </Link>
+          <h2>
+            {date}, {title}
+          </h2>
+        </div>
+
         <table>
           <thead>
             <tr>

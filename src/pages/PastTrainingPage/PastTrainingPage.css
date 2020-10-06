@@ -1,0 +1,9 @@
+.header-past-train {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-past-train button {
+  margin-top: 25px;
+  margin-right: 20px;
+}
