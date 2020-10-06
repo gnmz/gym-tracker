@@ -17,8 +17,7 @@ class TrainPage extends Component {
   }
   //получаем тренировку
   getCurrentTrain = (id) => {
-    const URL = `http://localhost:3001/trains/${id}`;
-    fetch(URL)
+    fetch(`http://localhost:3001/trains/${id}`)
       .then((res) => res.json())
       .then((data) =>
         this.setState({
@@ -37,17 +36,15 @@ class TrainPage extends Component {
         ...this.state,
         excersises: JSON.stringify(this.state.excersises),
       },
-    });
-    if (this.state.is_completed) {
-      const URL = `http://localhost:3001/trains`;
-      fetch(URL, {
+    }, () => {
+      fetch(`http://localhost:3001/trains`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
         },
         body: JSON.stringify(this.state.complite),
       });
-    }
+    });
   };
   // получаем значение из инпута факт повторения
   handleFactNumberRepetitions = (id, e) => {

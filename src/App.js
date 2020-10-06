@@ -13,8 +13,7 @@ class App extends Component {
     return (
       <div className="app">
         <Header />
-        <Route path="/" exact component={LoginPage} />
-        <Route path="/main" exact component={MainPage} />
+        <Route path="/" exact component={MainPage} />
         <Route
           path="/create-trainig-session"
           component={CreateTrainingSession}
