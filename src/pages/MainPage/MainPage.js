@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import dayjs from "dayjs";
+
 import { Link } from "react-router-dom";
 import "./MainPage.css";
+import ChooseTrain from "../../components/ChooseTrain";
 
 class MainPage extends Component {
   state = {
@@ -26,37 +27,22 @@ class MainPage extends Component {
   render() {
     return (
       <div className="choose-action">
-        <ul className="choose-action_list">
-          <li>
-            <Link to="/create-trainig-session">
-              <button>Создать тренировку</button>
+        <div className="choose-action_list">
+          <Link to="/create-trainig-session">
+            <button>Создать тренировку</button>
+          </Link>
+          <Link to="/train-history">
+            <button>История тренировок</button>
+          </Link>
+        </div>
+        <h2>Запланированные тренировки</h2>
+        <div className="trains">
+          {this.state.createdTrainingSessions.map((item) => (
+            <Link to={`/train/${item.id}`} className="train-link">
+              <ChooseTrain date={item.date} title={item.title} />
             </Link>
-          </li>
-          <li>
-            <Link to="/train-history">
-              <button>История тренировок</button>
-            </Link>
-          </li>
-        </ul>
-        <h3>Запланированные тренировки</h3>
-        <table className="table-created-traning-sessions">
-          <thead>
-            <tr>
-              <th>Дата тренировки</th>
-              <th>Название тренировки</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.createdTrainingSessions.map((item) => (
-              <tr key={item.id}>
-                <td>{dayjs(item.date).format('DD MMM YYYY')}</td>
-                <td>
-                  <Link to={`/train/${item.id}`}>{item.title}</Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          ))}
+        </div>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 .choose-action_list {
   display: flex;
-  list-style-type: none;
   justify-content: space-around;
+  margin-bottom: 20px;
 }
 .choose-action {
   width: 90%;
@@ -12,6 +12,12 @@
   text-align: center;
   margin: 0 auto;
 }
-h3 {
-  text-align: center;
+
+.choose-action_list button {
+  padding: 10px 10px;
+}
+.trains {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 0.5rem;
 }

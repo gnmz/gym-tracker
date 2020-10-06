@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;700;800;900&display=swap");
 
-body { 
+body {
   background-color: #ebebeb;
   padding: 10px 20px;
 }
@@ -13,7 +13,7 @@ body {
   flex-direction: column;
   box-sizing: border-box;
   padding: 30px 10px 50px;
-  box-shadow: -1px 6px 28px 0px rgba(0,0,0,0.75);
+  box-shadow: -1px 6px 28px 0px rgba(0, 0, 0, 0.75);
   background: #fff;
 }
 
@@ -22,8 +22,24 @@ body {
 }
 
 .header__title {
-  font-family: 'Montserrat Alternates', sans-serif;
+  font-family: "Montserrat Alternates", sans-serif;
   margin: 0 0 50px;
   text-decoration: none;
+  color: #4285f4;
+}
+
+.choose-train-cart {
+  width: 150px;
+  text-align: left;
+  padding: 5px;
+  border: #4285f4 2px solid;
+  border-radius: 5px;
+}
+.train-link {
+  color: black;
+  text-decoration: none;
+}
+
+.train-link:hover {
   color: #4285f4;
 }
