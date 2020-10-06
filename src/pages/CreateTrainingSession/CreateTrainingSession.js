@@ -91,13 +91,7 @@ class CreateTrainingSession extends Component {
   };
   //добавление даты
   handleDate = (e) => {
-    if (e.target.value === "") {
-      let now = new Date();
-      let date = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
-      this.setState({ trainDate: date });
-    } else {
-      this.setState({ trainDate: e.target.value });
-    }
+    this.setState({ trainDate: e.target.value });
   };
   //добавление названия тренировки
   handleTrainName = (e) => {
