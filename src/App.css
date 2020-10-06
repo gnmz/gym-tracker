@@ -1,8 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;700;800;900&display=swap');
+
+body { 
+  background-color: #ebebeb;
+  padding: 10px 20px;
+}
+
 .app {
-  width: 600px;
+  max-width: 600px;
   margin: 5px auto;
   display: flex;
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
+  padding: 30px 10px 50px;
+  box-shadow: -1px 6px 28px 0px rgba(0,0,0,0.75);
+  background: #fff;
+}
+
+.header a {
+  text-decoration: none;
+}
+
+.header__title {
+  font-family: 'Montserrat Alternates', sans-serif;
+  margin: 0 0 50px;
+  text-decoration: none;
+  color: #4285f4;
 }
