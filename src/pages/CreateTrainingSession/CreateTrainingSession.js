@@ -54,14 +54,14 @@ class CreateTrainingSession extends Component {
         comment: "",
         is_completed: false,
       },
-    });
-    const URL = `http://localhost:3001/trains`;
-    fetch(URL, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(this.state.savedTrain),
+    }, () => {
+      fetch(`http://localhost:3001/trains`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(this.state.savedTrain),
+      });
     });
   };
 
@@ -111,7 +111,6 @@ class CreateTrainingSession extends Component {
     this.setState({ createTrain: newArr });
   };
   render() {
-    console.log(this.state.savedTrain);
     return (
       <div>
         <h2>Создай тренировку</h2>
