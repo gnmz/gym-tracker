@@ -3,6 +3,25 @@ import { Link } from "react-router-dom";
 import "./MainPage.css";
 
 class MainPage extends Component {
+  state = {
+    createdTrainingSessions: [],
+  };
+  componentDidMount() {
+    this.getCreatedTrainingSessinos();
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.value !== this.state.value) {
+      this.getCreatedTrainingSessinos();
+    }
+  }
+  getCreatedTrainingSessinos = () => {
+    const URL = "http://localhost:3001/trains?type=plan";
+    fetch(URL)
+      .then((res) => res.json())
+      .then((data) => {
+        this.setState({ createdTrainingSessions: data });
+      });
+  };
   render() {
     return (
       <div className="choose-action">
@@ -13,7 +32,7 @@ class MainPage extends Component {
             </Link>
           </li>
           <li>
-            <Link to="/training-history">
+            <Link to="/train-history">
               <button>История тренировок</button>
             </Link>
           </li>
@@ -21,16 +40,20 @@ class MainPage extends Component {
         <h3>Запланированные тренировки</h3>
         <table className="table-created-traning-sessions">
           <thead>
-            <th>№</th>
-            <th>Дата тренировки</th>
-            <th>Название тренировки</th>
+            <tr>
+              <th>Дата тренировки</th>
+              <th>Название тренировки</th>
+            </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>28-09-2020</td>
-              <td>Грудь бицепс</td>
-            </tr>
+            {this.state.createdTrainingSessions.map((item) => (
+              <tr key={item.id}>
+                <td>{item.date}</td>
+                <td>
+                  <Link to={`/train/${item.id}`}>{item.title}</Link>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

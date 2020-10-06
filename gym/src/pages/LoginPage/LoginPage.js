@@ -5,11 +5,9 @@ class LoginPage extends Component {
   state = {
     login: "",
     password: "",
-    correctData: false,
   };
   isLogin = (e) => {
     this.setState({ login: e.target.value });
-    console.log(this.state.login);
   };
   isPassword = (e) => {
     this.setState({ password: e.target.value });
@@ -31,7 +29,7 @@ class LoginPage extends Component {
           Пароль:
           <input type="text" value={password} onChange={this.isPassword} />
         </label>
-        <Link to={"/main"} className="link-to-main">
+        <Link to="/main" className="link-to-main">
           <button
             className="entr-btn"
             disabled={!this.authentication(login, password)}

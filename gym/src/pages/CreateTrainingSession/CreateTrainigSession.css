@@ -1,0 +1,42 @@
+.workout-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
+  padding: 0;
+  list-style-type: none;
+}
+h2 {
+  text-align: center;
+}
+
+.workout-btn {
+  width: 100px;
+  height: 50px;
+}
+
+.iteration,
+.weight {
+  width: 20px;
+  margin-right: 5px;
+}
+.create-train-table {
+  text-align: center;
+}
+.save-session-button {
+  height: 60px;
+  margin: 20px auto;
+  display: block;
+}
+.choose-workout-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
+  padding: 0;
+  list-style-type: none;
+}
+.add-workout-btn {
+  height: 50px;
+  width: 100px;
+  box-sizing: border-box;
+  padding: 0;
+}

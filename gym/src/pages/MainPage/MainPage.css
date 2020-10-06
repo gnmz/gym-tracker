@@ -15,3 +15,12 @@
 h3 {
   text-align: center;
 }
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+.header button {
+  width: 50px;
+  height: 50px;
+  margin: 20px;
+}
