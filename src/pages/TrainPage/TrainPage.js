@@ -30,20 +30,17 @@ class TrainPage extends Component {
   };
   //заканчиваем тренировку
   endOfTraining = () => {
-    this.setState({
-      is_completed: true,
-      complite: {
-        ...this.state,
-        excersises: JSON.stringify(this.state.excersises),
+    const data = {
+      ...this.state,
+      excersises: JSON.stringify(this.state.excersises),
+      is_completed: true
+    }
+    fetch(`http://localhost:3001/trains`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
       },
-    }, () => {
-      fetch(`http://localhost:3001/trains`, {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(this.state.complite),
-      });
+      body: JSON.stringify(data),
     });
   };
   // получаем значение из инпута факт повторения
