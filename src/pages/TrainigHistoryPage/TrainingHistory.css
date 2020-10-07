@@ -19,3 +19,15 @@
   text-decoration: none;
   color: black;
 }
+
+@media screen and (min-width: 320px) and (max-width: 991px) {
+  .history-page__trains {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0.5rem;
+  }
+  .history-page__title {
+    font-size: 14px;
+  }
+}

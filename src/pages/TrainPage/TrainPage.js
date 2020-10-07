@@ -76,8 +76,6 @@ class TrainPage extends Component {
     });
   };
   render() {
-    console.log(this.state);
-
     return (
       <div className="train-page">
         <h2 className="train-page__title">
@@ -96,7 +94,7 @@ class TrainPage extends Component {
                   this.handleFactNumberRepetitions(item.id, e);
                 }}
               />
-              / {item.plan_rep} раз
+              / {item.plan_rep} р
             </label>
             {item.plan_weight ? (
               <label className="train-page-item__property">

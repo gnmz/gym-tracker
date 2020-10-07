@@ -19,15 +19,13 @@ class CreateTrainingSession extends Component {
   componentDidUpdate() {}
   //получаем список категорий упражнений
   getCategoryOfExercises = () => {
-    const URL = "http://localhost:3001/categories";
-    fetch(URL)
+    fetch("http://localhost:3001/categories")
       .then((res) => res.json())
       .then((data) => this.setState({ categoryOfExercises: data }));
   };
   //получаем список упражнений по id категорий
   getExercisesList = (id) => {
-    const URL = `http://localhost:3001/excersise?categoryId=${id}`;
-    fetch(URL)
+    fetch(`http://localhost:3001/excersise?categoryId=${id}`)
       .then((res) => res.json())
       .then((data) => this.setState({ exercisesList: data }));
   };
@@ -204,6 +202,14 @@ class CreateTrainingSession extends Component {
                   }}
                 >
                   удалить
+                </button>
+                <button
+                  className="create-train-program-item__remove-altr"
+                  onClick={() => {
+                    this.removeWorkout(item.id);
+                  }}
+                >
+                  X
                 </button>
               </div>
             ))}

@@ -17,8 +17,7 @@ class MainPage extends Component {
     }
   }
   getCreatedTrainingSessinos = () => {
-    const URL = "http://localhost:3001/trains?type=plan";
-    fetch(URL)
+    fetch("http://localhost:3001/trains?type=plan")
       .then((res) => res.json())
       .then((data) => {
         this.setState({ createdTrainingSessions: data });
@@ -42,7 +41,7 @@ class MainPage extends Component {
         <h2 className="main-page__title">Запланированные тренировки</h2>
         <div className="main-page__trains">
           {this.state.createdTrainingSessions.map((item) => (
-            <Link to={`/train/${item.id}`} className="train-link">
+            <Link to={`/train/${item.id}`} className="train-link" key={item.id}>
               <ChooseTrain date={item.date} title={item.title} />
             </Link>
           ))}

@@ -17,8 +17,7 @@ class PastTrainingPage extends Component {
     this.getCurrentPastTrain(id);
   }
   getCurrentPastTrain = (id) => {
-    const URL = `http://localhost:3001/trains/${id}`;
-    fetch(URL)
+    fetch(`http://localhost:3001/trains/${id}`)
       .then((res) => res.json())
       .then((data) =>
         this.setState({

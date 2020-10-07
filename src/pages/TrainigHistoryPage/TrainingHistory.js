@@ -10,8 +10,7 @@ class TrainingHistory extends Component {
     this.getTrainingHistoryList();
   }
   getTrainingHistoryList = () => {
-    const URL = "http://localhost:3001/trains?type=hist";
-    fetch(URL)
+    fetch("http://localhost:3001/trains?type=hist")
       .then((res) => res.json())
       .then((data) => this.setState({ historyTrainList: data }));
   };
@@ -21,7 +20,7 @@ class TrainingHistory extends Component {
         <h2 className="history-page__title">Прошедшие тренировки</h2>
         <div className="history-page__trains">
           {this.state.historyTrainList.map((item) => (
-            <Link to={`/train-history/${item.id}`}>
+            <Link to={`/train-history/${item.id}`} key={item.id}>
               <ChooseTrain date={item.date} title={item.title} />
             </Link>
           ))}

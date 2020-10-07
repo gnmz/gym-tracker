@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import CreateTrainingSession from "./pages/CreateTrainingSession/CreateTrainingSession";
-import LoginPage from "./pages/LoginPage/LoginPage";
+// import LoginPage from "./pages/LoginPage/LoginPage";
 import MainPage from "./pages/MainPage/MainPage";
 import TrainingHistory from "./pages/TrainigHistoryPage/TrainingHistory";
 import TrainPage from "./pages/TrainPage/TrainPage";
