@@ -5,8 +5,10 @@ class ChooseTrain extends Component {
     const { date, title } = this.props;
     return (
       <div className="choose-train-cart">
-        <h3>{title}</h3>
-        <p>date : {dayjs(date).format("DD MMM YYYY")}</p>
+        <h3 className="choose-train-cart__title">{title}</h3>
+        <p className="choose-train-cart__date">
+          {dayjs(date).format("DD MMM YYYY")}
+        </p>
       </div>
     );
   }

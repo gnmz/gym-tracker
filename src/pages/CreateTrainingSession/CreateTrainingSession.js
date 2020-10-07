@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ChooseWorkout from "../../components/ChooseWorkout";
+import { Link } from "react-router-dom";
 import "./CreateTrainigSession.css";
 class CreateTrainingSession extends Component {
   state = {
@@ -10,6 +11,7 @@ class CreateTrainingSession extends Component {
     trainDate: "",
     trainName: "",
     numberOfExercises: 1,
+    isClicked: false,
   };
   componentDidMount() {
     this.getCategoryOfExercises();
@@ -46,23 +48,27 @@ class CreateTrainingSession extends Component {
   };
   //сохраняем тренировку
   clickSaveTrain = () => {
-    this.setState({
-      savedTrain: {
-        date: this.state.trainDate,
-        title: this.state.trainName,
-        excersises: JSON.stringify(this.state.createTrain),
-        comment: "",
-        is_completed: false,
-      },
-    }, () => {
-      fetch(`http://localhost:3001/trains`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
+    this.setState(
+      {
+        savedTrain: {
+          date: this.state.trainDate,
+          title: this.state.trainName,
+          excersises: JSON.stringify(this.state.createTrain),
+          comment: "",
+          is_completed: false,
         },
-        body: JSON.stringify(this.state.savedTrain),
-      });
-    });
+        isClicked: true,
+      },
+      () => {
+        fetch(`http://localhost:3001/trains`, {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(this.state.savedTrain),
+        });
+      }
+    );
   };
 
   //получаем значение из инпута повторений
@@ -142,7 +148,7 @@ class CreateTrainingSession extends Component {
           ))}
         </div>
 
-        {this.state.exercisesList.length ?
+        {this.state.exercisesList.length ? (
           <div className="create-train-excersises">
             <h2 className="create-train-page__title">Выбери упражнение</h2>
             <div className="create-train-workout-list">
@@ -159,14 +165,16 @@ class CreateTrainingSession extends Component {
               ))}
             </div>
           </div>
-        : null}
-        
-        { this.state.createTrain.length ?
+        ) : null}
+
+        {this.state.createTrain.length ? (
           <div className="create-train-program">
             <h2 className="create-train-page__title">Программа тренировки</h2>
             {this.state.createTrain.map((item) => (
               <div className="create-train-program-item" key={item.id}>
-                <p className="create-train-program-item__title">{item.excersise_name}</p>
+                <p className="create-train-program-item__title">
+                  {item.excersise_name}
+                </p>
                 <label className="create-train-program-item__property">
                   <input
                     type="text"
@@ -200,13 +208,22 @@ class CreateTrainingSession extends Component {
               </div>
             ))}
           </div>
-        : null}
+        ) : null}
 
-        { this.state.createTrain.length && this.state.trainName && this.state.trainDate ?
-          <button className="create-train-program__save" onClick={this.clickSaveTrain}>
-            Сохранить
-          </button>
-        : null }
+        {this.state.createTrain.length &&
+        this.state.trainName &&
+        this.state.trainDate ? (
+          !this.state.isClicked ? (
+            <button
+              className="create-train-program__save"
+              onClick={this.clickSaveTrain}
+            >
+              Сохранить
+            </button>
+          ) : (
+            <Link to="/">Перейти к тренировкам</Link>
+          )
+        ) : null}
       </div>
     );
   }

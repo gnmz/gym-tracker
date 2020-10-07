@@ -3,7 +3,52 @@
   justify-content: space-between;
 }
 
-.header-past-train button {
-  margin-top: 25px;
-  margin-right: 20px;
+.past-train-page__button-back {
+  display: block;
+  margin: 20px auto;
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+}
+
+.past-train-page__button-back:hover {
+  color: #4285f4;
+  cursor: pointer;
+}
+
+.past-train-page__link-back {
+  text-decoration: none;
+}
+
+.past-train-page {
+  padding: 0 30px 50px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.past-train-page__title {
+  margin: 0 0 20px;
+  text-align: center;
+  font-size: 20px;
+}
+.past-train-page__item {
+  display: flex;
+  align-items: baseline;
+}
+.past-train-page__item-title {
+  width: 300px;
+}
+.past-train-page__item-property {
+  display: flex;
+  align-items: baseline;
+  margin-right: 30px;
+}
+.past-train-page__comment {
+  margin: 0 auto;
+  padding: 10px;
+  width: 50%;
+  height: 50px;
+  border: 1px solid #ababab;
+  border-radius: 5px;
+  font-size: 12px;
 }

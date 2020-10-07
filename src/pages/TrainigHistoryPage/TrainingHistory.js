@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import dayjs from "dayjs";
+import ChooseTrain from "../../components/ChooseTrain";
 import { Link } from "react-router-dom";
-
+import "./TrainingHistory.css";
 class TrainingHistory extends Component {
   state = {
     historyTrainList: [],
@@ -17,26 +17,15 @@ class TrainingHistory extends Component {
   };
   render() {
     return (
-      <div>
-        <h2>Прошедшие тренировки</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Дата</th>
-              <th>Название</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.historyTrainList.map((item) => (
-              <tr key={item.id}>
-                <td>{dayjs(item.date).format('DD MMM YYYY')}</td>
-                <td>
-                  <Link to={`/train-history/${item.id}`}>{item.title}</Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="history-page">
+        <h2 className="history-page__title">Прошедшие тренировки</h2>
+        <div className="history-page__trains">
+          {this.state.historyTrainList.map((item) => (
+            <Link to={`/train-history/${item.id}`}>
+              <ChooseTrain date={item.date} title={item.title} />
+            </Link>
+          ))}
+        </div>
       </div>
     );
   }

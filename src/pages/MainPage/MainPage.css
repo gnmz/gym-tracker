@@ -1,23 +1,67 @@
-.choose-action_list {
+.main-page {
+  padding: 0 30px 50px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.main-page__choose-action {
   display: flex;
   justify-content: space-around;
   margin-bottom: 20px;
 }
-.choose-action {
-  width: 90%;
-}
 
-.table-created-traning-sessions {
-  width: 90%;
-  text-align: center;
+.main-page__choose-action-btn {
+  display: block;
   margin: 0 auto;
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+  padding: 0 20px;
 }
 
-.choose-action_list button {
-  padding: 10px 10px;
+.main-page__choose-action-btn:hover {
+  color: #4285f4;
+  cursor: pointer;
 }
-.trains {
+.main-page a {
+  text-decoration: none;
+  color: black;
+}
+
+.main-page__title {
+  margin: 0 0 20px;
+  text-align: center;
+  font-size: 20px;
+}
+.main-page__trains {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 0.5rem;
+}
+
+.choose-train-cart {
+  width: 90%;
+  text-align: left;
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+}
+
+.choose-train-cart:hover {
+  color: #4285f4;
+  cursor: pointer;
+}
+
+.choose-train-cart__title {
+  text-align: center;
+  margin: 10px;
+}
+
+.choose-train-cart__date {
+  text-align: center;
+  margin: 0;
+  font-size: 12px;
 }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import dayjs from "dayjs";
 import "./TrainPage.css";
+import { Link } from "react-router-dom";
 
 class TrainPage extends Component {
   state = {
@@ -11,6 +12,7 @@ class TrainPage extends Component {
     is_completed: false,
     excersises: [],
     complite: [],
+    isClicked: false,
   };
   componentDidMount() {
     const id = this.props.match.params.id;
@@ -31,11 +33,12 @@ class TrainPage extends Component {
   };
   //заканчиваем тренировку
   endOfTraining = () => {
+    this.setState({ isClicked: true });
     const data = {
       ...this.state,
       excersises: JSON.stringify(this.state.excersises),
-      is_completed: true
-    }
+      is_completed: true,
+    };
     fetch(`http://localhost:3001/trains`, {
       method: "PUT",
       headers: {
@@ -77,59 +80,56 @@ class TrainPage extends Component {
 
     return (
       <div className="train-page">
+        <h2 className="train-page__title">
+          {dayjs(this.state.date).format("DD MMM YYYY")}, {this.state.title}
+        </h2>
+
+        {this.state.excersises.map((item) => (
+          <div className="train-page-item" key={item.id}>
+            <p className="train-page-item__title">{item.excersise_name}</p>
+            <label className="train-page-item__property">
+              <input
+                type="text"
+                className="train-page-item__input"
+                value={item.fact_rep ? item.fact_rep : ""}
+                onChange={(e) => {
+                  this.handleFactNumberRepetitions(item.id, e);
+                }}
+              />
+              / {item.plan_rep} раз
+            </label>
+            {item.plan_weight ? (
+              <label className="train-page-item__property">
+                <input
+                  type="text"
+                  className="train-page-item__input"
+                  value={item.fact_weight ? item.fact_weight : ""}
+                  onChange={(e) => {
+                    this.handleFactWeight(item.id, e);
+                  }}
+                />
+                / {item.plan_weight} кг
+              </label>
+            ) : null}
+          </div>
+        ))}
         <div>
-          <h2>
-            {dayjs(this.state.date).format('DD MMM YYYY')}, {this.state.title}
-          </h2>
+          <h2 className="train-page__title">Оставь комментарий:</h2>
+          <textarea
+            className="train-page_text-area"
+            onChange={this.getComment}
+          ></textarea>
         </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Название упражнения</th>
-              <th>Кол-во повторений</th>
-              <th>Рабочий вес</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.excersises.map((item) => (
-              <tr key={item.id}>
-                <td>{item.excersise_name}</td>
-                <td>
-                  <input
-                    type="text"
-                    className="iteration"
-                    value={item.fact_rep}
-                    onChange={(e) => {
-                      this.handleFactNumberRepetitions(item.id, e);
-                    }}
-                  />
-                  /{item.plan_rep} раз
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    className="iteration"
-                    value={item.fact_weight}
-                    onChange={(e) => {
-                      this.handleFactWeight(item.id, e);
-                    }}
-                  />
-                  /{item.plan_weight} кг
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div>
-          <p>Комментарий</p>
-          <textarea onChange={this.getComment}></textarea>
-        </div>
-        <button
-          // disabled={this.state.is_completed}
-          onClick={this.endOfTraining}
-        >
-          Тренировка завершена
-        </button>
+        {!this.state.isClicked ? (
+          <button
+            onClick={this.endOfTraining}
+            className="train-page_complete-button"
+          >
+            Тренировка завершена
+          </button>
+        ) : (
+          <Link to="/">Вернуться к списку тренировок</Link>
+        )}
       </div>
     );
   }

@@ -26,17 +26,21 @@ class MainPage extends Component {
   };
   render() {
     return (
-      <div className="choose-action">
-        <div className="choose-action_list">
+      <div className="main-page">
+        <div className="main-page__choose-action">
           <Link to="/create-trainig-session">
-            <button>Создать тренировку</button>
+            <button className="main-page__choose-action-btn">
+              Создать тренировку
+            </button>
           </Link>
           <Link to="/train-history">
-            <button>История тренировок</button>
+            <button className="main-page__choose-action-btn">
+              История тренировок
+            </button>
           </Link>
         </div>
-        <h2>Запланированные тренировки</h2>
-        <div className="trains">
+        <h2 className="main-page__title">Запланированные тренировки</h2>
+        <div className="main-page__trains">
           {this.state.createdTrainingSessions.map((item) => (
             <Link to={`/train/${item.id}`} className="train-link">
               <ChooseTrain date={item.date} title={item.title} />
