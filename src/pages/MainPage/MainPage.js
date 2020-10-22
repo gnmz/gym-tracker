@@ -16,9 +16,19 @@ class MainPage extends Component {
       this.getCreatedTrainingSessinos();
     }
   }
+  //Получаем список созданных тренировок и сортируем их от ближайшей даты
   getCreatedTrainingSessinos = () => {
     fetch("http://localhost:3001/trains?type=plan")
       .then((res) => res.json())
+      .then((data) => 
+      data.sort((a,b) => {
+        if (a.date > b.date) {
+          return 1;
+        } else {
+          return -1;
+        }
+      })
+      )
       .then((data) => {
         this.setState({ createdTrainingSessions: data });
       });

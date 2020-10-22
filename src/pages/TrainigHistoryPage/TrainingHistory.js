@@ -9,17 +9,28 @@ class TrainingHistory extends Component {
   componentDidMount() {
     this.getTrainingHistoryList();
   }
+  //Получаем список истории тренировок и сортируем его 
   getTrainingHistoryList = () => {
     fetch("http://localhost:3001/trains?type=hist")
       .then((res) => res.json())
-      .then((data) => this.setState({ historyTrainList: data }));
+      .then((data) => 
+      data.sort((a,b) => {
+        if (a.date > b.date) {
+          return -1;
+        } else {
+          return 1;
+        }
+      })
+      )
+      .then((data) =>this.setState({ historyTrainList: data }))
   };
   render() {
+    const { historyTrainList } = this.state;
     return (
       <div className="history-page">
         <h2 className="history-page__title">Прошедшие тренировки</h2>
         <div className="history-page__trains">
-          {this.state.historyTrainList.map((item) => (
+          {historyTrainList.map((item) => (
             <Link to={`/train-history/${item.id}`} key={item.id}>
               <ChooseTrain date={item.date} title={item.title} />
             </Link>
