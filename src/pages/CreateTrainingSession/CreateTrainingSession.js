@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ChooseWorkout from "../../components/ChooseWorkout";
 import { Link } from "react-router-dom";
 import "./CreateTrainigSession.css";
+import DescriptionWindow from "../../components/DescriptionWindow";
 class CreateTrainingSession extends Component {
   state = {
     categoryOfExercises: [],
@@ -12,6 +13,8 @@ class CreateTrainingSession extends Component {
     trainName: "",
     numberOfExercises: 1,
     isClicked: false,
+    showDescription: false,
+    description:''
   };
   componentDidMount() {
     this.getCategoryOfExercises();
@@ -39,6 +42,7 @@ class CreateTrainingSession extends Component {
       plan_weight: "",
       fact_rep: "",
       fact_weight: "",
+      description: ""
     });
     this.setState({
       createTrain: newArr,
@@ -108,7 +112,22 @@ class CreateTrainingSession extends Component {
     });
     this.setState({ createTrain: newArr });
   };
+  showDescription = (id) => {
+    const newArr = this.state.createTrain.find((item) => {
+      return item.id === id;
+    })
+    if(newArr){
+      this.setState({showDescription: true, description: newArr})
+    }
+  }
+  closeDescription = () => {
+    const { showDescription } = this.state;
+    if(showDescription){
+      this.setState({showDescription: false})
+    }
+  }
   render() {
+    const {description, showDescription, trainDate, trainName } = this.state;
     return (
       <div className="create-train-page">
         <h2 className="create-train-page__title">Запланируй тренировку</h2>
@@ -119,7 +138,7 @@ class CreateTrainingSession extends Component {
               className="create-train-property__input"
               type="text"
               placeholder="2020-05-09"
-              value={this.state.trainDate}
+              value={trainDate}
               onChange={this.handleDate}
             />
           </label>
@@ -128,7 +147,7 @@ class CreateTrainingSession extends Component {
             <input
               className="create-train-property__input"
               type="text"
-              value={this.state.trainName}
+              value={trainName}
               onChange={this.handleTrainName}
             />
           </label>
@@ -164,7 +183,6 @@ class CreateTrainingSession extends Component {
             </div>
           </div>
         ) : null}
-
         {this.state.createTrain.length ? (
           <div className="create-train-program">
             <h2 className="create-train-page__title">Программа тренировки</h2>
@@ -173,6 +191,7 @@ class CreateTrainingSession extends Component {
                 <p className="create-train-program-item__title">
                   {item.excersise_name}
                 </p>
+                <button className="create-train-program-item__description-button" onClick={()=>{this.showDescription(item.id)}}>?</button>
                 <label className="create-train-program-item__property">
                   <input
                     type="text"
@@ -212,13 +231,13 @@ class CreateTrainingSession extends Component {
                   X
                 </button>
               </div>
-            ))}
+            ))}           
           </div>
         ) : null}
 
         {this.state.createTrain.length &&
-        this.state.trainName &&
-        this.state.trainDate ? (
+        trainName &&
+        trainDate ? (
           !this.state.isClicked ? (
             <button
               className="create-train-program__save"
@@ -230,6 +249,10 @@ class CreateTrainingSession extends Component {
             <Link to="/">Перейти к тренировкам</Link>
           )
         ) : null}
+        {showDescription? 
+          <DescriptionWindow title={description.excersise_name} description={description.description} onClick={this.closeDescription}/>
+          : null}
+
       </div>
     );
   }
