@@ -112,6 +112,7 @@ class CreateTrainingSession extends Component {
     });
     this.setState({ createTrain: newArr });
   };
+  //Показываем описание упражнения
   showDescription = (id) => {
     const newArr = this.state.createTrain.find((item) => {
       return item.id === id;
@@ -120,6 +121,7 @@ class CreateTrainingSession extends Component {
       this.setState({showDescription: true, description: newArr})
     }
   }
+  //Убираем описание упражнения
   closeDescription = () => {
     const { showDescription } = this.state;
     if(showDescription){
