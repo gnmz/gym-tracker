@@ -20,7 +20,9 @@ class TrainPage extends Component {
   }
   //получаем тренировку
   getCurrentTrain = (id) => {
-    fetch(`http://localhost:3001/trains/${id}`)
+    fetch(`http://localhost:3001/trains/${id}`, {
+      headers: {token: localStorage.getItem('token')}
+    })
       .then((res) => res.json())
       .then((data) =>
         this.setState({
@@ -126,7 +128,7 @@ class TrainPage extends Component {
             Тренировка завершена
           </button>
         ) : (
-          <Link to="/">Вернуться к списку тренировок</Link>
+          <Link to="/main">Вернуться к списку тренировок</Link>
         )}
       </div>
     );

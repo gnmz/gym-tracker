@@ -1,25 +1,58 @@
-.login-form {
-  margin: 50px auto;
-  padding: 20px;
-  box-sizing: border-box;
-}
-label {
+.auth {
+  width: 350px;
+  padding: 5px;
+  height: 350px;
   display: flex;
-  justify-content: space-around;
-  padding-bottom: 20px;
+  justify-content: center;
 }
-span {
-  width: 60px;
-  display: block;
-  margin: 0;
-}
-.entr-btn {
-  width: 200px;
-  display: block;
-  margin: 0 auto;
+.auth-form-item {
+  width: 100%;
+  padding-bottom: 5px;
 }
 
-.link-to-main {
-  text-decoration: none;
+.auth-form-item__title {
+  font-size: 14px;
+  width: 100%;
+  display: block;
+}
+
+.auth-form-item__input {
+  width: 95%;
+}
+
+.auth-choose-action {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.auth-choose-action__button {
+  width: 100px;
+  display: block;
+  text-align: center;
+}
+
+.active {
+  color: #4285f4;
+  border: 1px solid #4285f4;
+  border-radius: 2px;
+}
+
+.default {
   color: black;
+}
+.auth-form-btn {
+  width: 100%;
+  display: block;
+  margin: 20px auto;
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+}
+
+.auth-form-btn:hover {
+  color: #4285f4;
+  cursor: pointer;
 }

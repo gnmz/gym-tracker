@@ -2,24 +2,14 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql");
 const dbConfig = require("./config/dbConfig");
+const cors = require("cors");
+const bcrypt = require("bcrypt");
+const randtoken = require("rand-token");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const cors = require("cors");
-const connection = mysql.createConnection(dbConfig);
-// let users = [];
-
 app.use(cors());
 
-app.post("/", (req, res) => {
-  const { login, password } = req.body;
-  if (login === "test" && password === "123") {
-    res.send;
-  }
-});
-
-app.listen(3001, () => {
-  console.log("Server is running on 3001 port");
-});
+const connection = mysql.createConnection(dbConfig);
 
 app.get("/categories", (req, res) => {
   connection.query("SELECT * FROM excersise_categories;", (err, data) => {
@@ -46,44 +36,49 @@ app.get("/excersise", (req, res) => {
 
 app.get("/trains", (req, res) => {
   let type = req.query.type;
-  if (type === "plan") {
-    let query = `SELECT * FROM trains WHERE is_completed = "false" ; `;
-    connection.query(query, (err, data) => {
-      if (!err) {
-        res.status(200).json(data);
-      } else {
-        console.log(err);
-      }
-    });
-  } else if (type === "hist") {
-    let query = `SELECT * FROM trains WHERE is_completed = "true" ; `;
-    connection.query(query, (err, data) => {
-      if (!err) {
-        res.status(200).json(data);
-      } else {
-        console.log(err);
-      }
-    });
-  }
+  const token = req.get("token");
+  connection.query(`SELECT id FROM users WHERE user_token = '${token}';`, (err, data) => {
+    if (!err && data.length && type === "plan") {
+      const user = data[0];
+      connection.query(`SELECT * FROM trains WHERE is_completed = "false" AND user_id = "${user.id}";`, (err, data) => {
+        if (!err) {
+          res.status(200).json(data);
+        } else {
+          console.log(err);
+        }
+      });
+    } else if (!err && data.length && type === "hist"){
+      const user = data[0];
+      connection.query(`SELECT * FROM trains WHERE is_completed = "true" AND user_id = "${user.id}"; `, (err, data) => {
+        if (!err) {
+          res.status(200).json(data);
+        } else {
+          console.log(err);
+        }
+      });
+    }
+  });
 });
 
 app.get("/trains/:id", (req, res) => {
   let id = req.params.id;
-  let query = `SELECT * FROM trains WHERE id = ${id};`;
-  connection.query(query, (err, data) => {
-    if (!err) {
-      res.status(200).json(data);
-    } else {
-      console.log(err);
+  const token = req.get('token');
+  connection.query(`SELECT id FROM users WHERE user_token = '${token}';`, (err, data) => {
+    if (!err && data.length){
+      const user = data[0];
+      connection.query(`SELECT * FROM trains WHERE id = ${id} AND user_id = '${user.id}';`, (err, data) => {
+        if (!err) {
+          res.status(200).json(data);
+        } else {
+          console.log(err);
+        }
+      });
     }
   });
 });
 
 app.put("/trains", (req, res) => {
-  let id = req.body.id;
-  let is_completed = req.body.is_completed;
-  let excersises = req.body.excersises;
-  let comment = req.body.comment;
+  const { id, is_completed, excersises, comment } = req.body;
   let query = `UPDATE trains SET excersises = '${excersises}', is_completed = '${is_completed}', comment = '${comment}' WHERE ( id = '${id}');`;
   connection.query(query, (err, data) => {
     if (!err) {
@@ -95,18 +90,68 @@ app.put("/trains", (req, res) => {
 });
 
 app.post("/trains", (req, res) => {
-  let title = req.body.title;
-  let date = req.body.date;
-  let excersises = req.body.excersises;
-  let is_completed = req.body.is_completed;
-  let query = `INSERT INTO trains(title, date, excersises, is_completed ) VALUES ('${title}', '${date}', '${excersises}', '${is_completed}') ;`;
-  connection.query(query, (err, data) => {
-    if (!err) {
-      res.status(200).json(data);
+  const { title, date, excersises, is_completed } = req.body;
+  const token = req.get('token');
+  connection.query(`SELECT id FROM users WHERE user_token = '${token}';`, (err, data) =>{
+    if (!err && data.length) {
+      const user = data[0];
+      let query = `INSERT INTO trains(title, date, excersises, is_completed, user_id ) VALUES ('${title}', '${date}', '${excersises}', '${is_completed}', '${user.id}') ;`;
+      connection.query(query, (err, data) => {
+        if (!err) {
+          res.status(200).json(data);
+        } else {
+          console.log(err);
+        }
+      });
     } else {
       console.log(err);
     }
   });
+});
+
+app.post("/reg", (req, res) => {
+  const { user_name, user_surname, user_login, user_password, user_email } = req.body;
+  const user_salt = bcrypt.genSaltSync(5);
+  const user_hashedpassword = bcrypt.hashSync(user_password, user_salt);
+
+  let query = `INSERT INTO users(user_name, user_surname, user_login, user_email, user_hashedpassword, user_salt) VALUES ('${user_name}', '${user_surname}', '${user_login}', '${user_email}', '${user_hashedpassword}', '${user_salt}') ;`;
+  connection.query(query, (err, data) => {
+    if(!err) {
+      res.status(200).send();
+    } else {
+      res.status(400).send();
+    }
+  });
+});
+
+app.post("/auth", (req, res) => {
+  const { user_login, user_password } = req.body;
+  let query = `SELECT * FROM users WHERE user_login = '${user_login}';`;
+  connection.query(query, (err,data) => {
+    if (!err && data.length) {
+      const user = data[0];
+      const user_hashedpassword = bcrypt.hashSync(user_password, user.user_salt);
+      
+      if (user.user_hashedpassword === user_hashedpassword) {
+        const token = randtoken.generate(15);
+        connection.query(`UPDATE users SET user_token = '${token}' WHERE id = '${user.id}';`, (err, data) =>{
+          if (!err) {
+            res.send(JSON.stringify({token: token }));
+          } else {
+            res.status(500).send({ err: 'DB error' });
+          }
+        });
+      } else {
+        res.status(401).send({ err: 'Unauthorized' });
+      }
+    } else {
+      res.status(401).send({ err: 'Unauthorized1' });
+    }
+  });
+});
+
+app.listen(3001, () => {
+  console.log("Server is running on 3001 port");
 });
 
 connection.connect((err) => {

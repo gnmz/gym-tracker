@@ -18,8 +18,7 @@ class CreateTrainingSession extends Component {
   };
   componentDidMount() {
     this.getCategoryOfExercises();
-  }
-  componentDidUpdate() {}
+  };
   //получаем список категорий упражнений
   getCategoryOfExercises = () => {
     fetch("http://localhost:3001/categories")
@@ -49,7 +48,7 @@ class CreateTrainingSession extends Component {
     });
   };
   //сохраняем тренировку
-  clickSaveTrain = () => {
+  recordTrain = () => {
     this.setState(
       {
         savedTrain: {
@@ -66,12 +65,13 @@ class CreateTrainingSession extends Component {
           method: "POST",
           headers: {
             "Content-type": "application/json",
+            token: localStorage.getItem('token')
           },
           body: JSON.stringify(this.state.savedTrain),
         });
       }
     );
-  };
+  }
 
   //получаем значение из инпута повторений
   handleNumberRepetitions = (id, e) => {
@@ -243,12 +243,12 @@ class CreateTrainingSession extends Component {
           !this.state.isClicked ? (
             <button
               className="create-train-program__save"
-              onClick={this.clickSaveTrain}
+              onClick={this.recordTrain}
             >
               Сохранить
             </button>
           ) : (
-            <Link to="/">Перейти к тренировкам</Link>
+            <Link to="/main">Перейти к тренировкам</Link>
           )
         ) : null}
         {showDescription? 
