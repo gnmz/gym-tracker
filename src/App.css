@@ -12,7 +12,7 @@ body {
   align-items: center;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 30px 10px 50px;
+  padding: 30px 10px 60px;
   box-shadow: -1px 6px 28px 0px rgba(0, 0, 0, 0.75);
   background: #fff;
 }
@@ -26,4 +26,35 @@ body {
   margin: 0 0 50px;
   text-decoration: none;
   color: #4285f4;
+}
+
+.sign-up {
+  position: absolute;
+  top: 25px;
+  left: 950px;
+}
+
+.btn-login,
+.btn-logout {
+  margin-right: 10px;
+}
+
+.sign-up__btn {
+  display: inline-block;
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+}
+
+.sign-up__btn:hover {
+  color: #4285f4;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 320px) and (max-width: 991px) {
+  .sign-up {
+    position: absolute;
+    left: 320px;
+  }
 }

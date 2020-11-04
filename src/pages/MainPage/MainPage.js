@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./MainPage.css";
 import ChooseTrain from "../../components/ChooseTrain";
+import SignUp from "../../components/SignUp";
 
 class MainPage extends Component {
   state = {
@@ -38,6 +39,7 @@ class MainPage extends Component {
   render() {
     return (
       <div className="main-page">
+        <SignUp />
         <div className="main-page__choose-action">
           <Link to="/create-trainig-session">
             <button className="main-page__choose-action-btn">

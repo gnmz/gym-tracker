@@ -11,15 +11,16 @@ class LoginPage extends Component {
         newUserPassword: '',
         newUserEmail: '',
         newUser: [],
-        user: []
+        user: [],
+        isLogged: false,
     }
-    componentDidMount(){
-        this.setState({enter: true})
-    }
+    // componentDidMount(){
+    //     this.setState({enter: true})
+    // }
     clickerHandler = (item) => {
         if( item === 'aut'){
             this.setState({enter: true});
-        } else if ( item === 'reg' ) {
+        } else if ( item === 'reg') {
             this.setState({enter: false});
         }
     }
@@ -91,101 +92,110 @@ class LoginPage extends Component {
                 } else {
                     const {token} = data;
                     localStorage.setItem('token', token);
-                    this.props.history.push('/main');
+                    // this.props.history.push('/');
+                    this.setState({isLogged: true})
                 }
             });
         }
         )
     }
+    // closeAuth = () => {
+    //     this.setState({isLogged: true})
+    // }
     render(){
-        const { enter, user_login, user_password, newUserName, newUserSurName,  newUserLogin, newUserPassword, newUserEmail } = this.state;
+        const { enter, user_login, user_password, newUserName, newUserSurName,  newUserLogin, newUserPassword, newUserEmail, isLogged } = this.state;
         return(
-            <div className="auth">
-                <div>
-                {enter ? 
-                    <div className="auth-choose-action">
-                        <span onClick={()=>{this.clickerHandler('aut')}} className="auth-choose-action__button active">Вход</span>
-                        <span onClick={()=>{this.clickerHandler('reg')}} className="auth-choose-action__button default">Регистрация</span>                        
-                    </div>
-                  : 
-                    <div className="auth-choose-action">
-                        <span onClick={()=>{this.clickerHandler('aut')}} className="auth-choose-action__button default">Вход</span>
-                        <span onClick={()=>{this.clickerHandler('reg')}} className="auth-choose-action__button active">Регистрация</span>                        
-                    </div>
-                  }
-                    {enter ?
+            <div>
+                {!isLogged ? 
+                <div className="auth">
                     <div>
-                         <div>
-                             <div className="auth-form-item">
-                                <label className="auth-form-item__title">
-                                    Login:
-                                </label>
-                                <div>
-                                    <input type="text" className="auth-form-item__input" onChange={this.getUserLogin} value={user_login} />
-                                </div>                                
-                             </div>
-                             <div className="auth-form-item">
-                                <label className="auth-form-item__title">
-                                    Password:
-                                </label>
-                                <div>
-                                    <input type="password" className="auth-form-item__input" onChange={this.getUserPassword} value={user_password} />
-                                </div>                                
-                             </div>
-                             <button  className="auth-form-btn"
-                             onClick={()=>{this.authentication(user_login, user_password )}} 
-                             disabled={!user_login || !user_password}
-                             >Вход</button>
-                         </div>
-                    </div> :
-                    <div>
-
-                        <div>
-                            <div className="auth-form-item">
-                                <label className="auth-form-item__title">
-                                  Имя:
-                                </label>
-                                <div>
-                                    <input type="text" className="auth-form-item__input" onChange={this.getnewUserName} value={newUserName} />
-                                </div>
-                            </div>
-                            <div className="auth-form-item">
-                                <label className="auth-form-item__title">
-                                  Фамилия:
-                                </label>
-                                <div>
-                                    <input type="text" className="auth-form-item__input" onChange={this.getnewUserSurName} value={newUserSurName} />
-                                </div>
-                            </div>
-                            <div className="auth-form-item">
-                                <label className="auth-form-item__title">
-                                  Login:
-                                </label>
-                                <div>
-                                    <input type="text" className="auth-form-item__input" onChange={this.getNewUserLogin} value={newUserLogin} />
-                                </div>
-                            </div>
-                            <div className="auth-form-item">
-                                <label className="auth-form-item__title">
-                                  Password:
-                                </label>
-                                <div>
-                                    <input type="password" className="auth-form-item__input" onChange={this.getNewUserPassword} value={newUserPassword} />
-                                </div>
-                            </div>
-                            <div className="auth-form-item">
-                                <label className="auth-form-item__title">
-                                  E-mail:
-                                </label>
-                                <div>
-                                    <input type="text" className="auth-form-item__input" onChange={this.getNewUserEmail} value={newUserEmail}/>
-                                </div>
-                            </div>
+                        <button className="auth-close" onClick={this.closeAuth}>X</button>
+                    {enter ? 
+                        <div className="auth-choose-action">
+                            <span onClick={()=>{this.clickerHandler('aut')}} className="auth-choose-action__button active">Вход</span>
+                            <span onClick={()=>{this.clickerHandler('reg')}} className="auth-choose-action__button default">Регистрация</span>                        
                         </div>
-                        <button className="auth-form-btn" onClick={this.registerNewUser} disabled={!newUserLogin || !newUserPassword || !newUserEmail}>Зарегестрироваться</button>
-                    </div>
+                    : 
+                        <div className="auth-choose-action">
+                            <span onClick={()=>{this.clickerHandler('aut')}} className="auth-choose-action__button default">Вход</span>
+                            <span onClick={()=>{this.clickerHandler('reg')}} className="auth-choose-action__button active">Регистрация</span>                        
+                        </div>
                     }
+                        {enter ?
+                        <div>
+                            <div>
+                                <div className="auth-form-item">
+                                    <label className="auth-form-item__title">
+                                        Login:
+                                    </label>
+                                    <div>
+                                        <input type="text" className="auth-form-item__input" onChange={this.getUserLogin} value={user_login} />
+                                    </div>                                
+                                </div>
+                                <div className="auth-form-item">
+                                    <label className="auth-form-item__title">
+                                        Password:
+                                    </label>
+                                    <div>
+                                        <input type="password" className="auth-form-item__input" onChange={this.getUserPassword} value={user_password} />
+                                    </div>                                
+                                </div>
+                                <button  className="auth-form-btn"
+                                onClick={()=>{this.authentication(user_login, user_password )}} 
+                                disabled={!user_login || !user_password}
+                                >Вход</button>
+                            </div>
+                        </div> :
+                        <div>
+
+                            <div>
+                                <div className="auth-form-item">
+                                    <label className="auth-form-item__title">
+                                    Имя:
+                                    </label>
+                                    <div>
+                                        <input type="text" className="auth-form-item__input" onChange={this.getnewUserName} value={newUserName} />
+                                    </div>
+                                </div>
+                                <div className="auth-form-item">
+                                    <label className="auth-form-item__title">
+                                    Фамилия:
+                                    </label>
+                                    <div>
+                                        <input type="text" className="auth-form-item__input" onChange={this.getnewUserSurName} value={newUserSurName} />
+                                    </div>
+                                </div>
+                                <div className="auth-form-item">
+                                    <label className="auth-form-item__title">
+                                    Login:
+                                    </label>
+                                    <div>
+                                        <input type="text" className="auth-form-item__input" onChange={this.getNewUserLogin} value={newUserLogin} />
+                                    </div>
+                                </div>
+                                <div className="auth-form-item">
+                                    <label className="auth-form-item__title">
+                                    Password:
+                                    </label>
+                                    <div>
+                                        <input type="password" className="auth-form-item__input" onChange={this.getNewUserPassword} value={newUserPassword} />
+                                    </div>
+                                </div>
+                                <div className="auth-form-item">
+                                    <label className="auth-form-item__title">
+                                    E-mail:
+                                    </label>
+                                    <div>
+                                        <input type="text" className="auth-form-item__input" onChange={this.getNewUserEmail} value={newUserEmail}/>
+                                    </div>
+                                </div>
+                            </div>
+                            <button className="auth-form-btn" onClick={this.registerNewUser} disabled={!newUserLogin || !newUserPassword || !newUserEmail}>Зарегестрироваться</button>
+                        </div>
+                        }
+                    </div>  
                 </div>
+                : null}
             </div>
         );
     }

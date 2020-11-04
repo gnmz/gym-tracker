@@ -128,7 +128,7 @@ class TrainPage extends Component {
             Тренировка завершена
           </button>
         ) : (
-          <Link to="/main">Вернуться к списку тренировок</Link>
+          <Link to="/">Вернуться к списку тренировок</Link>
         )}
       </div>
     );
