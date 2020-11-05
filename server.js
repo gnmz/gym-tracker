@@ -15,8 +15,8 @@ app.use(cors());
 const connection = mysql.createConnection(dbConfig);
 
 app.get('/', (req, res) => {
-  res.send();
-})
+  res.sendFile('index.html');
+});
 
 app.get("/categories", (req, res) => {
   connection.query("SELECT * FROM excersise_categories;", (err, data) => {
