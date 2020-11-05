@@ -6,8 +6,9 @@ const dbConfig = require("./config/dbConfig");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const randtoken = require("rand-token");
+const publicPath = path.join(__dirname, '..', 'public');
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(publicPath));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -15,7 +16,7 @@ app.use(cors());
 const connection = mysql.createConnection(dbConfig);
 
 app.get('/', (req, res) => {
-  res.send('index.html');
+  res.sendFile(path.join(publicPath, 'index.html'));
 });
 
 app.get("/categories", (req, res) => {
