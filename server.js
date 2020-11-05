@@ -1,11 +1,13 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 const mysql = require("mysql");
 const dbConfig = require("./config/dbConfig");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const randtoken = require("rand-token");
-const e = require("express");
+
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -170,8 +172,8 @@ app.get("/logout", (req,res) => {
   })
 })
 
-app.listen(3001, () => {
-  console.log("Server is running on 3001 port");
+app.listen(process.env.PORT || 3001, () => {
+  console.log("Server is running");
 });
 
 connection.connect((err) => {
