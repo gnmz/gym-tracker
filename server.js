@@ -15,7 +15,7 @@ app.use(cors());
 const connection = mysql.createConnection(dbConfig);
 
 app.get('/', (req, res) => {
-  res.sendFile('index.html');
+  res.send('index.html');
 });
 
 app.get("/categories", (req, res) => {
