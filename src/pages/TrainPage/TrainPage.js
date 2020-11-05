@@ -27,7 +27,7 @@ class TrainPage extends Component {
       .then((data) =>
         this.setState({
           id: data[0].id,
-          date: data[0].date,
+          date: data[0].DATE,
           title: data[0].title,
           excersises: JSON.parse(data[0].excersises),
         })
@@ -78,6 +78,7 @@ class TrainPage extends Component {
     });
   };
   render() {
+    console.log(this.state.comment)
     return (
       <div className="train-page">
         <h2 className="train-page__title">
@@ -128,7 +129,7 @@ class TrainPage extends Component {
             Тренировка завершена
           </button>
         ) : (
-          <Link to="/">Вернуться к списку тренировок</Link>
+          <Link to="/main">Вернуться к списку тренировок</Link>
         )}
       </div>
     );

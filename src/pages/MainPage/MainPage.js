@@ -3,11 +3,11 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./MainPage.css";
 import ChooseTrain from "../../components/ChooseTrain";
-import SignUp from "../../components/SignUp";
+import Logout from "../../components/Logout";
 
 class MainPage extends Component {
   state = {
-    createdTrainingSessions: [],
+    createdTrainingSessions: []
   };
   componentDidMount() {
     this.getCreatedTrainingSessinos();
@@ -25,7 +25,7 @@ class MainPage extends Component {
       .then((res) => res.json())
       .then((data) => 
       data.sort((a,b) => {
-        if (a.date > b.date) {
+        if (a.DATE > b.DATE) {
           return 1;
         } else {
           return -1;
@@ -33,13 +33,13 @@ class MainPage extends Component {
       })
       )
       .then((data) => {
-        this.setState({ createdTrainingSessions: data });
+        this.setState({ createdTrainingSessions: data, isLogged:true });
       });
   };
   render() {
     return (
       <div className="main-page">
-        <SignUp />
+        <Logout history={this.props.history} />
         <div className="main-page__choose-action">
           <Link to="/create-trainig-session">
             <button className="main-page__choose-action-btn">
@@ -56,7 +56,7 @@ class MainPage extends Component {
         <div className="main-page__trains">
           {this.state.createdTrainingSessions.map((item) => (
             <Link to={`/train/${item.id}`} className="train-link" key={item.id}>
-              <ChooseTrain date={item.date} title={item.title} />
+              <ChooseTrain date={item.DATE} title={item.title} />
             </Link>
           ))}
         </div>

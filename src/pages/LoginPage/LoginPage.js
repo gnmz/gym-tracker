@@ -11,12 +11,11 @@ class LoginPage extends Component {
         newUserPassword: '',
         newUserEmail: '',
         newUser: [],
-        user: [],
-        isLogged: false,
+        user: []
     }
-    // componentDidMount(){
-    //     this.setState({enter: true})
-    // }
+    componentDidMount(){
+        this.setState({enter: true})
+    }
     clickerHandler = (item) => {
         if( item === 'aut'){
             this.setState({enter: true});
@@ -92,24 +91,17 @@ class LoginPage extends Component {
                 } else {
                     const {token} = data;
                     localStorage.setItem('token', token);
-                    // this.props.history.push('/');
-                    this.setState({isLogged: true})
+                    this.props.history.push('/main');
                 }
             });
         }
         )
     }
-    // closeAuth = () => {
-    //     this.setState({isLogged: true})
-    // }
+
     render(){
-        const { enter, user_login, user_password, newUserName, newUserSurName,  newUserLogin, newUserPassword, newUserEmail, isLogged } = this.state;
-        return(
-            <div>
-                {!isLogged ? 
-                <div className="auth">
-                    <div>
-                        <button className="auth-close" onClick={this.closeAuth}>X</button>
+        const { enter, user_login, user_password, newUserName, newUserSurName,  newUserLogin, newUserPassword, newUserEmail } = this.state;
+        return(         
+                <div className="auth">               
                     {enter ? 
                         <div className="auth-choose-action">
                             <span onClick={()=>{this.clickerHandler('aut')}} className="auth-choose-action__button active">Вход</span>
@@ -194,9 +186,7 @@ class LoginPage extends Component {
                         </div>
                         }
                     </div>  
-                </div>
-                : null}
-            </div>
+
         );
     }
 }

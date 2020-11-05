@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;700;800;900&display=swap");
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background-color: #ebebeb;
   padding: 10px 20px;
@@ -7,6 +12,7 @@ body {
 
 .app {
   max-width: 600px;
+  min-height: 600px;
   margin: 5px auto;
   display: flex;
   align-items: center;
@@ -28,33 +34,25 @@ body {
   color: #4285f4;
 }
 
-.sign-up {
-  position: absolute;
-  top: 25px;
-  left: 950px;
+.logout {
+  position: relative;
+  top: -120px;
+  /* top: 25px; */
+  /* left: 950px; */
+  float: right;
+  /* position: absolute; */
 }
 
-.btn-login,
-.btn-logout {
-  margin-right: 10px;
-}
-
-.sign-up__btn {
+.logout-btn {
   display: inline-block;
   padding: 5px;
+  margin-right: 10px;
   background-color: #fff;
   border: 1px solid #4285f4;
   border-radius: 5px;
 }
 
-.sign-up__btn:hover {
+.logout-btn:hover {
   color: #4285f4;
   cursor: pointer;
-}
-
-@media screen and (min-width: 320px) and (max-width: 991px) {
-  .sign-up {
-    position: absolute;
-    left: 320px;
-  }
 }

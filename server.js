@@ -5,6 +5,7 @@ const dbConfig = require("./config/dbConfig");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const randtoken = require("rand-token");
+const e = require("express");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -95,7 +96,7 @@ app.post("/trains", (req, res) => {
   connection.query(`SELECT id FROM users WHERE user_token = '${token}';`, (err, data) =>{
     if (!err && data.length) {
       const user = data[0];
-      let query = `INSERT INTO trains(title, date, excersises, is_completed, user_id ) VALUES ('${title}', '${date}', '${excersises}', '${is_completed}', '${user.id}') ;`;
+      let query = `INSERT INTO trains(title, date, excersises, is_completed, user_id ) VALUES ('${title}', '${date}', '${excersises}', '${is_completed}', '${user.id}');`;
       connection.query(query, (err, data) => {
         if (!err) {
           res.status(200).json(data);
@@ -114,7 +115,7 @@ app.post("/reg", (req, res) => {
   const user_salt = bcrypt.genSaltSync(5);
   const user_hashedpassword = bcrypt.hashSync(user_password, user_salt);
 
-  let query = `INSERT INTO users(user_name, user_surname, user_login, user_email, user_hashedpassword, user_salt) VALUES ('${user_name}', '${user_surname}', '${user_login}', '${user_email}', '${user_hashedpassword}', '${user_salt}') ;`;
+  let query = `INSERT INTO users(user_name, user_surname, user_login, user_email, user_hashedpassword, user_salt) VALUES ('${user_name}', '${user_surname}', '${user_login}', '${user_email}', '${user_hashedpassword}', '${user_salt}');`;
   connection.query(query, (err, data) => {
     if(!err) {
       res.status(200).send();
@@ -149,6 +150,25 @@ app.post("/auth", (req, res) => {
     }
   });
 });
+
+app.get("/logout", (req,res) => {
+  const token = req.get("token");
+  connection.query(`SELECT * FROM users WHERE user_token = "${token}";`, (err, data) => {
+    if (!err && data.length) {
+      const user = data[0];
+      
+      connection.query(`UPDATE users SET user_token = NULL WHERE id = "${user.id}";`, (err, data) => {
+        if(!err) {
+          res.status(201).send();
+        } else {
+          console.log(err)
+        }
+      });
+    } else {
+      res.status(401).send(JSON.stringify({ err: 'Unauthorized request' }));
+    }
+  })
+})
 
 app.listen(3001, () => {
   console.log("Server is running on 3001 port");

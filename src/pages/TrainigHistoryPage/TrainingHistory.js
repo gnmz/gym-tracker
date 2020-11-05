@@ -17,7 +17,7 @@ class TrainingHistory extends Component {
       .then((res) => res.json())
       .then((data) => 
       data.sort((a,b) => {
-        if (a.date > b.date) {
+        if (a.DATE > b.DATE) {
           return -1;
         } else {
           return 1;
@@ -34,7 +34,7 @@ class TrainingHistory extends Component {
         <div className="history-page__trains">
           {historyTrainList.map((item) => (
             <Link to={`/train-history/${item.id}`} key={item.id}>
-              <ChooseTrain date={item.date} title={item.title} />
+              <ChooseTrain date={item.DATE} title={item.title} />
             </Link>
           ))}
         </div>

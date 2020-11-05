@@ -23,10 +23,10 @@ class PastTrainingPage extends Component {
       .then((res) => res.json())
       .then((data) =>
         this.setState({
-          date: data[0].date,
+          date: data[0].DATE,
           title: data[0].title,
           excersises: JSON.parse(data[0].excersises),
-          comment: data[0].comment,
+          comment: data[0].COMMENT,
         })
       );
   };

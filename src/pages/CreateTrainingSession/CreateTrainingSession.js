@@ -3,6 +3,7 @@ import ChooseWorkout from "../../components/ChooseWorkout";
 import { Link } from "react-router-dom";
 import "./CreateTrainigSession.css";
 import DescriptionWindow from "../../components/DescriptionWindow";
+
 class CreateTrainingSession extends Component {
   state = {
     categoryOfExercises: [],

@@ -1,7 +1,14 @@
+// module.exports = {
+//   host: "localhost",
+//   port: 3306,
+//   user: "root",
+//   password: "15975321",
+//   database: "gyms_tracker",
+// };
 module.exports = {
-  host: "localhost",
+  host: "db4free.net",
   port: 3306,
-  user: "root",
-  password: "15975321",
-  database: "gyms_tracker",
+  user: "r00t123",
+  password: "QF2-Ud8xN4aXe_f",
+  database: "gymstracker",
 };
