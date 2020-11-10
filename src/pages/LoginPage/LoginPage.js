@@ -71,7 +71,7 @@ class LoginPage extends Component {
             user_password: psw
         }},
         () => {
-            fetch(`http://localhost:3001/auth`, {
+            fetch(`/auth`, {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json",
