@@ -6,7 +6,7 @@ const dbConfig = require("./config/dbConfig");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const randtoken = require("rand-token");
-const publicPath = path.join(__dirname, 'public');
+const publicPath = path.join(__dirname, 'build');
 
 app.use(express.static(publicPath));
 app.use(express.json());
