@@ -33,7 +33,7 @@ class MainPage extends Component {
       })
       )
       .then((data) => {
-        this.setState({ createdTrainingSessions: data, isLogged:true });
+        this.setState({ createdTrainingSessions: data });
       });
   };
   render() {
