@@ -5,7 +5,7 @@ class Header extends Component {
   render() {
     return (
       <div className="header">
-        {window.localStorage.length !== 0 ?
+        {window.location.pathname !== '/' ?
           <Link to="/main">
              <h1 className="header__title">Gym's Tracker</h1>
           </Link>
