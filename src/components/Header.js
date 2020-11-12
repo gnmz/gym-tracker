@@ -5,11 +5,14 @@ class Header extends Component {
   render() {
     return (
       <div className="header">
-        {window.location.pathname === '/' ?  <h1 className="header__title">Gym's Tracker</h1> :
+        {/* {window.location.pathname === '/' ?  <h1 className="header__title">Gym's Tracker</h1> :
         <Link to="/main">
           <h1 className="header__title">Gym's Tracker</h1>
         </Link>
-        }
+        } */}
+        <Link to="/main">
+          <h1 className="header__title">Gym's Tracker</h1>
+        </Link>
       </div>
     );
   }
