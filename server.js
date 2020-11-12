@@ -19,6 +19,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
 
+app.get('/main', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
+
 app.get("/categories", (req, res) => {
   connection.query("SELECT * FROM excersise_categories;", (err, data) => {
     if (!err) {
