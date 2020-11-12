@@ -23,6 +23,22 @@ app.get('/main', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
 });
 
+app.get('/create-trainig-session', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
+
+app.get('/train-history', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
+
+app.get('/train/:id', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
+
+app.get('/train-history/:id', (req, res) => {
+  res.sendFile(path.join(publicPath, 'index.html'));
+});
+
 app.get("/categories", (req, res) => {
   connection.query("SELECT * FROM excersise_categories;", (err, data) => {
     if (!err) {
