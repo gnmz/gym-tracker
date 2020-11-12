@@ -12,11 +12,11 @@ class MainPage extends Component {
   componentDidMount() {
     this.getCreatedTrainingSessinos();
   }
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (prevState.value !== this.state.value) {
-  //     this.getCreatedTrainingSessinos();
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.value !== this.state.value) {
+      this.getCreatedTrainingSessinos();
+    }
+  }
   //Получаем список созданных тренировок и сортируем их от ближайшей даты
   getCreatedTrainingSessinos = () => {
     fetch("/trains?type=plan", {
