@@ -35,9 +35,8 @@ class CreateTrainingSession extends Component {
   //добавляем упражнение
   addWorkout = (title) => {
     const newArr = [...this.state.createTrain];
-    let numberOfPeriod = this.setState({numberOfExercises: + 1 })
     newArr.push({
-      id: numberOfPeriod,
+      id: this.setState({numberOfExercises: this.state.numberOfExercises + 1}),
       excersise_name: title,
       plan_rep: "",
       plan_weight: "",
