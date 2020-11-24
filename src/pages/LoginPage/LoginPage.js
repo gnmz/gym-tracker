@@ -121,7 +121,7 @@ class LoginPage extends Component {
                                         Login:
                                     </label>
                                     <div>
-                                        <input type="text" className="auth-form-item__input" onChange={this.getUserLogin} value={user_login} />
+                                        <input type="text" placeholder="demo" className="auth-form-item__input" onChange={this.getUserLogin} value={user_login} />
                                     </div>                                
                                 </div>
                                 <div className="auth-form-item">
@@ -129,7 +129,7 @@ class LoginPage extends Component {
                                         Password:
                                     </label>
                                     <div>
-                                        <input type="password" className="auth-form-item__input" onChange={this.getUserPassword} value={user_password} />
+                                        <input type="password" placeholder="demo" className="auth-form-item__input" onChange={this.getUserPassword} value={user_password} />
                                     </div>                                
                                 </div>
                                 <button  className="auth-form-btn"
