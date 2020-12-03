@@ -3,22 +3,27 @@
   width: 100%;
   box-sizing: border-box;
 }
+
 .train-page__title {
   margin: 0 0 20px;
   text-align: center;
   font-size: 20px;
 }
+
 textarea {
   display: block;
 }
+
 .train-page-item {
   display: flex;
   align-items: baseline;
 }
+
 .train-page-item__title {
   width: 250px;
   margin-right: 10px;
 }
+
 .train-page-item__property {
   display: flex;
   align-items: baseline;
@@ -71,6 +76,7 @@ a {
     font-size: 12px;
     margin-right: 5px;
   }
+
   .train-page-item__property {
     display: flex;
     align-items: baseline;
@@ -79,6 +85,7 @@ a {
     padding: 0;
     width: 40%;
   }
+
   .train-page-item__input {
     border: 1px solid #ababab;
     padding: 5px;
@@ -87,6 +94,7 @@ a {
     box-sizing: border-box;
     font-size: 12px;
   }
+
   .train-page-item__counter {
     font-size: 12px;
   }

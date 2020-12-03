@@ -75,9 +75,11 @@
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 0.5rem;
   }
+
   .main-page__choose-action-btn {
     margin: 0 5px;
   }
+
   .choose-train-cart__title {
     font-size: 14px;
   }

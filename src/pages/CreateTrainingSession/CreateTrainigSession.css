@@ -159,10 +159,12 @@ a {
 .create-train-program-item__description-info-title {
   margin: 5px;
 }
+
 .create-train-program-item__description-info-text {
   margin: 0 5px;
   font-size: 12px;
 }
+
 .create-train-program-item__description-close {
   width: 20px;
   height: 20px;
@@ -183,6 +185,7 @@ a {
     list-style-type: none;
     margin: 0 auto 40px;
   }
+
   .create-train-program-item__title {
     font-size: 12px;
     width: 70%;
@@ -201,6 +204,7 @@ a {
   .create-train-program-item__input {
     width: 40px;
   }
+
   .create-train-program-item__remove-altr {
     display: inline-block;
     background-color: #fff;

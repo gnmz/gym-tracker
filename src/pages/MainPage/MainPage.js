@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import { Link } from "react-router-dom";
 import "./MainPage.css";
 import ChooseTrain from "../../components/ChooseTrain";
@@ -7,7 +6,7 @@ import Logout from "../../components/Logout";
 
 class MainPage extends Component {
   state = {
-    createdTrainingSessions: []
+    createdTrainingSessions: [],
   };
   componentDidMount() {
     this.getCreatedTrainingSessinos();
@@ -20,17 +19,17 @@ class MainPage extends Component {
   //Получаем список созданных тренировок и сортируем их от ближайшей даты
   getCreatedTrainingSessinos = () => {
     fetch("/trains?type=plan", {
-      headers: { token: localStorage.getItem('token')}
+      headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
-      .then((data) => 
-      data.sort((a,b) => {
-        if (a.DATE > b.DATE) {
-          return 1;
-        } else {
-          return -1;
-        }
-      })
+      .then((data) =>
+        data.sort((a, b) => {
+          if (a.DATE > b.DATE) {
+            return 1;
+          } else {
+            return -1;
+          }
+        })
       )
       .then((data) => {
         this.setState({ createdTrainingSessions: data });

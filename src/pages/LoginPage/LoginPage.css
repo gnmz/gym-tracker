@@ -2,11 +2,6 @@
   width: 250px;
   padding: 10px;
   height: 350px;
-  /* position: absolute; */
-  /* border: 1px solid black;
-  background-color: white; */
-  /* left: 50%;
-  transform: translateX(-50%); */
 }
 
 .auth-close {
@@ -64,6 +59,7 @@
 .default {
   color: black;
 }
+
 .auth-form-btn {
   width: 100%;
   display: block;

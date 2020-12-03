@@ -3,11 +3,13 @@
   width: 100%;
   box-sizing: border-box;
 }
+
 .history-page__title {
   margin: 0 0 20px;
   text-align: center;
   font-size: 20px;
 }
+
 .history-page__trains {
   width: 100%;
   display: grid;
@@ -27,6 +29,7 @@
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 0.5rem;
   }
+
   .history-page__title {
     font-size: 14px;
   }

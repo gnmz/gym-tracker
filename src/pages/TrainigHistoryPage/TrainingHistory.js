@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ChooseTrain from "../../components/ChooseTrain";
 import { Link } from "react-router-dom";
 import "./TrainingHistory.css";
+
 class TrainingHistory extends Component {
   state = {
     historyTrainList: [],
@@ -9,22 +10,22 @@ class TrainingHistory extends Component {
   componentDidMount() {
     this.getTrainingHistoryList();
   }
-  //Получаем список истории тренировок и сортируем его 
+  //Получаем список истории тренировок и сортируем его
   getTrainingHistoryList = () => {
     fetch("/trains?type=hist", {
-      headers: { token: localStorage.getItem('token')}
+      headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
-      .then((data) => 
-      data.sort((a,b) => {
-        if (a.DATE > b.DATE) {
-          return -1;
-        } else {
-          return 1;
-        }
-      })
+      .then((data) =>
+        data.sort((a, b) => {
+          if (a.DATE > b.DATE) {
+            return -1;
+          } else {
+            return 1;
+          }
+        })
       )
-      .then((data) =>this.setState({ historyTrainList: data }))
+      .then((data) => this.setState({ historyTrainList: data }));
   };
   render() {
     const { historyTrainList } = this.state;

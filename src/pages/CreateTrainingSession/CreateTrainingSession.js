@@ -15,11 +15,11 @@ class CreateTrainingSession extends Component {
     numberOfExercises: 1,
     isClicked: false,
     showDescription: false,
-    description:''
+    description: "",
   };
   componentDidMount() {
     this.getCategoryOfExercises();
-  };
+  }
   //получаем список категорий упражнений
   getCategoryOfExercises = () => {
     fetch("/categories")
@@ -35,7 +35,7 @@ class CreateTrainingSession extends Component {
   //добавляем упражнение
   addWorkout = (title) => {
     const newArr = [...this.state.createTrain];
-    this.setState({numberOfExercises: this.state.numberOfExercises +1});
+    this.setState({ numberOfExercises: this.state.numberOfExercises + 1 });
     newArr.push({
       id: this.state.numberOfExercises,
       excersise_name: title,
@@ -43,7 +43,7 @@ class CreateTrainingSession extends Component {
       plan_weight: "",
       fact_rep: "",
       fact_weight: "",
-      description: ""
+      description: "",
     });
     this.setState({
       createTrain: newArr,
@@ -67,13 +67,13 @@ class CreateTrainingSession extends Component {
           method: "POST",
           headers: {
             "Content-type": "application/json",
-            token: localStorage.getItem('token')
+            token: localStorage.getItem("token"),
           },
           body: JSON.stringify(this.state.savedTrain),
         });
       }
     );
-  }
+  };
 
   //получаем значение из инпута повторений
   handleNumberRepetitions = (id, e) => {
@@ -118,20 +118,20 @@ class CreateTrainingSession extends Component {
   showDescription = (id) => {
     const newArr = this.state.createTrain.find((item) => {
       return item.id === id;
-    })
-    if(newArr){
-      this.setState({showDescription: true, description: newArr})
+    });
+    if (newArr) {
+      this.setState({ showDescription: true, description: newArr });
     }
-  }
+  };
   //Убираем описание упражнения
   closeDescription = () => {
     const { showDescription } = this.state;
-    if(showDescription){
-      this.setState({showDescription: false})
+    if (showDescription) {
+      this.setState({ showDescription: false });
     }
-  }
+  };
   render() {
-    const {description, showDescription, trainDate, trainName } = this.state;
+    const { description, showDescription, trainDate, trainName } = this.state;
     return (
       <div className="create-train-page">
         <h2 className="create-train-page__title">Запланируй тренировку</h2>
@@ -195,7 +195,14 @@ class CreateTrainingSession extends Component {
                 <p className="create-train-program-item__title">
                   {item.excersise_name}
                 </p>
-                <button className="create-train-program-item__description-button" onClick={()=>{this.showDescription(item.id)}}>?</button>
+                <button
+                  className="create-train-program-item__description-button"
+                  onClick={() => {
+                    this.showDescription(item.id);
+                  }}
+                >
+                  ?
+                </button>
                 <label className="create-train-program-item__property">
                   <input
                     type="text"
@@ -235,13 +242,11 @@ class CreateTrainingSession extends Component {
                   X
                 </button>
               </div>
-            ))}           
+            ))}
           </div>
         ) : null}
 
-        {this.state.createTrain.length &&
-        trainName &&
-        trainDate ? (
+        {this.state.createTrain.length && trainName && trainDate ? (
           !this.state.isClicked ? (
             <button
               className="create-train-program__save"
@@ -253,10 +258,13 @@ class CreateTrainingSession extends Component {
             <Link to="/main">Перейти к тренировкам</Link>
           )
         ) : null}
-        {showDescription? 
-          <DescriptionWindow title={description.excersise_name} description={description.description} onClick={this.closeDescription}/>
-          : null}
-
+        {showDescription ? (
+          <DescriptionWindow
+            title={description.excersise_name}
+            description={description.description}
+            onClick={this.closeDescription}
+          />
+        ) : null}
       </div>
     );
   }

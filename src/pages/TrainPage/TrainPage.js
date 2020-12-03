@@ -21,7 +21,7 @@ class TrainPage extends Component {
   //получаем тренировку
   getCurrentTrain = (id) => {
     fetch(`/trains/${id}`, {
-      headers: {token: localStorage.getItem('token')}
+      headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
       .then((data) =>
@@ -78,7 +78,7 @@ class TrainPage extends Component {
     });
   };
   render() {
-    console.log(this.state.comment)
+    console.log(this.state.comment);
     return (
       <div className="train-page">
         <h2 className="train-page__title">
