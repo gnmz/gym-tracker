@@ -8,6 +8,7 @@ import Loader from "../../components/Loader/Loader";
 class MainPage extends Component {
   state = {
     createdTrainingSessions: [],
+    stopFetchedData: false,
   };
   componentDidMount() {
     this.getCreatedTrainingSessinos();
@@ -33,13 +34,10 @@ class MainPage extends Component {
         })
       )
       .then((data) => {
-        this.setState({ createdTrainingSessions: data });
+        this.setState({ createdTrainingSessions: data, stopFetchedData: true });
       });
   };
   render() {
-    if (this.state.createdTrainingSessions.length <= 0) {
-      return <Loader />;
-    }
     return (
       <div className="main-page">
         <Logout history={this.props.history} />
@@ -56,13 +54,21 @@ class MainPage extends Component {
           </Link>
         </div>
         <h2 className="main-page__title">Запланированные тренировки</h2>
-        <div className="main-page__trains">
-          {this.state.createdTrainingSessions.map((item) => (
-            <Link to={`/train/${item.id}`} className="train-link" key={item.id}>
-              <ChooseTrain date={item.DATE} title={item.title} />
-            </Link>
-          ))}
-        </div>
+        {!this.state.stopFetchedData ? (
+          <Loader />
+        ) : (
+          <div className="main-page__trains">
+            {this.state.createdTrainingSessions.map((item) => (
+              <Link
+                to={`/train/${item.id}`}
+                className="train-link"
+                key={item.id}
+              >
+                <ChooseTrain date={item.DATE} title={item.title} />
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     );
   }
