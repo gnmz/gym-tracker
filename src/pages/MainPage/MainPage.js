@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./MainPage.css";
 import ChooseTrain from "../../components/ChooseTrain";
 import Logout from "../../components/Logout";
+import Loader from "../../components/Loader/Loader";
 
 class MainPage extends Component {
   state = {
@@ -36,6 +37,9 @@ class MainPage extends Component {
       });
   };
   render() {
+    if (this.state.createdTrainingSessions.length <= 0) {
+      return <Loader />;
+    }
     return (
       <div className="main-page">
         <Logout history={this.props.history} />
