@@ -8,6 +8,7 @@ import TrainingHistory from "./pages/TrainigHistoryPage/TrainingHistory";
 import TrainPage from "./pages/TrainPage/TrainPage";
 import PastTrainingPage from "./pages/PastTrainingPage/PastTrainingPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
+import EditExcersise from "./pages/EditExcersise/EditExcersise";
 
 class App extends Component {
   render() {
@@ -23,6 +24,7 @@ class App extends Component {
         <Route path="/train-history" exact component={TrainingHistory} />
         <Route path="/train/:id" exact component={TrainPage} />
         <Route path="/train-history/:id" exact component={PastTrainingPage} />
+        <Route path="/edit-exercises" exact component={EditExcersise} />
       </div>
     );
   }

@@ -62,6 +62,124 @@ app.get("/excersise", (req, res) => {
   });
 });
 
+app.get("/custom-categories", (req, res) => {
+  const token = req.get("token");
+  connection.query(
+    `SELECT id from users where user_token = '${token}'; `,
+    (err, data) => {
+      if (!err && data.length) {
+        const user = data[0];
+        connection.query(
+          `SELECT * FROM custom_excersise_categories WHERE user_id = '${user.id}'; `,
+          (err, data) => {
+            if (!err) {
+              res.status(200).json(data);
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
+app.get("/custom-excersises", (req, res) => {
+  const categoryId = req.query.categoryId;
+  const token = req.get("token");
+  connection.query(
+    `SELECT id FROM users WHERE user_token = '${token}';`,
+    (err, data) => {
+      if (!err && data.length) {
+        const user = data[0];
+        connection.query(
+          `select custom_excersises.id, custom_excersises.title, custom_excersises.description FROM custom_excersises JOIN custom_excersise_categories ON custom_excersises.category_id  = custom_excersise_categories.id WHERE custom_excersises.category_id = ${categoryId} AND custom_excersises.user_id = '${user.id}'; `,
+          (err, data) => {
+            if (!err) {
+              res.status(200).json(data);
+            } else {
+              connection.query(
+                `SELECT * FROM custom_excersises WHERE user_id = '${user.id}';`,
+                (err, data) => {
+                  if (!err) {
+                    res.status(200).json(data);
+                  } else {
+                    console.log(err);
+                  }
+                }
+              );
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
+app.post("/custom-categories", (req, res) => {
+  const { categories_title } = req.body;
+  const token = req.get("token");
+  connection.query(
+    `SELECT id FROM users WHERE user_token = '${token}'; `,
+    (err, data) => {
+      if (!err && data.length) {
+        const user = data[0];
+        connection.query(
+          `SELECT * FROM custom_excersise_categories WHERE title = '${categories_title}'  AND  user_id = '${user.id}' ;`,
+          (err, data) => {
+            if (!err && data.length > 0) {
+              res
+                .status(401)
+                .send({ error: "Уже есть такая категория упражнений" });
+            } else {
+              connection.query(
+                `INSERT INTO custom_excersise_categories(title, user_id)VALUES('${categories_title}', '${user.id}'); `,
+                (err, data) => {
+                  if (!err) {
+                    res.status(200).json(data);
+                  } else {
+                    console.log(err);
+                  }
+                }
+              );
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
+app.post("/custom-excersises", (req, res) => {
+  const { CreateExcersiseTitle, CreateExcersiseId } = req.body;
+  const token = req.get("token");
+  connection.query(
+    `SELECT id FROM users WHERE user_token = '${token}'; `,
+    (err, data) => {
+      if (!err && data.length) {
+        const user = data[0];
+        connection.query(
+          `SELECT * FROM custom_excersises WHERE title = '${CreateExcersiseTitle}' AND category_id = '${CreateExcersiseId}' AND user_id = '${user.id}'; `,
+          (err, data) => {
+            if (!err && data.length > 0) {
+              res.status(401).send({ error: "Уже есть такое упражнение" });
+            } else {
+              connection.query(
+                `INSERT INTO custom_excersises(category_id, title, user_id)VALUES('${CreateExcersiseId}', '${CreateExcersiseTitle}', '${user.id}'); `,
+                (err, data) => {
+                  if (!err) {
+                    res.status(200).json(data);
+                  } else {
+                    console.log(err);
+                  }
+                }
+              );
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
 app.get("/trains", (req, res) => {
   let type = req.query.type;
   const token = req.get("token");
@@ -156,34 +274,38 @@ app.post("/trains", (req, res) => {
 });
 
 app.post("/reg", (req, res) => {
-  const {
-    user_name,
-    user_surname,
-    user_login,
-    user_password,
-    user_email,
-  } = req.body;
+  const { user_name, user_login, user_password, user_email } = req.body;
   const user_salt = bcrypt.genSaltSync(5);
   const user_hashedpassword = bcrypt.hashSync(user_password, user_salt);
-
   connection.query(
-    `SELECT user_login FROM users where user_login = ${user_login} `,
+    `select * from users where user_login = '${user_login}';`,
     (err, data) => {
-      if (!err) {
+      if (!err && data.length > 0) {
         res
-          .status(201)
-          .json({
-            message: "Пользователь с таким логином уже зарегестрирован",
-          });
+          .status(401)
+          .send({ error: "Пользователь с данным логином уже зарегестрирован" });
       } else {
-        let query = `INSERT INTO users(user_name, user_surname, user_login, user_email, user_hashedpassword, user_salt) VALUES ('${user_name}', '${user_surname}', '${user_login}', '${user_email}', '${user_hashedpassword}', '${user_salt}');`;
-        connection.query(query, (err, data) => {
-          if (!err) {
-            res.status(200).send();
-          } else {
-            res.status(400).send();
+        connection.query(
+          `select * from users where user_email = '${user_email}' ;`,
+          (err, data) => {
+            if (!err && data.length > 0) {
+              res.status(401).send({
+                error: "Пользователь с данным email уже зарегестрирован",
+              });
+            } else {
+              let query = `INSERT INTO users(user_name, user_login, user_email, user_hashedpassword, user_salt) VALUES ('${user_name}',  '${user_login}', '${user_email}', '${user_hashedpassword}', '${user_salt}'); `;
+              connection.query(query, (err, data) => {
+                if (!err) {
+                  res
+                    .status(200)
+                    .send({ message: "Пользователь зарегестрирован!" });
+                } else {
+                  res.status(400).send({ error: "Ошибка регистрации" });
+                }
+              });
+            }
           }
-        });
+        );
       }
     }
   );

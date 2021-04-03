@@ -13,6 +13,7 @@ class LoginPage extends Component {
     newUserEmail: "",
     newUser: [],
     user: [],
+    errorLoginMessage: "",
   };
   componentDidMount() {
     this.setState({ enter: true });
@@ -48,7 +49,6 @@ class LoginPage extends Component {
   registerNewUser = () => {
     const {
       newUserName,
-      newUserSurName,
       newUserLogin,
       newUserPassword,
       newUserEmail,
@@ -57,15 +57,13 @@ class LoginPage extends Component {
       {
         newUser: {
           user_name: newUserName,
-          user_surname: newUserSurName,
           user_login: newUserLogin,
           user_password: newUserPassword,
           user_email: newUserEmail,
         },
-        enter: true,
       },
       () => {
-        fetch(`/reg`, {
+        fetch(`http://localhost:3001/reg`, {
           method: "POST",
           headers: {
             "Content-type": "application/json",
@@ -84,7 +82,7 @@ class LoginPage extends Component {
         },
       },
       () => {
-        fetch(`/auth`, {
+        fetch(`http://localhost:3001/auth`, {
           method: "POST",
           headers: {
             "Content-type": "application/json",
@@ -117,7 +115,6 @@ class LoginPage extends Component {
       user_login,
       user_password,
       newUserName,
-      newUserSurName,
       newUserLogin,
       newUserPassword,
       newUserEmail,
@@ -215,7 +212,7 @@ class LoginPage extends Component {
                   />
                 </div>
               </div>
-              <div className="auth-form-item">
+              {/* <div className="auth-form-item">
                 <label className="auth-form-item__title">Фамилия:</label>
                 <div>
                   <input
@@ -225,7 +222,7 @@ class LoginPage extends Component {
                     value={newUserSurName}
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="auth-form-item">
                 <label className="auth-form-item__title">Login:</label>
                 <div>
@@ -236,6 +233,7 @@ class LoginPage extends Component {
                     value={newUserLogin}
                   />
                 </div>
+                {this.state.errorLoginMessage}
               </div>
               <div className="auth-form-item">
                 <label className="auth-form-item__title">Password:</label>

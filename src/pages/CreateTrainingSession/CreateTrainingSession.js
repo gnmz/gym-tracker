@@ -16,19 +16,47 @@ class CreateTrainingSession extends Component {
     isClicked: false,
     showDescription: false,
     description: "",
+    isCustomExercises: false,
   };
   componentDidMount() {
-    this.getCategoryOfExercises();
+    // this.getCategoryOfExercises();
   }
   //получаем список категорий упражнений
   getCategoryOfExercises = () => {
-    fetch("/categories")
-      .then((res) => res.json())
-      .then((data) => this.setState({ categoryOfExercises: data }));
+    const { isCustomExercises, categoryOfExercises } = this.state;
+    if (!isCustomExercises || categoryOfExercises.length <= 0) {
+      this.setState({ isCustomExercises: true, exercisesList: [] }, () => {
+        fetch("http://localhost:3001/categories")
+          .then((res) => res.json())
+          .then((data) => this.setState({ categoryOfExercises: data }));
+      });
+    }
   };
   //получаем список упражнений по id категорий
   getExercisesList = (id) => {
-    fetch(`/excersise?categoryId=${id}`)
+    fetch(`http://localhost:3001/excersise?categoryId=${id}`)
+      .then((res) => res.json())
+      .then((data) => this.setState({ exercisesList: data }));
+  };
+
+  //Получаем список кастомных категорий
+  getCustomCategoryOfExercises = () => {
+    const { isCustomExercises, categoryOfExercises } = this.state;
+    if (isCustomExercises || categoryOfExercises.length <= 0) {
+      this.setState({ isCustomExercises: false, exercisesList: [] }, () => {
+        fetch("http://localhost:3001/custom-categories", {
+          headers: { token: localStorage.getItem("token") },
+        })
+          .then((res) => res.json())
+          .then((data) => this.setState({ categoryOfExercises: data }));
+      });
+    }
+  };
+
+  getCustomExercisesList = (id) => {
+    fetch(`http://localhost:3001/custom-excersises?categoryId=${id}`, {
+      headers: { token: localStorage.getItem("token") },
+    })
       .then((res) => res.json())
       .then((data) => this.setState({ exercisesList: data }));
   };
@@ -63,7 +91,7 @@ class CreateTrainingSession extends Component {
         isClicked: true,
       },
       () => {
-        fetch(`/trains`, {
+        fetch(`http://localhost:3001/trains`, {
           method: "POST",
           headers: {
             "Content-type": "application/json",
@@ -130,6 +158,7 @@ class CreateTrainingSession extends Component {
       this.setState({ showDescription: false });
     }
   };
+
   render() {
     const { description, showDescription, trainDate, trainName } = this.state;
     return (
@@ -156,19 +185,53 @@ class CreateTrainingSession extends Component {
             />
           </label>
         </div>
-        <h2 className="create-train-page__title">Выбери категорию</h2>
-        <div className="create-train-workout-list">
-          {this.state.categoryOfExercises.map((item) => (
-            <ChooseWorkout
-              key={item.id}
-              workoutName={item.title}
-              onClick={() => {
-                this.getExercisesList(item.id);
-              }}
-            />
-          ))}
+        <h2 className="create-train-page__title">Выбери набор категорий</h2>
+        <div>
+          <button
+            className="create-train-program__save"
+            onClick={this.getCategoryOfExercises}
+          >
+            Готовые категори
+          </button>
+          <button
+            className="create-train-program__save"
+            onClick={this.getCustomCategoryOfExercises}
+          >
+            Свои категори
+          </button>
         </div>
-
+        {this.state.categoryOfExercises.length <= 0 ? null : (
+          <h2 className="create-train-page__title">Выбери категорию</h2>
+        )}
+        {!this.state.isCustomExercises ? (
+          <>
+            <div className="create-train-workout-list">
+              {this.state.categoryOfExercises.map((item) => (
+                <ChooseWorkout
+                  key={item.id}
+                  workoutName={item.title}
+                  onClick={() => {
+                    this.getCustomExercisesList(item.id);
+                  }}
+                />
+              ))}
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="create-train-workout-list">
+              {this.state.categoryOfExercises.map((item) => (
+                <ChooseWorkout
+                  key={item.id}
+                  workoutName={item.title}
+                  onClick={() => {
+                    this.getExercisesList(item.id);
+                  }}
+                />
+              ))}
+            </div>
+          </>
+        )}
         {this.state.exercisesList.length ? (
           <div className="create-train-excersises">
             <h2 className="create-train-page__title">Выбери упражнение</h2>
