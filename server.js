@@ -39,6 +39,10 @@ app.get("/train-history/:id", (req, res) => {
   res.sendFile(path.join(publicPath, "index.html"));
 });
 
+app.get("/edit-exercises", (req, res) => {
+  res.sendFile(path.join(publicPath, "index.html"));
+});
+
 app.get("/categories", (req, res) => {
   connection.query("SELECT * FROM excersise_categories;", (err, data) => {
     if (!err) {
