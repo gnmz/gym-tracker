@@ -1,0 +1,65 @@
+.create-categories {
+}
+
+.create-categories__title {
+  display: block;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.create-categories__input {
+  display: block;
+  margin: 0 auto 20px;
+  border: 1px solid #ababab;
+  padding: 5px;
+  border-radius: 5px;
+  width: 300px;
+  box-sizing: border-box;
+}
+
+.create-categories__button {
+  display: block;
+  margin: 20px auto;
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+}
+
+.categories-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+.categories-list-item {
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+}
+
+.categories-list-item__edit-btn {
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  outline: none;
+  display: inline-block;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.categories-list-item__edit-input {
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+}
+
+.categories-list-item__edit-save {
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  outline: none;
+  display: inline-block;
+  margin-right: 10px;
+  border-radius: 5px;
+}

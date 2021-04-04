@@ -127,7 +127,7 @@ app.post("/custom-categories", (req, res) => {
           (err, data) => {
             if (!err && data.length > 0) {
               res
-                .status(401)
+                .status(400)
                 .send({ error: "Уже есть такая категория упражнений" });
             } else {
               connection.query(
@@ -137,6 +137,70 @@ app.post("/custom-categories", (req, res) => {
                     res.status(200).json(data);
                   } else {
                     console.log(err);
+                  }
+                }
+              );
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
+app.put("/custom-categories", (req, res) => {
+  const { id, newTitle } = req.body;
+  const token = req.get("token");
+  connection.query(
+    `SELECT id FROM users WHERE user_token = '${token}'; `,
+    (err, data) => {
+      if (!err && data.length) {
+        const user = data[0];
+        connection.query(
+          `SELECT * FROM custom_excersise_categories WHERE title = '${newTitle}' AND user_id = '${user.id}'; `,
+          (err, data) => {
+            if (!err && data.length) {
+              res
+                .status(400)
+                .send({ error: `Категория ${newTitle} уже существует` });
+            } else {
+              connection.query(
+                `UPDATE custom_excersise_categories SET title = '${newTitle}' WHERE id = '${id}' AND user_id = '${user.id}' ;`,
+                (err, data) => {
+                  if (!err) {
+                    res
+                      .status(200)
+                      .send({ message: "Категория успешно переименована" });
+                  }
+                }
+              );
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
+app.delete("/custom-categories", (req, res) => {
+  const { id, title, user_id } = req.body;
+  const token = req.get("token");
+  connection.query(
+    `SELECT id FROM users WHERE user_token = '${token}'; `,
+    (err, data) => {
+      if (!err && data.length) {
+        const user = data[0];
+        connection.query(
+          `DELETE FROM custom_excersise_categories WHERE id = '${id}' AND title = '${title}' AND user_id = '${user.id}'; `,
+          (err, data) => {
+            if (!err) {
+              connection.query(
+                `DELETE FROM custom_excersises WHERE category_id = '${id}' AND user_id = '${user.id}'; `,
+                (err, data) => {
+                  if (!err) {
+                    res.status(200).send({
+                      message: `Категория ${title} и ее упражнения успешно удалены`,
+                    });
                   }
                 }
               );

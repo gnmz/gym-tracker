@@ -1,19 +1,10 @@
 import React, { Component } from "react";
 
 export class Exercises extends Component {
-  state = {
-    exercisesList: [],
-  };
-  componentDidMount() {
-    fetch("http://localhost:3001/custom-excersises", {
-      headers: { token: localStorage.getItem("token") },
-    })
-      .then((res) => res.json())
-      .then((data) => this.setState({ exercisesList: data }));
-  }
+  state = {};
 
   render() {
-    const { exercisesList } = this.state;
+    const { exercisesList } = this.props;
     return (
       <div>
         {exercisesList.length <= 0 ? (
