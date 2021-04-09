@@ -186,7 +186,7 @@ class CreateTrainingSession extends Component {
           </label>
         </div>
         <h2 className="create-train-page__title">Выбери набор категорий</h2>
-        <div>
+        <div className="create-train-program__actions">
           <button
             className="create-train-program__save"
             onClick={this.getCategoryOfExercises}

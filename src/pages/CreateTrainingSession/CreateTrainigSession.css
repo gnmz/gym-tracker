@@ -14,6 +14,14 @@
   margin-bottom: 40px;
 }
 
+.create-train-program__actions {
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+  width: 50%;
+  margin-bottom: 20px;
+}
+
 .create-train-property {
   font-size: 14px;
   text-align: left;
