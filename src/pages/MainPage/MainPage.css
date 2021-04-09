@@ -5,10 +5,11 @@
 }
 
 .main-page__choose-action {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 20px;
   width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 0.5rem;
+  margin-bottom: 20px;
 }
 
 .main-page__choose-action-btn {

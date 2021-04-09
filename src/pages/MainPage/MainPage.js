@@ -54,7 +54,6 @@ class MainPage extends Component {
           </Link>
           <Link to="/edit-exercises">
             <button className="main-page__choose-action-btn">
-              {" "}
               Редактировать упраженения
             </button>
           </Link>
