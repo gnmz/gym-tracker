@@ -6,6 +6,7 @@ const dbConfig = require("./config/dbConfig");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const randtoken = require("rand-token");
+const { connect } = require("http2");
 const publicPath = path.join(__dirname, "build");
 
 app.use(express.static(publicPath));
@@ -86,6 +87,31 @@ app.get("/custom-categories", (req, res) => {
   );
 });
 
+app.get("/custom-categories-all", (req, res) => {
+  const token = req.get("token");
+  connection.query(
+    `SELECT id FROM users WHERE user_token = '${token}' ;`,
+    (err, data) => {
+      if (!err && data.length > 0) {
+        const user = data[0];
+        connection.query(
+          `select custom_excersises.id, custom_excersises.title, custom_excersises.description, custom_excersise_categories.title AS category_title, custom_excersise_categories.id AS category_id FROM custom_excersises 
+      JOIN custom_excersise_categories ON custom_excersises.category_id  = custom_excersise_categories.id WHERE custom_excersises.user_id = '${user.id}'; `,
+          (err, data) => {
+            if (!err) {
+              res.status(200).json(data);
+            } else {
+              console.log(err);
+            }
+          }
+        );
+      } else {
+        console.log(err);
+      }
+    }
+  );
+});
+
 app.get("/custom-excersises", (req, res) => {
   const categoryId = req.query.categoryId;
   const token = req.get("token");
@@ -153,7 +179,7 @@ app.post("/custom-categories", (req, res) => {
 });
 
 app.put("/custom-categories", (req, res) => {
-  const { id, newTitle } = req.body;
+  const { id, newTitle, oldTitle } = req.body;
   const token = req.get("token");
   connection.query(
     `SELECT id FROM users WHERE user_token = '${token}'; `,
@@ -172,9 +198,9 @@ app.put("/custom-categories", (req, res) => {
                 `UPDATE custom_excersise_categories SET title = '${newTitle}' WHERE id = '${id}' AND user_id = '${user.id}' ;`,
                 (err, data) => {
                   if (!err) {
-                    res
-                      .status(200)
-                      .send({ message: "Категория успешно переименована" });
+                    res.status(200).send({
+                      message: `Категория ${oldTitle} успешно переименована в ${newTitle}`,
+                    });
                   }
                 }
               );
@@ -187,7 +213,7 @@ app.put("/custom-categories", (req, res) => {
 });
 
 app.delete("/custom-categories", (req, res) => {
-  const { id, title, user_id } = req.body;
+  const { id, title } = req.body;
   const token = req.get("token");
   connection.query(
     `SELECT id FROM users WHERE user_token = '${token}'; `,
@@ -217,7 +243,13 @@ app.delete("/custom-categories", (req, res) => {
 });
 
 app.post("/custom-excersises", (req, res) => {
-  const { CreateExcersiseTitle, CreateExcersiseId } = req.body;
+  const {
+    CreateExcersiseTitle,
+    CreateExcersiseId,
+    exerciseDescription,
+    CreateCategoryTitle,
+  } = req.body;
+
   const token = req.get("token");
   connection.query(
     `SELECT id FROM users WHERE user_token = '${token}'; `,
@@ -228,18 +260,94 @@ app.post("/custom-excersises", (req, res) => {
           `SELECT * FROM custom_excersises WHERE title = '${CreateExcersiseTitle}' AND category_id = '${CreateExcersiseId}' AND user_id = '${user.id}'; `,
           (err, data) => {
             if (!err && data.length > 0) {
-              res.status(401).send({ error: "Уже есть такое упражнение" });
+              res.status(401).send({
+                error: `Уже есть такое упражнение в категории ${CreateCategoryTitle}`,
+              });
+            } else {
+              if (exerciseDescription.length <= 0) {
+                connection.query(
+                  `INSERT INTO custom_excersises(category_id, title, user_id)VALUES('${CreateExcersiseId}', '${CreateExcersiseTitle}', '${user.id}'); `,
+                  (err, data) => {
+                    if (!err) {
+                      res.status(200).send({
+                        message: `Упражнение ${CreateExcersiseTitle} успешно добавлено в категорию ${CreateCategoryTitle}`,
+                      });
+                    }
+                  }
+                );
+              } else {
+                connection.query(
+                  `INSERT INTO custom_excersises(category_id, title, user_id, description)VALUES('${CreateExcersiseId}', '${CreateExcersiseTitle}', '${user.id}', '${exerciseDescription}'); `,
+                  (err, data) => {
+                    if (!err) {
+                      res.status(200).send({
+                        message: `Упражнение ${CreateExcersiseTitle} с описанием успешно добавлено в категорию ${CreateCategoryTitle}`,
+                      });
+                    } else {
+                      console.log(err);
+                    }
+                  }
+                );
+              }
+            }
+          }
+        );
+      }
+    }
+  );
+});
+
+app.put("/custom-excersises", (req, res) => {
+  const { id, category_id, oldTitle, newTitle } = req.body;
+  const token = req.get("token");
+  connection.query(
+    `SELECT id FROM users WHERE user_token = '${token}'; `,
+    (err, data) => {
+      if (!err && data.length) {
+        const user = data[0];
+        connection.query(
+          `SELECT * FROM custom_excersises WHERE id = '${id}' AND title = '${newTitle}' AND category_id = '${category_id}' AND user_id = '${user.id}'; `,
+          (err, data) => {
+            if (!err && data.length) {
+              res.status(401).send({ error: "Данное название уже есть" });
             } else {
               connection.query(
-                `INSERT INTO custom_excersises(category_id, title, user_id)VALUES('${CreateExcersiseId}', '${CreateExcersiseTitle}', '${user.id}'); `,
+                `UPDATE custom_excersises SET title = '${newTitle}' WHERE id = '${id}' AND category_id = '${category_id}'  AND user_id = '${user.id}'; `,
                 (err, data) => {
                   if (!err) {
-                    res.status(200).json(data);
-                  } else {
-                    console.log(err);
+                    res.status(200).send({
+                      message: `Категория ${oldTitle} успешно переименована в ${newTitle}`,
+                    });
                   }
                 }
               );
+            }
+          }
+        );
+      } else {
+        console.log(err);
+      }
+    }
+  );
+});
+
+app.delete("/custom-excersises", (req, res) => {
+  const { id, category_id, title } = req.body;
+  const token = req.get("token");
+  connection.query(
+    `SELECT * FROM users WHERE user_token = '${token}'; `,
+    (err, data) => {
+      if (!err && data.length) {
+        const user = data[0];
+        connection.query(
+          `DELETE FROM custom_excersises WHERE id = '${id}' AND category_id = '${category_id}' AND title = '${title}' AND user_id = '${user.id}'; `,
+          (err, data) => {
+            if (!err) {
+              res.status(200).send({
+                message: `Упражнение ${title} успешно удалены`,
+              });
+            } else {
+              console.log(err);
             }
           }
         );

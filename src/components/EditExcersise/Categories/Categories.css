@@ -1,0 +1,37 @@
+.categories-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+.categories-list-item {
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+}
+
+.categories-list-item__edit-btn {
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  outline: none;
+  display: inline-block;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.categories-list-item__edit-input {
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+}
+
+.categories-list-item__edit-save {
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  outline: none;
+  display: inline-block;
+  margin-right: 10px;
+  border-radius: 5px;
+}

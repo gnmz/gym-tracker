@@ -1,0 +1,26 @@
+.exercises-header-item__exercise-search-btn {
+  background-color: #fff;
+  outline: none;
+  border: none;
+}
+
+.exercises-header-item__exercise-search-btn:hover {
+  cursor: pointer;
+  color: #4285f4;
+}
+
+.exercises-header-item__exercise-search {
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.exercises-header-item__exercise-search-item {
+  display: block;
+  margin: 20px auto;
+  border: 1px solid #ababab;
+  padding: 5px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}

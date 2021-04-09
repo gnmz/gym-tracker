@@ -1,0 +1,129 @@
+.exercises-edit-modal {
+  height: 250px;
+  width: 510px;
+  margin: 0 auto;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  top: 290px;
+  z-index: 2;
+  background-color: #fff;
+}
+
+.exercises-edit-modal__title {
+  text-align: center;
+  width: 95%;
+}
+
+.exercises-edit-modal__actions {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px auto;
+  width: 70%;
+}
+
+.exercises-edit-modal__actions-rename,
+.exercises-edit-modal__actions-remove {
+  width: 150px;
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+}
+
+.exercises-edit-modal__actions-rename:hover,
+.exercises-edit-modal__actions-remove:hover {
+  cursor: pointer;
+  color: #4285f4;
+}
+
+.exercises-edit-modal__actions-rename:active,
+.exercises-edit-modal__actions-remove:active {
+  color: #4285f4;
+}
+
+.exercises-edit-modal__rename {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.exercises-edit-modal__rename-input {
+  display: block;
+  margin: 20px auto;
+  border: 1px solid #ababab;
+  padding: 5px;
+  border-radius: 5px;
+  width: 300px;
+  box-sizing: border-box;
+}
+
+.exercises-edit-modal__rename-title,
+.exercises-edit-modal__remove-title {
+  display: block;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.exercises-edit-modal__remove-title {
+  margin: 20px 0;
+}
+
+.exercises-edit-modal__rename-btns,
+.exercises-edit-modal__remove-btns {
+  margin: 0 auto;
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.exercises-edit-modal__rename-btn-yes,
+.exercises-edit-modal__rename-btn-no,
+.exercises-edit-modal__remove-btn-yes,
+.exercises-edit-modal__remove-btn-no {
+  display: block;
+  width: 50px;
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #4285f4;
+  border-radius: 5px;
+}
+
+.exercises-edit-modal__rename-btn-yes:hover,
+.exercises-edit-modal__rename-btn-no:hover,
+.exercises-edit-modal__remove-btn-yes:hover,
+.exercises-edit-modal__remove-btn-no:hover {
+  cursor: pointer;
+  color: #4285f4;
+}
+
+.exercises-edit-modal__header {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.exercises-edit-modal__close {
+  display: block;
+  background-color: #fff;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 25px;
+  height: 25px;
+  outline: none;
+}
+
+.exercises-edit-modal__close:hover {
+  cursor: pointer;
+  color: #4285f4;
+}
+
+.exercises-edit-modal__close:active {
+  border: 1px solid #4285f4;
+}
+
+.exercises-edit-modal__remove-title-item {
+  padding-bottom: 5px;
+}

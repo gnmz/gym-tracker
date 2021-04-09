@@ -7,6 +7,7 @@ export class CreateCategories extends Component {
   };
   //Создание категории
   createCategories = () => {
+    const isLoading = this.props.isLoading;
     fetch(`http://localhost:3001/custom-categories`, {
       method: "POST",
       headers: {
@@ -21,12 +22,11 @@ export class CreateCategories extends Component {
           alert(`${data.error} - ${this.state.categories_title}`);
         } else {
           alert(`Категория ${this.state.categories_title} успешно добавлена`);
+          isLoading(true);
         }
       });
   };
   render() {
-    const { newCategoryOfExercises } = this.props;
-    console.log(newCategoryOfExercises);
     return (
       <div className="create-categories">
         <label>
@@ -43,6 +43,7 @@ export class CreateCategories extends Component {
         <button
           className="create-categories__button"
           onClick={this.createCategories}
+          disabled={!this.state.categories_title}
         >
           Создать новую категорию
         </button>

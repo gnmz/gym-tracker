@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import Categories from "../../components/EditExcersise/Categories";
+import Categories from "../../components/EditExcersise/Categories/Categories";
 import CreateCategories from "../../components/EditExcersise/CreateCategories";
 import CreateExercise from "../../components/EditExcersise/CreateExercise";
-import Exercises from "../../components/EditExcersise/Exercises";
-import Logout from "../../components/Logout";
+import Exercises from "../../components/EditExcersise/Exercises/Exercises";
 
 import "./EditExcersise.css";
 
@@ -22,20 +21,62 @@ export class EditExcersise extends Component {
       { id: 3, title: "Создать категорию" },
       { id: 4, title: "Создать упражнение" },
     ],
+    categoryAndExercises: [],
+    isGetAllCategories: false,
+    isGetAllExcersises: false,
+    isGetFullData: false,
   };
   componentDidMount() {
+    this.getAllCategories();
+    this.getAllExcersises();
+    this.getFullData();
+  }
+
+  componentWillUnmount() {
+    this.getAllCategories();
+    this.getAllExcersises();
+    this.getFullData();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.isGetAllCategories !== prevState.isGetAllCategories) {
+      this.getAllCategories();
+      this.getFullData();
+      this.setState({ isGetAllCategories: false });
+    }
+    if (this.state.isGetAllExcersises !== prevState.isGetAllExcersises) {
+      this.getAllExcersises();
+      this.setState({ isGetAllExcersises: false });
+    }
+    if (this.state.isGetFullData !== prevState.isGetFullData) {
+      this.getFullData();
+      this.setState({ isGetAllExcersises: false });
+    }
+  }
+
+  getAllCategories = () => {
     fetch("http://localhost:3001/custom-categories", {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
       .then((data) => this.setState({ categoryOfExercises: data }));
+  };
 
+  getAllExcersises = () => {
     fetch("http://localhost:3001/custom-excersises", {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
       .then((data) => this.setState({ exercisesList: data }));
-  }
+  };
+
+  getFullData = () => {
+    fetch(`http://localhost:3001/custom-categories-all`, {
+      headers: { token: localStorage.getItem("token") },
+    })
+      .then((res) => res.json())
+      .then((data) => this.setState({ categoryAndExercises: data }));
+  };
 
   chooseAction = (item) => {
     if (item === "Категории") {
@@ -89,48 +130,68 @@ export class EditExcersise extends Component {
     }
   };
 
-  getNewCategoriesList = (item) => {
-    this.setState({ newCategoryOfExercises: item });
+  isGetAllCategories = (item) => {
+    this.setState({ isGetAllCategories: item });
+  };
+
+  isGetAllExcersises = (item) => {
+    this.setState({ isGetAllExcersises: item });
+  };
+
+  isGetFullData = (item) => {
+    this.setState({ isGetFullData: item });
   };
 
   render() {
     const {
       categoryOfExercises,
-      exercisesList,
+      categoryAndExercises,
       menuList,
       newCategoryOfExercises,
     } = this.state;
     return (
-      <div className="exercise-settings">
-        <Logout history={this.props.history} />
-        <h2 className="exercise-settings__title">Настройки Упражнений</h2>
-        <ul className="exercise-settings-list">
-          {menuList.map((item) => (
-            <li
-              className={this.chooseActionClass(item.title)}
-              key={item.id}
-              onClick={() => {
-                this.chooseAction(item.title);
-              }}
-            >
-              {item.title}
-            </li>
-          ))}
-        </ul>
-        {this.state.isCategory ? (
-          <Categories categoryOfExercises={categoryOfExercises} />
-        ) : null}
-        {this.state.isExercises ? (
-          <Exercises exercisesList={exercisesList} />
-        ) : null}
-        {this.state.isCreateCategory ? (
-          <CreateCategories
-            getNewCategoriesList={this.getNewCategoriesList}
-            newCategoryOfExercises={newCategoryOfExercises}
-          />
-        ) : null}
-        {this.state.isCreateExercise ? <CreateExercise /> : null}
-      </div>
+      <>
+        <div className="exercise-settings">
+          <h2 className="exercise-settings__title">Настройки Упражнений</h2>
+          <ul className="exercise-settings-list">
+            {menuList.map((item) => (
+              <li
+                className={this.chooseActionClass(item.title)}
+                key={item.id}
+                onClick={() => {
+                  this.chooseAction(item.title);
+                }}
+              >
+                {item.title}
+              </li>
+            ))}
+          </ul>
+          {this.state.isCategory ? (
+            <Categories
+              categoryOfExercises={categoryOfExercises}
+              isLoading={this.isGetAllCategories}
+            />
+          ) : null}
+          {this.state.isExercises ? (
+            <Exercises
+              categoryAndExercises={categoryAndExercises}
+              isLoading={this.isGetFullData}
+            />
+          ) : null}
+          {this.state.isCreateCategory ? (
+            <CreateCategories
+              newCategoryOfExercises={newCategoryOfExercises}
+              isLoading={this.isGetAllCategories}
+            />
+          ) : null}
+          {this.state.isCreateExercise ? (
+            <CreateExercise
+              categoryOfExercises={categoryOfExercises}
+              isLoading={this.isGetAllCategories}
+            />
+          ) : null}
+        </div>
+      </>
     );
   }
 }

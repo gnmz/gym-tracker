@@ -12,7 +12,7 @@ body {
 
 .app {
   max-width: 600px;
-  min-height: 600px;
+  min-height: 700px;
   margin: 5px auto;
   display: flex;
   align-items: center;
@@ -21,6 +21,10 @@ body {
   padding: 30px 10px 60px;
   box-shadow: -1px 6px 28px 0px rgba(0, 0, 0, 0.75);
   background: #fff;
+}
+
+.header {
+  width: 100%;
 }
 
 .header a {

@@ -1,0 +1,19 @@
+.exercises-pagination {
+  position: absolute;
+  top: 700px;
+  left: 60%;
+  display: flex;
+  justify-content: space-around;
+  width: 100px;
+}
+
+.exercises-pagination__btn {
+  background-color: #fff;
+  outline: none;
+  border: none;
+}
+
+.exercises-pagination__btn:hover {
+  cursor: pointer;
+  color: #4285f4;
+}
