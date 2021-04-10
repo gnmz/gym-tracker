@@ -1,0 +1,32 @@
+.exercises-header {
+  display: flex;
+  justify-content: space-around;
+}
+
+.exercises-header-item__exercise-title {
+  text-align: center;
+  width: 50%;
+  padding: 5px 0;
+}
+
+.exercises-header-item__exercise-category {
+  text-align: center;
+  width: 30%;
+  padding: 5px 0;
+}
+
+.exercises-header-item__exercise-remove {
+  width: 5%;
+}
+
+.exercises-header-item__exercise-remove-btn {
+  background-color: #fff;
+  opacity: 0.5;
+  border: none;
+}
+
+.exercises-header-item__exercise-remove-btn:hover {
+  cursor: pointer;
+  opacity: 1;
+  color: #4285f4;
+}

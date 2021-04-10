@@ -22,6 +22,8 @@ export class Exercises extends Component {
     isOpenSearch: false,
     pageSize: 8,
     currentPage: 1,
+    isSortByExercises: false,
+    isSortByCategory: false,
   };
 
   removeExercises = () => {
@@ -52,17 +54,60 @@ export class Exercises extends Component {
         });
     });
   };
-  sortBy = () => {
+
+  sortByExercises = () => {
     const { categoryAndExercises } = this.props;
-    let sorted = categoryAndExercises.sort((a, b) => {
-      if (a.title > b.title) {
-        return 1;
-      } else {
-        return -1;
-      }
-    });
-    this.setState({ sorted: sorted });
+    const { isSortByExercises } = this.state;
+
+    if (isSortByExercises) {
+      let sorted = categoryAndExercises.sort((a, b) => {
+        if (a.title > b.title) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+      this.setState({ sorted: sorted, isSortByExercises: false });
+    }
+    if (!isSortByExercises) {
+      let sorted = categoryAndExercises.sort((a, b) => {
+        if (a.title > b.title) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+      this.setState({ sorted: sorted, isSortByExercises: true });
+    }
   };
+
+  sortByCategory = () => {
+    const { categoryAndExercises } = this.props;
+    const { isSortByCategory } = this.state;
+
+    if (isSortByCategory) {
+      let sorted = categoryAndExercises.sort((a, b) => {
+        if (a.category_title > b.category_title) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+      this.setState({ sorted: sorted, isSortByCategory: false });
+    }
+
+    if (!isSortByCategory) {
+      let sorted = categoryAndExercises.sort((a, b) => {
+        if (a.category_title > b.category_title) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+      this.setState({ sorted: sorted, isSortByCategory: true });
+    }
+  };
+
   editExercises = (id, title, category, categoryId) => {
     this.setState({
       currentId: id,
@@ -173,6 +218,7 @@ export class Exercises extends Component {
 
   render() {
     const { categoryAndExercises } = this.props;
+
     const {
       pageSize,
       currentPage,
@@ -184,7 +230,11 @@ export class Exercises extends Component {
 
     return (
       <div className="exercises">
-        <ExercisesHeader search={this.search} />
+        <ExercisesHeader
+          search={this.search}
+          sortByExercises={this.sortByExercises}
+          sortByCategory={this.sortByCategory}
+        />
         <div className="exercises-list">
           {isOpenSearch ? (
             <ExercisesSearch
