@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./LoginPage.css";
+import SignIn from "../../components/SignIn";
+import SingUp from "../../components/SingUp";
 
 class LoginPage extends Component {
   state = {
@@ -119,6 +121,7 @@ class LoginPage extends Component {
       newUserPassword,
       newUserEmail,
     } = this.state;
+
     return (
       <div className="auth">
         {enter ? (
@@ -161,111 +164,27 @@ class LoginPage extends Component {
           </div>
         )}
         {enter ? (
-          <div>
-            <div>
-              <div className="auth-form-item">
-                <label className="auth-form-item__title">Login:</label>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="demo"
-                    className="auth-form-item__input"
-                    onChange={this.getUserLogin}
-                    value={user_login}
-                  />
-                </div>
-              </div>
-              <div className="auth-form-item">
-                <label className="auth-form-item__title">Password:</label>
-                <div>
-                  <input
-                    type="password"
-                    placeholder="demo"
-                    className="auth-form-item__input"
-                    onChange={this.getUserPassword}
-                    value={user_password}
-                  />
-                </div>
-              </div>
-              <button
-                className="auth-form-btn"
-                onClick={() => {
-                  this.authentication(user_login, user_password);
-                }}
-                disabled={!user_login || !user_password}
-              >
-                Вход
-              </button>
-            </div>
-          </div>
+          <SignIn
+            getUserLogin={this.getUserLogin}
+            getUserLoginValue={user_login}
+            getUserPassword={this.getUserPassword}
+            getUserPasswordValue={user_password}
+            authentication={() => {
+              this.authentication(user_login, user_password);
+            }}
+          />
         ) : (
-          <div>
-            <div>
-              <div className="auth-form-item">
-                <label className="auth-form-item__title">Имя:</label>
-                <div>
-                  <input
-                    type="text"
-                    className="auth-form-item__input"
-                    onChange={this.getnewUserName}
-                    value={newUserName}
-                  />
-                </div>
-              </div>
-              {/* <div className="auth-form-item">
-                <label className="auth-form-item__title">Фамилия:</label>
-                <div>
-                  <input
-                    type="text"
-                    className="auth-form-item__input"
-                    onChange={this.getnewUserSurName}
-                    value={newUserSurName}
-                  />
-                </div>
-              </div> */}
-              <div className="auth-form-item">
-                <label className="auth-form-item__title">Login:</label>
-                <div>
-                  <input
-                    type="text"
-                    className="auth-form-item__input"
-                    onChange={this.getNewUserLogin}
-                    value={newUserLogin}
-                  />
-                </div>
-                {this.state.errorLoginMessage}
-              </div>
-              <div className="auth-form-item">
-                <label className="auth-form-item__title">Password:</label>
-                <div>
-                  <input
-                    type="password"
-                    className="auth-form-item__input"
-                    onChange={this.getNewUserPassword}
-                    value={newUserPassword}
-                  />
-                </div>
-              </div>
-              <div className="auth-form-item">
-                <label className="auth-form-item__title">E-mail:</label>
-                <div>
-                  <input
-                    type="text"
-                    className="auth-form-item__input"
-                    onChange={this.getNewUserEmail}
-                    value={newUserEmail}
-                  />
-                </div>
-              </div>
-            </div>
-            <button
-              className="auth-form-btn"
-              onClick={this.registerNewUser}
-              disabled={!newUserLogin || !newUserPassword || !newUserEmail}
-            >
-              Зарегестрироваться
-            </button>
-          </div>
+          <SingUp
+            registerNewUser={this.registerNewUser}
+            getnewUserName={this.getnewUserName}
+            newUserName={newUserName}
+            getNewUserLogin={this.getNewUserLogin}
+            newUserLogin={newUserLogin}
+            getNewUserPassword={this.getNewUserPassword}
+            newUserPassword={newUserPassword}
+            getNewUserEmail={this.getNewUserEmail}
+            newUserEmail={newUserEmail}
+          />
         )}
       </div>
     );
