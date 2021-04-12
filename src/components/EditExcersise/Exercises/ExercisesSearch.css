@@ -1,14 +1,3 @@
-.exercises-header-item__exercise-search-btn {
-  background-color: #fff;
-  outline: none;
-  border: none;
-}
-
-.exercises-header-item__exercise-search-btn:hover {
-  cursor: pointer;
-  color: #4285f4;
-}
-
 .exercises-header-item__exercise-search {
   display: flex;
   justify-content: space-around;

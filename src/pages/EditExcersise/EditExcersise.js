@@ -28,13 +28,13 @@ export class EditExcersise extends Component {
   };
   componentDidMount() {
     this.getAllCategories();
-    this.getAllExcersises();
+    // this.getAllExcersises();
     this.getFullData();
   }
 
   componentWillUnmount() {
     this.getAllCategories();
-    this.getAllExcersises();
+    // this.getAllExcersises();
     this.getFullData();
   }
 
@@ -44,13 +44,13 @@ export class EditExcersise extends Component {
       this.getFullData();
       this.setState({ isGetAllCategories: false });
     }
-    if (this.state.isGetAllExcersises !== prevState.isGetAllExcersises) {
-      this.getAllExcersises();
-      this.setState({ isGetAllExcersises: false });
-    }
+    // if (this.state.isGetAllExcersises !== prevState.isGetAllExcersises) {
+    //   this.getAllExcersises();
+    //   this.setState({ isGetAllExcersises: false });
+    // }
     if (this.state.isGetFullData !== prevState.isGetFullData) {
       this.getFullData();
-      this.setState({ isGetAllExcersises: false });
+      this.setState({ isGetFullData: false });
     }
   }
 
@@ -62,13 +62,13 @@ export class EditExcersise extends Component {
       .then((data) => this.setState({ categoryOfExercises: data }));
   };
 
-  getAllExcersises = () => {
-    fetch("http://localhost:3001/custom-excersises", {
-      headers: { token: localStorage.getItem("token") },
-    })
-      .then((res) => res.json())
-      .then((data) => this.setState({ exercisesList: data }));
-  };
+  // getAllExcersises = () => {
+  //   fetch("http://localhost:3001/custom-excersises", {
+  //     headers: { token: localStorage.getItem("token") },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => this.setState({ exercisesList: data }));
+  // };
 
   getFullData = () => {
     fetch(`http://localhost:3001/custom-categories-all`, {

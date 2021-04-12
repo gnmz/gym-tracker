@@ -283,8 +283,6 @@ app.post("/custom-excersises", (req, res) => {
                       res.status(200).send({
                         message: `Упражнение ${CreateExcersiseTitle} с описанием успешно добавлено в категорию ${CreateCategoryTitle}`,
                       });
-                    } else {
-                      console.log(err);
                     }
                   }
                 );
@@ -324,8 +322,6 @@ app.put("/custom-excersises", (req, res) => {
             }
           }
         );
-      } else {
-        console.log(err);
       }
     }
   );

@@ -11,6 +11,8 @@ class PastTrainingPage extends Component {
     comment: "",
     is_completed: true,
     excersises: [],
+    start_train: "",
+    stop_train: "",
   };
   componentDidMount() {
     const id = this.props.match.params.id;
@@ -27,6 +29,8 @@ class PastTrainingPage extends Component {
           title: data[0].title,
           excersises: JSON.parse(data[0].excersises),
           comment: data[0].COMMENT,
+          start_train: data[0].start_train,
+          stop_train: data[0].stop_train,
         })
       );
   };

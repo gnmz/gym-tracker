@@ -1,18 +1,12 @@
 .exercises-header {
   display: flex;
   justify-content: space-around;
+  padding: 5px 0;
 }
 
 .exercises-header-item__exercise-title {
   text-align: center;
   width: 50%;
-  padding: 5px 0;
-}
-
-.exercises-header-item__exercise-category {
-  text-align: center;
-  width: 30%;
-  padding: 5px 0;
 }
 
 .exercises-header-item__exercise-remove {
@@ -29,4 +23,28 @@
   cursor: pointer;
   opacity: 1;
   color: #4285f4;
+}
+
+.exercises-header-item__exercise-search-btn {
+  background-color: #fff;
+  outline: none;
+  border: none;
+}
+
+.exercises-header-item__exercise-search-btn:hover,
+.exercises-header-item__exercise-title:hover,
+.exercises-header-item__exercise-category:hover {
+  cursor: pointer;
+  color: #4285f4;
+}
+
+.exercises-header-item__exercise-title,
+.exercises-header-item__exercise-category {
+  display: flex;
+  justify-content: center;
+}
+
+.exercises-header-item__exercise-category {
+  text-align: center;
+  width: 30%;
 }

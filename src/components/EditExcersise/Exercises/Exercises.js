@@ -233,6 +233,8 @@ export class Exercises extends Component {
         <ExercisesHeader
           search={this.search}
           sortByExercises={this.sortByExercises}
+          isSortByExercises={this.state.isSortByExercises}
+          isSortByCategory={this.state.isSortByCategory}
           sortByCategory={this.sortByCategory}
         />
         <div className="exercises-list">
