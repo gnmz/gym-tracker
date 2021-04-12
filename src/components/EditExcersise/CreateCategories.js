@@ -8,7 +8,7 @@ export class CreateCategories extends Component {
   //Создание категории
   createCategories = () => {
     const isLoading = this.props.isLoading;
-    fetch(`http://localhost:3001/custom-categories`, {
+    fetch(`/custom-categories`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
