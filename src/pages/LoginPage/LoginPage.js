@@ -122,7 +122,7 @@ class LoginPage extends Component {
       newUserPassword,
       newUserEmail,
     } = this.state;
-    console.log(user_login, user_password);
+
     return (
       <div className="auth">
         {enter ? (
