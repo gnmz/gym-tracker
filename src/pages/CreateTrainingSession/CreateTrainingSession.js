@@ -5,10 +5,9 @@ import "./CreateTrainigSession.css";
 import DescriptionWindow from "../../components/DescriptionWindow";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
-
+import TextField from "@material-ui/core/TextField";
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 class CreateTrainingSession extends Component {
@@ -29,7 +28,19 @@ class CreateTrainingSession extends Component {
   };
   componentDidMount() {
     // this.getCategoryOfExercises();
+    this.changeDateFormat(this.state.currentDate);
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.currentDate !== prevState.currentDate) {
+      this.changeDateFormat(this.state.currentDate);
+    }
+  }
+
+  componentWillUnmount() {
+    this.changeDateFormat();
+  }
+
   //получаем список категорий упражнений
   getCategoryOfExercises = () => {
     const { isCustomExercises, categoryOfExercises } = this.state;
@@ -98,18 +109,40 @@ class CreateTrainingSession extends Component {
           is_completed: false,
         },
         isClicked: true,
-      },
-      () => {
-        fetch(`http://localhost:3001/trains`, {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-            token: localStorage.getItem("token"),
-          },
-          body: JSON.stringify(this.state.savedTrain),
-        });
       }
+      // () => {
+      //   fetch(`http://localhost:3001/trains`, {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-type": "application/json",
+      //       token: localStorage.getItem("token"),
+      //     },
+      //     body: JSON.stringify(this.state.savedTrain),
+      //   });
+      // }
     );
+  };
+
+  //Изменение даты в формат YYYY-MM-DD
+
+  changeDateFormat = (date) => {
+    let year = new Date(date).getFullYear();
+    let month = new Date(date).getMonth() + 1;
+    let day = new Date(date).getDate();
+    let newDate = "";
+    if (month < 10 && day < 10) {
+      this.setState({ trainDate: `${year}-0${month}-0${day}` });
+      return (newDate = `${year}-0${month}-0${day}`);
+    }
+    if (month < 10) {
+      this.setState({ trainDate: `${year}-0${month}-${day}` });
+    }
+    if (day < 10) {
+      this.setState({ trainDate: `${year}-${month}-0${day}` });
+    }
+    if (month > 10 && day > 10) {
+      this.setState({ trainDate: `${year}-${month}-${day}` });
+    }
   };
 
   //получаем значение из инпута повторений
@@ -169,46 +202,16 @@ class CreateTrainingSession extends Component {
   };
 
   handleDateChange = (date) => {
-    const { currentDate, isClickedCurrentDate } = this.state;
-    if (!isClickedCurrentDate) {
-      let newDate = date;
-      let years = `${new Date(newDate).getFullYear()}`;
-      let month = new Date(newDate).getMonth() + 1;
-      let day = `${new Date(newDate).getDate()}`;
-      if (month < 10) {
-        let newMonth = `0${month}`;
-        this.setState({ currentDate: `${years}-${newMonth}-${day}` });
-      }
-      if (day < 10) {
-        let newDay = `0${day}`;
-        this.setState({ currentDate: `${years}-${month}-${newDay}` });
-      }
-      if (month < 10 && day < 10) {
-        this.setState({ currentDate: `${years}-0${month}-0${day}` });
-      }
-    }
-    if(!isClickedCurrentDate && currentDate === new Date()) {
-      
-    }
+    this.setState({ currentDate: date });
   };
 
   render() {
-    console.log(this.state.currentDate);
     const { description, showDescription, trainDate, trainName } = this.state;
+    console.log(this.state.currentDate);
     return (
       <div className="create-train-page">
         <h2 className="create-train-page__title">Запланируй тренировку</h2>
         <div className="create-train-page__properties">
-          <label className="create-train-property">
-            Дата тренировки
-            <input
-              className="create-train-property__input"
-              type="text"
-              placeholder="2020-05-09"
-              value={trainDate}
-              onChange={this.handleDate}
-            />
-          </label>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
               disableToolbar
@@ -224,15 +227,18 @@ class CreateTrainingSession extends Component {
               }}
             />
           </MuiPickersUtilsProvider>
-          <label className="create-train-property">
-            Название тренировки
-            <input
-              className="create-train-property__input"
-              type="text"
-              value={trainName}
-              onChange={this.handleTrainName}
-            />
-          </label>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="trainName"
+            label="Название тренировки"
+            name="trainName"
+            size="small"
+            value={trainName}
+            onChange={this.handleTrainName}
+          />
         </div>
         <h2 className="create-train-page__title">Выбери набор категорий</h2>
         <div className="create-train-program__actions">
@@ -357,7 +363,6 @@ class CreateTrainingSession extends Component {
             ))}
           </div>
         ) : null}
-
         {this.state.createTrain.length && trainName && trainDate ? (
           !this.state.isClicked ? (
             <button

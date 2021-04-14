@@ -12,6 +12,10 @@
 
 .create-train-page__properties {
   margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .create-train-program__actions {
