@@ -25,8 +25,7 @@ export class SingUp extends Component {
           required
           fullWidth
           id="firstName"
-          label="Имя"
-          autoFocus
+          label="Name"
           size="small"
           onChange={getnewUserName}
           value={newUserName}
@@ -39,7 +38,7 @@ export class SingUp extends Component {
           required
           fullWidth
           id="login"
-          label="Логин"
+          label="Login"
           size="small"
           onChange={getNewUserLogin}
           value={newUserLogin}

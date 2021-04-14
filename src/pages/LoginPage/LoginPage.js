@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./LoginPage.css";
 import SignIn from "../../components/SignIn";
 import SingUp from "../../components/SingUp";
+import Button from "@material-ui/core/Button";
 
 class LoginPage extends Component {
   state = {
@@ -65,7 +66,7 @@ class LoginPage extends Component {
         },
       },
       () => {
-        fetch(`/reg`, {
+        fetch(`http://localhost:3001/reg`, {
           method: "POST",
           headers: {
             "Content-type": "application/json",
@@ -84,7 +85,7 @@ class LoginPage extends Component {
         },
       },
       () => {
-        fetch(`/auth`, {
+        fetch(`http://localhost:3001/auth`, {
           method: "POST",
           headers: {
             "Content-type": "application/json",
@@ -121,46 +122,50 @@ class LoginPage extends Component {
       newUserPassword,
       newUserEmail,
     } = this.state;
-
+    console.log(user_login, user_password);
     return (
       <div className="auth">
         {enter ? (
           <div className="auth-choose-action">
-            <span
+            <Button
+              variant="contained"
+              color="primary"
               onClick={() => {
                 this.clickerHandler("aut");
               }}
-              className="auth-choose-action__button active"
             >
               Вход
-            </span>
-            <span
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
               onClick={() => {
                 this.clickerHandler("reg");
               }}
-              className="auth-choose-action__button default"
             >
               Регистрация
-            </span>
+            </Button>
           </div>
         ) : (
           <div className="auth-choose-action">
-            <span
+            <Button
               onClick={() => {
                 this.clickerHandler("aut");
               }}
-              className="auth-choose-action__button default"
+              variant="outlined"
+              color="primary"
             >
               Вход
-            </span>
-            <span
+            </Button>
+            <Button
               onClick={() => {
                 this.clickerHandler("reg");
               }}
-              className="auth-choose-action__button active"
+              variant="contained"
+              color="primary"
             >
               Регистрация
-            </span>
+            </Button>
           </div>
         )}
         {enter ? (

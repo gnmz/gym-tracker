@@ -21,7 +21,6 @@ export class SignIn extends Component {
           label="Login"
           name="login"
           autoComplete="login"
-          autoFocus
           size="small"
           value={getUserLoginValue}
           onChange={getUserLogin}

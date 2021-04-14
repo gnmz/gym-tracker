@@ -3,7 +3,14 @@ import ChooseWorkout from "../../components/ChooseWorkout";
 import { Link } from "react-router-dom";
 import "./CreateTrainigSession.css";
 import DescriptionWindow from "../../components/DescriptionWindow";
+import "date-fns";
+import DateFnsUtils from "@date-io/date-fns";
 
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
 class CreateTrainingSession extends Component {
   state = {
     categoryOfExercises: [],
@@ -17,6 +24,8 @@ class CreateTrainingSession extends Component {
     showDescription: false,
     description: "",
     isCustomExercises: false,
+    currentDate: new Date(),
+    isClickedCurrentDate: false,
   };
   componentDidMount() {
     // this.getCategoryOfExercises();
@@ -26,7 +35,7 @@ class CreateTrainingSession extends Component {
     const { isCustomExercises, categoryOfExercises } = this.state;
     if (!isCustomExercises || categoryOfExercises.length <= 0) {
       this.setState({ isCustomExercises: true, exercisesList: [] }, () => {
-        fetch("/categories")
+        fetch("http://localhost:3001/categories")
           .then((res) => res.json())
           .then((data) => this.setState({ categoryOfExercises: data }));
       });
@@ -34,7 +43,7 @@ class CreateTrainingSession extends Component {
   };
   //получаем список упражнений по id категорий
   getExercisesList = (id) => {
-    fetch(`/excersise?categoryId=${id}`)
+    fetch(`http://localhost:3001/excersise?categoryId=${id}`)
       .then((res) => res.json())
       .then((data) => this.setState({ exercisesList: data }));
   };
@@ -44,7 +53,7 @@ class CreateTrainingSession extends Component {
     const { isCustomExercises, categoryOfExercises } = this.state;
     if (isCustomExercises || categoryOfExercises.length <= 0) {
       this.setState({ isCustomExercises: false, exercisesList: [] }, () => {
-        fetch("/custom-categories", {
+        fetch("http://localhost:3001/custom-categories", {
           headers: { token: localStorage.getItem("token") },
         })
           .then((res) => res.json())
@@ -54,7 +63,7 @@ class CreateTrainingSession extends Component {
   };
 
   getCustomExercisesList = (id) => {
-    fetch(`/custom-excersises?categoryId=${id}`, {
+    fetch(`http://localhost:3001/custom-excersises?categoryId=${id}`, {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
@@ -91,7 +100,7 @@ class CreateTrainingSession extends Component {
         isClicked: true,
       },
       () => {
-        fetch(`/trains`, {
+        fetch(`http://localhost:3001/trains`, {
           method: "POST",
           headers: {
             "Content-type": "application/json",
@@ -159,7 +168,32 @@ class CreateTrainingSession extends Component {
     }
   };
 
+  handleDateChange = (date) => {
+    const { currentDate, isClickedCurrentDate } = this.state;
+    if (!isClickedCurrentDate) {
+      let newDate = date;
+      let years = `${new Date(newDate).getFullYear()}`;
+      let month = new Date(newDate).getMonth() + 1;
+      let day = `${new Date(newDate).getDate()}`;
+      if (month < 10) {
+        let newMonth = `0${month}`;
+        this.setState({ currentDate: `${years}-${newMonth}-${day}` });
+      }
+      if (day < 10) {
+        let newDay = `0${day}`;
+        this.setState({ currentDate: `${years}-${month}-${newDay}` });
+      }
+      if (month < 10 && day < 10) {
+        this.setState({ currentDate: `${years}-0${month}-0${day}` });
+      }
+    }
+    if(!isClickedCurrentDate && currentDate === new Date()) {
+      
+    }
+  };
+
   render() {
+    console.log(this.state.currentDate);
     const { description, showDescription, trainDate, trainName } = this.state;
     return (
       <div className="create-train-page">
@@ -175,6 +209,21 @@ class CreateTrainingSession extends Component {
               onChange={this.handleDate}
             />
           </label>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              disableToolbar
+              variant="block"
+              format="dd/MM/yyyy"
+              margin="normal"
+              id="date-picker-inline"
+              label="Дата тренировки"
+              value={this.state.currentDate}
+              onChange={this.handleDateChange}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+            />
+          </MuiPickersUtilsProvider>
           <label className="create-train-property">
             Название тренировки
             <input
