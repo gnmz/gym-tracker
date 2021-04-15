@@ -4,14 +4,9 @@ import CreateTrainingSessionActions from "../../components/CreateTrainingSession
 import { Link } from "react-router-dom";
 import "./CreateTrainigSession.css";
 import DescriptionWindow from "../../components/DescriptionWindow";
-import "date-fns";
-import DateFnsUtils from "@date-io/date-fns";
-import TextField from "@material-ui/core/TextField";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+
 import CreateTrainingSessionCategories from "../../components/CreateTrainingSession/CreateTrainingSessionCategories/CreateTrainingSessionCategories";
+import CreateTrainingSessionProperties from "../../components/CreateTrainingSession/CreateTrainingSessionProperties/CreateTrainingSessionProperties";
 
 class CreateTrainingSession extends Component {
   state = {
@@ -207,39 +202,23 @@ class CreateTrainingSession extends Component {
   };
 
   render() {
-    const { description, showDescription, trainDate, trainName } = this.state;
+    const {
+      description,
+      showDescription,
+      trainDate,
+      trainName,
+      currentDate,
+    } = this.state;
     return (
       <div className="create-train-page">
         <h2 className="create-train-page__title">Запланируй тренировку</h2>
-        <div className="create-train-page__properties">
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              disableToolbar
-              variant="block"
-              format="dd/MM/yyyy"
-              margin="normal"
-              id="date-picker-inline"
-              label="Дата тренировки"
-              value={this.state.currentDate}
-              onChange={this.handleDateChange}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-            />
-          </MuiPickersUtilsProvider>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="trainName"
-            label="Название тренировки"
-            name="trainName"
-            size="small"
-            value={trainName}
-            onChange={this.handleTrainName}
-          />
-        </div>
+        <CreateTrainingSessionProperties
+          currentDate={currentDate}
+          handleDateChange={this.handleDateChange}
+          trainName={trainName}
+          handleTrainName={this.handleTrainName}
+        />
+
         <CreateTrainingSessionActions
           getCategoryOfExercises={this.getCategoryOfExercises}
           getCustomCategoryOfExercises={this.getCustomCategoryOfExercises}

@@ -4,14 +4,6 @@
   box-sizing: border-box;
 }
 
-.create-train-page__properties {
-  margin-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  margin: 0 auto;
-}
-
 .create-train-property {
   font-size: 14px;
   text-align: left;
