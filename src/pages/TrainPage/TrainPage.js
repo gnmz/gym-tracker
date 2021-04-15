@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 
 import "./TrainPage.css";
-import Button from "@material-ui/core/Button";
+
 import Loader from "../../components/Loader/Loader";
 import TrainPageFinishedTrain from "../../components/TrainPage/TrainPageFinishedTrain/TrainPageFinishedTrain";
 import TrainPageHeader from "../../components/TrainPage/TrainPageHeader/TrainPageHeader";
 import TrainPageList from "../../components/TrainPage/TrainPageList/TrainPageList";
+import TrainPageComment from "../../components/TrainPage/TrainPageComment/TrainPageComment";
 
 class TrainPage extends Component {
   state = {
@@ -49,14 +50,13 @@ class TrainPage extends Component {
       is_completed: true,
       stopTrain: new Date(),
     };
-    // fetch(`http://localhost:3001/trains`, {
-    //   method: "PUT",
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // });
-    console.log(data);
+    fetch(`http://localhost:3001/trains`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
   };
   // получаем значение из инпута факт повторения
   handleFactNumberRepetitions = (id, e) => {
@@ -92,28 +92,6 @@ class TrainPage extends Component {
     this.setState({ start: true, startTrain: start });
   };
 
-  // stopTrain = () => {
-  //   let stop = new Date();
-  //   this.setState({ stopTrain: stop }, () => {
-  //     let start = this.state.startTrain;
-  //     let stop = this.state.stopTrain;
-  //     console.log(
-  //       `${stop.getHours() - start.getHours()} - ${this.trainTime(
-  //         start.getMinutes(),
-  //         60
-  //       )}  `
-  //     );
-  //   });
-  // };
-
-  // trainTime = (startTime, stopTime) => {
-  //   if (stopTime.getMinutes() - startTime.getMinutes() < 10) {
-  //     return `0${stopTime.getMinutes() - startTime.getMinutes()}`;
-  //   } else {
-  //     return stopTime.getMinutes() - startTime.getMinutes();
-  //   }
-  // };
-
   disabledTrain = () => {
     const { start } = this.state;
     if (!start) {
@@ -143,14 +121,7 @@ class TrainPage extends Component {
               handleFactNumberRepetitions={this.handleFactNumberRepetitions}
               handleFactWeight={this.handleFactWeight}
             />
-            <div>
-              <h2 className="train-page__title">Оставь комментарий:</h2>
-              <textarea
-                className="train-page_text-area"
-                onChange={this.getComment}
-                disabled={!start}
-              ></textarea>
-            </div>
+            <TrainPageComment getComment={this.getComment} startTrain={start} />
           </>
         )}
         <TrainPageFinishedTrain
