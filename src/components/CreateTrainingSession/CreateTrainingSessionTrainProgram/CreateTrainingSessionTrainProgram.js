@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import CreateTrainingSessionPageTitle from "../CreateTrainingSessionPageTitle/CreateTrainingSessionPageTitle";
 
+import DeleteIcon from "@material-ui/icons/Delete";
 import "./CreateTrainingSessionTrainProgram.css";
 
 export class CreateTrainingSessionTrainProgram extends Component {
@@ -57,15 +58,7 @@ export class CreateTrainingSessionTrainProgram extends Component {
                 removeWorkout(item.id);
               }}
             >
-              удалить
-            </button>
-            <button
-              className="create-train-program-item__remove-altr"
-              onClick={() => {
-                this.removeWorkout(item.id);
-              }}
-            >
-              X
+              <DeleteIcon className="remove-icon"></DeleteIcon>
             </button>
           </div>
         ))}
