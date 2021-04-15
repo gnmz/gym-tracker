@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import ChooseWorkout from "../../components/ChooseWorkout";
-import CreateTrainingSessionActions from "../../components/CreateTrainingSession/CreateTrainingSessionActions/CreateTrainingSessionActions";
 import { Link } from "react-router-dom";
-import "./CreateTrainigSession.css";
+import CreateTrainingSessionActions from "../../components/CreateTrainingSession/CreateTrainingSessionActions/CreateTrainingSessionActions";
 import DescriptionWindow from "../../components/DescriptionWindow";
-
 import CreateTrainingSessionCategories from "../../components/CreateTrainingSession/CreateTrainingSessionCategories/CreateTrainingSessionCategories";
 import CreateTrainingSessionProperties from "../../components/CreateTrainingSession/CreateTrainingSessionProperties/CreateTrainingSessionProperties";
+import CreateTrainingSessionPageTitle from "../../components/CreateTrainingSession/CreateTrainingSessionPageTitle/CreateTrainingSessionPageTitle";
+
+import "./CreateTrainigSession.css";
 
 class CreateTrainingSession extends Component {
   state = {
@@ -25,7 +25,6 @@ class CreateTrainingSession extends Component {
     isClickedCurrentDate: false,
   };
   componentDidMount() {
-    // this.getCategoryOfExercises();
     this.changeDateFormat(this.state.currentDate);
   }
 
@@ -211,7 +210,7 @@ class CreateTrainingSession extends Component {
     } = this.state;
     return (
       <div className="create-train-page">
-        <h2 className="create-train-page__title">Запланируй тренировку</h2>
+        <CreateTrainingSessionPageTitle title="Запланируй тренировку" />
         <CreateTrainingSessionProperties
           currentDate={currentDate}
           handleDateChange={this.handleDateChange}
@@ -224,7 +223,7 @@ class CreateTrainingSession extends Component {
           getCustomCategoryOfExercises={this.getCustomCategoryOfExercises}
         />
         {this.state.categoryOfExercises.length <= 0 ? null : (
-          <h2 className="create-train-page__title">Выбери категорию</h2>
+          <CreateTrainingSessionPageTitle title="Выбери категорию" />
         )}
         <CreateTrainingSessionCategories
           categoryOfExercises={this.state.categoryOfExercises}
@@ -235,7 +234,7 @@ class CreateTrainingSession extends Component {
 
         {this.state.exercisesList.length ? (
           <div className="create-train-excersises">
-            <h2 className="create-train-page__title">Выбери упражнение</h2>
+            <CreateTrainingSessionPageTitle title="Выбери упражнение" />
             <div className="create-train-workout-list">
               {this.state.exercisesList.map((item) => (
                 <button
@@ -253,7 +252,8 @@ class CreateTrainingSession extends Component {
         ) : null}
         {this.state.createTrain.length ? (
           <div className="create-train-program">
-            <h2 className="create-train-page__title">Программа тренировки</h2>
+            <CreateTrainingSessionPageTitle title="Программа тренировки" />
+
             {this.state.createTrain.map((item) => (
               <div className="create-train-program-item" key={item.id}>
                 <p className="create-train-program-item__title">
