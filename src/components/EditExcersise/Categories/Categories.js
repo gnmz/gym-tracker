@@ -41,7 +41,7 @@ export class Categories extends Component {
     };
     const loading = this.props.isLoading;
     this.setState({ editTitleCategory: false }, () => {
-      fetch("http://localhost:3001/custom-categories", {
+      fetch("/custom-categories", {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
@@ -76,7 +76,7 @@ export class Categories extends Component {
     };
     const loading = this.props.isLoading;
     this.setState({ deleteCategory: false, chooseCategory: [] }, () => {
-      fetch("http://localhost:3001/custom-categories", {
+      fetch("/custom-categories", {
         method: "DELETE",
         headers: {
           "Content-type": "application/json",

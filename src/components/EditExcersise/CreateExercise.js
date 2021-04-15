@@ -16,7 +16,7 @@ export class CreateExercise extends Component {
 
   createExcersise = () => {
     const isLoading = this.props.isLoading;
-    fetch("http://localhost:3001/custom-excersises", {
+    fetch("/custom-excersises", {
       method: "POST",
       headers: {
         "Content-type": "application/json",

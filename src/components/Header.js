@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 class Header extends Component {
   // componentDidMount() {
-  //   fetch("http://localhost:3001/user")
+  //   fetch("/user")
   //     .then((res) => res.json())
   //     .then((data) => {
   //       const { token } = data;
