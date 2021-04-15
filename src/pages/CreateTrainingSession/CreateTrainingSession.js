@@ -5,10 +5,11 @@ import DescriptionWindow from "../../components/DescriptionWindow";
 import CreateTrainingSessionCategories from "../../components/CreateTrainingSession/CreateTrainingSessionCategories/CreateTrainingSessionCategories";
 import CreateTrainingSessionProperties from "../../components/CreateTrainingSession/CreateTrainingSessionProperties/CreateTrainingSessionProperties";
 import CreateTrainingSessionPageTitle from "../../components/CreateTrainingSession/CreateTrainingSessionPageTitle/CreateTrainingSessionPageTitle";
-
-import "./CreateTrainigSession.css";
 import CreateTrainingSessionExcersises from "../../components/CreateTrainingSession/CreateTrainingSessionExcersises/CreateTrainingSessionExcersises";
 import CreateTrainigSessionSavedTrain from "../../components/CreateTrainingSession/CreateTrainigSessionSavedTrain/CreateTrainigSessionSavedTrain";
+
+import "./CreateTrainigSession.css";
+import { CreateTrainingSessionTrainProgram } from "../../components/CreateTrainingSession/CreateTrainingSessionTrainProgram/CreateTrainingSessionTrainProgram";
 
 class CreateTrainingSession extends Component {
   state = {
@@ -110,14 +111,15 @@ class CreateTrainingSession extends Component {
         isClicked: true,
       },
       () => {
-        fetch(`http://localhost:3001/trains`, {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-            token: localStorage.getItem("token"),
-          },
-          body: JSON.stringify(this.state.savedTrain),
-        });
+        // fetch(`http://localhost:3001/trains`, {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-type": "application/json",
+        //     token: localStorage.getItem("token"),
+        //   },
+        //   body: JSON.stringify(this.state.savedTrain),
+        // });
+        console.log(this.state.savedTrain);
       }
     );
   };
@@ -242,63 +244,12 @@ class CreateTrainingSession extends Component {
         ) : null}
 
         {this.state.createTrain.length ? (
-          <div className="create-train-program">
-            <CreateTrainingSessionPageTitle title="Программа тренировки" />
-
-            {this.state.createTrain.map((item) => (
-              <div className="create-train-program-item" key={item.id}>
-                <p className="create-train-program-item__title">
-                  {item.excersise_name}
-                </p>
-                <button
-                  className="create-train-program-item__description-button"
-                  onClick={() => {
-                    this.showDescription(item.id);
-                  }}
-                >
-                  ?
-                </button>
-                <label className="create-train-program-item__property">
-                  <input
-                    type="text"
-                    className="create-train-program-item__input"
-                    value={item.plan_rep ? item.plan_rep : ""}
-                    onChange={(e) => {
-                      this.handleNumberRepetitions(item.id, e);
-                    }}
-                  />
-                  раз
-                </label>
-                <label className="create-train-program-item__property">
-                  <input
-                    type="text"
-                    className="create-train-program-item__input"
-                    value={item.plan_weight ? item.plan_weight : ""}
-                    onChange={(e) => {
-                      this.handleworkingWeight(item.id, e);
-                    }}
-                  />
-                  кг
-                </label>
-                <button
-                  className="create-train-program-item__remove"
-                  onClick={() => {
-                    this.removeWorkout(item.id);
-                  }}
-                >
-                  удалить
-                </button>
-                <button
-                  className="create-train-program-item__remove-altr"
-                  onClick={() => {
-                    this.removeWorkout(item.id);
-                  }}
-                >
-                  X
-                </button>
-              </div>
-            ))}
-          </div>
+          <CreateTrainingSessionTrainProgram
+            createTrain={this.state.createTrain}
+            handleNumberRepetitions={this.handleNumberRepetitions}
+            handleworkingWeight={this.handleworkingWeight}
+            removeWorkout={this.removeWorkout}
+          />
         ) : null}
         {this.state.createTrain.length && trainName && trainDate ? (
           <CreateTrainigSessionSavedTrain
