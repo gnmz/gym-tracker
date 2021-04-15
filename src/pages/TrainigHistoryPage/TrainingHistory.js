@@ -12,7 +12,7 @@ class TrainingHistory extends Component {
   }
   //Получаем список истории тренировок и сортируем его
   getTrainingHistoryList = () => {
-    fetch("/trains?type=hist", {
+    fetch("http://localhost:3001/trains?type=hist", {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())

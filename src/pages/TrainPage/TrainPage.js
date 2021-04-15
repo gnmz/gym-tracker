@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import dayjs from "dayjs";
+
 import "./TrainPage.css";
-import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 import Loader from "../../components/Loader/Loader";
+import TrainPageFinishedTrain from "../../components/TrainPage/TrainPageFinishedTrain/TrainPageFinishedTrain";
+import TrainPageHeader from "../../components/TrainPage/TrainPageHeader/TrainPageHeader";
 
 class TrainPage extends Component {
   state = {
@@ -24,7 +26,7 @@ class TrainPage extends Component {
   }
   //получаем тренировку
   getCurrentTrain = (id) => {
-    fetch(`/trains/${id}`, {
+    fetch(`http://localhost:3001/trains/${id}`, {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
@@ -46,13 +48,14 @@ class TrainPage extends Component {
       is_completed: true,
       stopTrain: new Date(),
     };
-    fetch(`/trains`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    // fetch(`http://localhost:3001/trains`, {
+    //   method: "PUT",
+    //   headers: {
+    //     "Content-type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // });
+    console.log(data);
   };
   // получаем значение из инпута факт повторения
   handleFactNumberRepetitions = (id, e) => {
@@ -127,18 +130,12 @@ class TrainPage extends Component {
           <Loader />
         ) : (
           <>
-            <h2 className="train-page__title">
-              {dayjs(this.state.date).format("DD MMM YYYY")}, {this.state.title}
-            </h2>
-            {start ? null : (
-              <button
-                onClick={this.startTrain}
-                className="train-page_complete-button"
-              >
-                Начать тренировку
-              </button>
-            )}
-
+            <TrainPageHeader
+              trainDate={this.state.date}
+              trainTitle={this.state.title}
+              startTrain={this.startTrain}
+              start={this.state.start}
+            />
             {this.state.excersises.map((item) => (
               <div className="train-page-item" key={item.id}>
                 <p className="train-page-item__title">{item.excersise_name}</p>
@@ -180,16 +177,11 @@ class TrainPage extends Component {
             </div>
           </>
         )}
-        {!this.state.isClicked && start ? (
-          <button
-            onClick={this.endOfTraining}
-            className="train-page_complete-button"
-          >
-            Тренировка завершена
-          </button>
-        ) : (
-          <Link to="/main">Вернуться к списку тренировок</Link>
-        )}
+        <TrainPageFinishedTrain
+          endOfTraining={this.endOfTraining}
+          isClicked={this.state.isClicked}
+          startTrain={this.state.start}
+        />
       </div>
     );
   }

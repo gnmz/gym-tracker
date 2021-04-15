@@ -1,0 +1,8 @@
+.train-page__finished-train-button {
+  display: block !important;
+  margin: 0 auto !important;
+}
+
+.train-page__finished-train {
+  margin: 20px auto;
+}

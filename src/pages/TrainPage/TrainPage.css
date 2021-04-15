@@ -54,6 +54,11 @@ textarea {
   box-sizing: border-box;
 }
 
+.train-page__start-train-button {
+  display: block !important;
+  margin: 0 auto !important;
+}
+
 .train-page_complete-button {
   display: block;
   margin: 20px auto;
