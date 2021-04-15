@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+
 import CreateTrainingSessionActions from "../../components/CreateTrainingSession/CreateTrainingSessionActions/CreateTrainingSessionActions";
 import DescriptionWindow from "../../components/DescriptionWindow";
 import CreateTrainingSessionCategories from "../../components/CreateTrainingSession/CreateTrainingSessionCategories/CreateTrainingSessionCategories";
@@ -8,6 +8,7 @@ import CreateTrainingSessionPageTitle from "../../components/CreateTrainingSessi
 
 import "./CreateTrainigSession.css";
 import CreateTrainingSessionExcersises from "../../components/CreateTrainingSession/CreateTrainingSessionExcersises/CreateTrainingSessionExcersises";
+import CreateTrainigSessionSavedTrain from "../../components/CreateTrainingSession/CreateTrainigSessionSavedTrain/CreateTrainigSessionSavedTrain";
 
 class CreateTrainingSession extends Component {
   state = {
@@ -300,17 +301,12 @@ class CreateTrainingSession extends Component {
           </div>
         ) : null}
         {this.state.createTrain.length && trainName && trainDate ? (
-          !this.state.isClicked ? (
-            <button
-              className="create-train-program__save"
-              onClick={this.recordTrain}
-            >
-              Сохранить
-            </button>
-          ) : (
-            <Link to="/main">Перейти к тренировкам</Link>
-          )
+          <CreateTrainigSessionSavedTrain
+            isClicked={this.state.isClicked}
+            recordTrain={this.recordTrain}
+          />
         ) : null}
+
         {showDescription ? (
           <DescriptionWindow
             title={description.excersise_name}
