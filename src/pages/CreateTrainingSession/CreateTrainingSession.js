@@ -7,6 +7,7 @@ import CreateTrainingSessionProperties from "../../components/CreateTrainingSess
 import CreateTrainingSessionPageTitle from "../../components/CreateTrainingSession/CreateTrainingSessionPageTitle/CreateTrainingSessionPageTitle";
 
 import "./CreateTrainigSession.css";
+import CreateTrainingSessionExcersises from "../../components/CreateTrainingSession/CreateTrainingSessionExcersises/CreateTrainingSessionExcersises";
 
 class CreateTrainingSession extends Component {
   state = {
@@ -233,23 +234,12 @@ class CreateTrainingSession extends Component {
         />
 
         {this.state.exercisesList.length ? (
-          <div className="create-train-excersises">
-            <CreateTrainingSessionPageTitle title="Выбери упражнение" />
-            <div className="create-train-workout-list">
-              {this.state.exercisesList.map((item) => (
-                <button
-                  key={item.id}
-                  className="create-train-workout-list__button"
-                  onClick={() => {
-                    this.addWorkout(item.title);
-                  }}
-                >
-                  {item.title}
-                </button>
-              ))}
-            </div>
-          </div>
+          <CreateTrainingSessionExcersises
+            exercisesList={this.state.exercisesList}
+            addWorkout={this.addWorkout}
+          />
         ) : null}
+
         {this.state.createTrain.length ? (
           <div className="create-train-program">
             <CreateTrainingSessionPageTitle title="Программа тренировки" />

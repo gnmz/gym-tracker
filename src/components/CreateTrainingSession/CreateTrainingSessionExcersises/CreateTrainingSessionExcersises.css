@@ -1,0 +1,13 @@
+.create-train-workout-list__button {
+  height: 70px;
+
+  font-size: 13px !important;
+  text-transform: none !important;
+}
+
+@media screen and (min-width: 320px) and (max-width: 991px) {
+  .create-train-workout-list__button {
+    height: 80px;
+    padding: 0;
+  }
+}
