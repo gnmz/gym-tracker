@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ChooseWorkout from "../../components/ChooseWorkout";
+import CreateTrainingSessionActions from "../../components/CreateTrainingSession/CreateTrainingSessionActions";
 import { Link } from "react-router-dom";
 import "./CreateTrainigSession.css";
 import DescriptionWindow from "../../components/DescriptionWindow";
@@ -10,6 +11,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
+
 class CreateTrainingSession extends Component {
   state = {
     categoryOfExercises: [],
@@ -129,10 +131,8 @@ class CreateTrainingSession extends Component {
     let year = new Date(date).getFullYear();
     let month = new Date(date).getMonth() + 1;
     let day = new Date(date).getDate();
-    let newDate = "";
     if (month < 10 && day < 10) {
       this.setState({ trainDate: `${year}-0${month}-0${day}` });
-      return (newDate = `${year}-0${month}-0${day}`);
     }
     if (month < 10) {
       this.setState({ trainDate: `${year}-0${month}-${day}` });
@@ -240,21 +240,10 @@ class CreateTrainingSession extends Component {
             onChange={this.handleTrainName}
           />
         </div>
-        <h2 className="create-train-page__title">Выбери набор категорий</h2>
-        <div className="create-train-program__actions">
-          <button
-            className="create-train-program__save"
-            onClick={this.getCategoryOfExercises}
-          >
-            Готовые категори
-          </button>
-          <button
-            className="create-train-program__save"
-            onClick={this.getCustomCategoryOfExercises}
-          >
-            Свои категори
-          </button>
-        </div>
+        <CreateTrainingSessionActions
+          getCategoryOfExercises={this.getCategoryOfExercises}
+          getCustomCategoryOfExercises={this.getCustomCategoryOfExercises}
+        />
         {this.state.categoryOfExercises.length <= 0 ? null : (
           <h2 className="create-train-page__title">Выбери категорию</h2>
         )}
