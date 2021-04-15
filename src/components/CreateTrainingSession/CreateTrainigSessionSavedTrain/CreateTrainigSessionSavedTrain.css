@@ -1,4 +1,5 @@
 .create-train-program__save {
   display: block !important;
   margin: 0 auto !important;
+  display: flex !important;
 }

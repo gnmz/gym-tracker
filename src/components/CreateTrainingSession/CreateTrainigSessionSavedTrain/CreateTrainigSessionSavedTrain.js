@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import Button from "@material-ui/core/Button";
 import "./CreateTrainigSessionSavedTrain.css";
+import SaveIcon from "@material-ui/icons/Save";
 
 export class CreateTrainigSessionSavedTrain extends Component {
   render() {
@@ -15,6 +16,8 @@ export class CreateTrainigSessionSavedTrain extends Component {
             variant="contained"
             className="create-train-program__save"
             onClick={recordTrain}
+            size="small"
+            startIcon={<SaveIcon />}
           >
             Сохранить
           </Button>
