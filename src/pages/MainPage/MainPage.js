@@ -5,6 +5,8 @@ import ChooseTrain from "../../components/ChooseTrain";
 import Logout from "../../components/Logout";
 import Loader from "../../components/Loader/Loader";
 
+import Button from "@material-ui/core/Button";
+
 class MainPage extends Component {
   state = {
     createdTrainingSessions: [],
@@ -43,19 +45,31 @@ class MainPage extends Component {
         <Logout history={this.props.history} />
         <div className="main-page__choose-action">
           <Link to="/create-trainig-session">
-            <button className="main-page__choose-action-btn">
+            <Button
+              variant="outlined"
+              color="primary"
+              className="main-page__choose-action-btn"
+            >
               Создать тренировку
-            </button>
+            </Button>
           </Link>
           <Link to="/train-history">
-            <button className="main-page__choose-action-btn">
+            <Button
+              variant="outlined"
+              color="primary"
+              className="main-page__choose-action-btn"
+            >
               История тренировок
-            </button>
+            </Button>
           </Link>
           <Link to="/edit-exercises">
-            <button className="main-page__choose-action-btn">
+            <Button
+              variant="outlined"
+              color="primary"
+              className="main-page__choose-action-btn"
+            >
               Редактировать упраженения
-            </button>
+            </Button>
           </Link>
         </div>
         <h2 className="main-page__title">Запланированные тренировки</h2>
