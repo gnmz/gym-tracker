@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ChooseWorkout from "../../components/ChooseWorkout";
-import CreateTrainingSessionActions from "../../components/CreateTrainingSession/CreateTrainingSessionActions";
+import CreateTrainingSessionActions from "../../components/CreateTrainingSession/CreateTrainingSessionActions/CreateTrainingSessionActions";
 import { Link } from "react-router-dom";
 import "./CreateTrainigSession.css";
 import DescriptionWindow from "../../components/DescriptionWindow";
@@ -11,6 +11,7 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
+import CreateTrainingSessionCategories from "../../components/CreateTrainingSession/CreateTrainingSessionCategories/CreateTrainingSessionCategories";
 
 class CreateTrainingSession extends Component {
   state = {
@@ -207,7 +208,6 @@ class CreateTrainingSession extends Component {
 
   render() {
     const { description, showDescription, trainDate, trainName } = this.state;
-    console.log(this.state.currentDate);
     return (
       <div className="create-train-page">
         <h2 className="create-train-page__title">Запланируй тренировку</h2>
@@ -247,35 +247,13 @@ class CreateTrainingSession extends Component {
         {this.state.categoryOfExercises.length <= 0 ? null : (
           <h2 className="create-train-page__title">Выбери категорию</h2>
         )}
-        {!this.state.isCustomExercises ? (
-          <>
-            <div className="create-train-workout-list">
-              {this.state.categoryOfExercises.map((item) => (
-                <ChooseWorkout
-                  key={item.id}
-                  workoutName={item.title}
-                  onClick={() => {
-                    this.getCustomExercisesList(item.id);
-                  }}
-                />
-              ))}
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="create-train-workout-list">
-              {this.state.categoryOfExercises.map((item) => (
-                <ChooseWorkout
-                  key={item.id}
-                  workoutName={item.title}
-                  onClick={() => {
-                    this.getExercisesList(item.id);
-                  }}
-                />
-              ))}
-            </div>
-          </>
-        )}
+        <CreateTrainingSessionCategories
+          categoryOfExercises={this.state.categoryOfExercises}
+          isCustomExercises={this.state.isCustomExercises}
+          getCustomExercisesList={this.getCustomExercisesList}
+          getExercisesList={this.getExercisesList}
+        />
+
         {this.state.exercisesList.length ? (
           <div className="create-train-excersises">
             <h2 className="create-train-page__title">Выбери упражнение</h2>

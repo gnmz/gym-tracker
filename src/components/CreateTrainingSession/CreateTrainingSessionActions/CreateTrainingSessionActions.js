@@ -18,7 +18,6 @@ export class CreateTrainingSessionActions extends Component {
     } else {
       return "outlined";
     }
-    // outlined
   };
 
   chooseAction = (item) => {
