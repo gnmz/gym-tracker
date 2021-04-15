@@ -109,17 +109,17 @@ class CreateTrainingSession extends Component {
           is_completed: false,
         },
         isClicked: true,
+      },
+      () => {
+        fetch(`http://localhost:3001/trains`, {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+            token: localStorage.getItem("token"),
+          },
+          body: JSON.stringify(this.state.savedTrain),
+        });
       }
-      // () => {
-      //   fetch(`http://localhost:3001/trains`, {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-type": "application/json",
-      //       token: localStorage.getItem("token"),
-      //     },
-      //     body: JSON.stringify(this.state.savedTrain),
-      //   });
-      // }
     );
   };
 
