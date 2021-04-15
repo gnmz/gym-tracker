@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import Loader from "../../components/Loader/Loader";
 import TrainPageFinishedTrain from "../../components/TrainPage/TrainPageFinishedTrain/TrainPageFinishedTrain";
 import TrainPageHeader from "../../components/TrainPage/TrainPageHeader/TrainPageHeader";
+import TrainPageList from "../../components/TrainPage/TrainPageList/TrainPageList";
 
 class TrainPage extends Component {
   state = {
@@ -136,37 +137,12 @@ class TrainPage extends Component {
               startTrain={this.startTrain}
               start={this.state.start}
             />
-            {this.state.excersises.map((item) => (
-              <div className="train-page-item" key={item.id}>
-                <p className="train-page-item__title">{item.excersise_name}</p>
-                <label className="train-page-item__property">
-                  <input
-                    type="text"
-                    className="train-page-item__input"
-                    disabled={!start}
-                    value={item.fact_rep ? item.fact_rep : ""}
-                    onChange={(e) => {
-                      this.handleFactNumberRepetitions(item.id, e);
-                    }}
-                  />
-                  / {item.plan_rep} р
-                </label>
-                {item.plan_weight ? (
-                  <label className="train-page-item__property">
-                    <input
-                      type="text"
-                      className="train-page-item__input"
-                      disabled={!start}
-                      value={item.fact_weight ? item.fact_weight : ""}
-                      onChange={(e) => {
-                        this.handleFactWeight(item.id, e);
-                      }}
-                    />
-                    / {item.plan_weight} кг
-                  </label>
-                ) : null}
-              </div>
-            ))}
+            <TrainPageList
+              excersises={this.state.excersises}
+              startTrain={this.state.start}
+              handleFactNumberRepetitions={this.handleFactNumberRepetitions}
+              handleFactWeight={this.handleFactWeight}
+            />
             <div>
               <h2 className="train-page__title">Оставь комментарий:</h2>
               <textarea
