@@ -48,7 +48,7 @@ export class SignIn extends Component {
           color="primary"
           onClick={authentication}
         >
-          Sign In
+          Вход
         </Button>
       </div>
     );

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./MainPage.css";
 import ChooseTrain from "../../components/ChooseTrain";
-import Logout from "../../components/Logout";
+
 import Loader from "../../components/Loader/Loader";
 
 import Button from "@material-ui/core/Button";
@@ -44,7 +44,6 @@ class MainPage extends Component {
   render() {
     return (
       <div className="main-page">
-        <Logout history={this.props.history} />
         <BreadCrumbsGymsTracker breadCrumb={this.state.mainPage} />
         <div className="main-page__choose-action">
           <Link to="/create-trainig-session">

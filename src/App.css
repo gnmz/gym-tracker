@@ -38,26 +38,3 @@ body {
   text-decoration: none;
   color: #4285f4;
 }
-
-.logout {
-  position: relative;
-  top: -120px;
-  /* top: 25px; */
-  /* left: 950px; */
-  float: right;
-  /* position: absolute; */
-}
-
-.logout-btn {
-  display: inline-block;
-  padding: 5px;
-  margin-right: 10px;
-  background-color: #fff;
-  border: 1px solid #4285f4;
-  border-radius: 5px;
-}
-
-.logout-btn:hover {
-  color: #4285f4;
-  cursor: pointer;
-}
