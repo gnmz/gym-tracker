@@ -6,11 +6,13 @@ import Logout from "../../components/Logout";
 import Loader from "../../components/Loader/Loader";
 
 import Button from "@material-ui/core/Button";
+import BreadCrumbsGymsTracker from "../../components/BreadCrumbsGymsTracker/BreadCrumbsGymsTracker";
 
 class MainPage extends Component {
   state = {
     createdTrainingSessions: [],
     stopFetchedData: false,
+    mainPage: [{ id: 1, title: "main" }],
   };
   componentDidMount() {
     this.getCreatedTrainingSessinos();
@@ -43,6 +45,7 @@ class MainPage extends Component {
     return (
       <div className="main-page">
         <Logout history={this.props.history} />
+        <BreadCrumbsGymsTracker breadCrumb={this.state.mainPage} />
         <div className="main-page__choose-action">
           <Link to="/create-trainig-session">
             <Button

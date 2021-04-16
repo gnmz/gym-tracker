@@ -1,0 +1,12 @@
+.bread-crumbs {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.MuiPaper-elevation1 {
+  box-shadow: none !important;
+}
+
+.MuiTypography-body1 {
+  font-size: 12px !important;
+}

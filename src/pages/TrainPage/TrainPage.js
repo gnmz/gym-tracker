@@ -7,6 +7,7 @@ import TrainPageFinishedTrain from "../../components/TrainPage/TrainPageFinished
 import TrainPageHeader from "../../components/TrainPage/TrainPageHeader/TrainPageHeader";
 import TrainPageList from "../../components/TrainPage/TrainPageList/TrainPageList";
 import TrainPageComment from "../../components/TrainPage/TrainPageComment/TrainPageComment";
+import BreadCrumbsGymsTracker from "../../components/BreadCrumbsGymsTracker/BreadCrumbsGymsTracker";
 
 class TrainPage extends Component {
   state = {
@@ -21,11 +22,16 @@ class TrainPage extends Component {
     startTrain: "",
     stopTrain: "",
     start: false,
+    trainPage: [
+      { id: 1, title: "Main", link: "/main" },
+      { id: 2, title: "" },
+    ],
   };
   componentDidMount() {
     const id = this.props.match.params.id;
     this.getCurrentTrain(id);
   }
+
   //получаем тренировку
   getCurrentTrain = (id) => {
     fetch(`http://localhost:3001/trains/${id}`, {
@@ -33,14 +39,28 @@ class TrainPage extends Component {
     })
       .then((res) => res.json())
       .then((data) =>
-        this.setState({
-          id: data[0].id,
-          date: data[0].DATE,
-          title: data[0].title,
-          excersises: JSON.parse(data[0].excersises),
-        })
+        this.setState(
+          {
+            id: data[0].id,
+            date: data[0].DATE,
+            title: data[0].title,
+            excersises: JSON.parse(data[0].excersises),
+          },
+          () => {
+            this.createBreadCrumbs(this.state.title);
+          }
+        )
       );
   };
+
+  createBreadCrumbs = (title) => {
+    const data = [
+      { id: 1, title: "Главная", link: "/main" },
+      { id: 2, title: title },
+    ];
+    this.setState({ trainPage: data });
+  };
+
   //заканчиваем тренировку
   endOfTraining = () => {
     this.setState({ isClicked: true });
@@ -104,31 +124,40 @@ class TrainPage extends Component {
   render() {
     const { start } = this.state;
     return (
-      <div className={this.disabledTrain()}>
-        {this.state.id.length <= 0 ? (
-          <Loader />
-        ) : (
-          <>
-            <TrainPageHeader
-              trainDate={this.state.date}
-              trainTitle={this.state.title}
-              startTrain={this.startTrain}
-              start={this.state.start}
-            />
-            <TrainPageList
-              excersises={this.state.excersises}
-              startTrain={this.state.start}
-              handleFactNumberRepetitions={this.handleFactNumberRepetitions}
-              handleFactWeight={this.handleFactWeight}
-            />
-            <TrainPageComment getComment={this.getComment} startTrain={start} />
-          </>
+      <div>
+        {this.state.id.length <= 0 ? null : (
+          <BreadCrumbsGymsTracker breadCrumb={this.state.trainPage} />
         )}
-        <TrainPageFinishedTrain
-          endOfTraining={this.endOfTraining}
-          isClicked={this.state.isClicked}
-          startTrain={this.state.start}
-        />
+        <div className={this.disabledTrain()}>
+          {this.state.id.length <= 0 ? (
+            <Loader />
+          ) : (
+            <>
+              <TrainPageHeader
+                trainDate={this.state.date}
+                trainTitle={this.state.title}
+                startTrain={this.startTrain}
+                start={this.state.start}
+              />
+              <TrainPageList
+                excersises={this.state.excersises}
+                startTrain={this.state.start}
+                handleFactNumberRepetitions={this.handleFactNumberRepetitions}
+                handleFactWeight={this.handleFactWeight}
+              />
+              <TrainPageComment
+                getComment={this.getComment}
+                startTrain={start}
+              />
+
+              <TrainPageFinishedTrain
+                endOfTraining={this.endOfTraining}
+                isClicked={this.state.isClicked}
+                startTrain={this.state.start}
+              />
+            </>
+          )}
+        </div>
       </div>
     );
   }

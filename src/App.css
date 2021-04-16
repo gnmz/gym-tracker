@@ -32,6 +32,7 @@ body {
 }
 
 .header__title {
+  text-align: center;
   font-family: "Montserrat Alternates", sans-serif;
   margin: 0 0 50px;
   text-decoration: none;

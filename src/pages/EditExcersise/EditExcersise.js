@@ -3,6 +3,7 @@ import Categories from "../../components/EditExcersise/Categories/Categories";
 import CreateCategories from "../../components/EditExcersise/CreateCategories";
 import CreateExercise from "../../components/EditExcersise/CreateExercise";
 import Exercises from "../../components/EditExcersise/Exercises/Exercises";
+import BreadCrumbsGymsTracker from "../../components/BreadCrumbsGymsTracker/BreadCrumbsGymsTracker";
 
 import "./EditExcersise.css";
 
@@ -25,6 +26,10 @@ export class EditExcersise extends Component {
     isGetAllCategories: false,
     isGetAllExcersises: false,
     isGetFullData: false,
+    editExcersisePage: [
+      { id: 1, title: "Главная", link: "/main" },
+      { id: 2, title: "Настройка упражнений" },
+    ],
   };
   componentDidMount() {
     this.getAllCategories();
@@ -150,9 +155,10 @@ export class EditExcersise extends Component {
       newCategoryOfExercises,
     } = this.state;
     return (
-      <>
+      <div>
+        <BreadCrumbsGymsTracker breadCrumb={this.state.editExcersisePage} />
         <div className="exercise-settings">
-          <h2 className="exercise-settings__title">Настройки Упражнений</h2>
+          <h2 className="exercise-settings__title">Настройка Упражнений</h2>
           <ul className="exercise-settings-list">
             {menuList.map((item) => (
               <li
@@ -191,7 +197,7 @@ export class EditExcersise extends Component {
             />
           ) : null}
         </div>
-      </>
+      </div>
     );
   }
 }

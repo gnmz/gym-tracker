@@ -10,6 +10,7 @@ import CreateTrainigSessionSavedTrain from "../../components/CreateTrainingSessi
 
 import "./CreateTrainigSession.css";
 import { CreateTrainingSessionTrainProgram } from "../../components/CreateTrainingSession/CreateTrainingSessionTrainProgram/CreateTrainingSessionTrainProgram";
+import BreadCrumbsGymsTracker from "../../components/BreadCrumbsGymsTracker/BreadCrumbsGymsTracker";
 
 class CreateTrainingSession extends Component {
   state = {
@@ -26,6 +27,10 @@ class CreateTrainingSession extends Component {
     isCustomExercises: false,
     currentDate: new Date(),
     isClickedCurrentDate: false,
+    createTrainingSessionPage: [
+      { id: 1, title: "Главная", link: "/main" },
+      { id: 2, title: "Создание тренировки" },
+    ],
   };
   componentDidMount() {
     this.changeDateFormat(this.state.currentDate);
@@ -213,57 +218,62 @@ class CreateTrainingSession extends Component {
     } = this.state;
     return (
       <div className="create-train-page">
-        <CreateTrainingSessionPageTitle title="Запланируй тренировку" />
-        <CreateTrainingSessionProperties
-          currentDate={currentDate}
-          handleDateChange={this.handleDateChange}
-          trainName={trainName}
-          handleTrainName={this.handleTrainName}
+        <BreadCrumbsGymsTracker
+          breadCrumb={this.state.createTrainingSessionPage}
         />
-
-        <CreateTrainingSessionActions
-          getCategoryOfExercises={this.getCategoryOfExercises}
-          getCustomCategoryOfExercises={this.getCustomCategoryOfExercises}
-        />
-        {this.state.categoryOfExercises.length <= 0 ? null : (
-          <CreateTrainingSessionPageTitle title="Выбери категорию" />
-        )}
-        <CreateTrainingSessionCategories
-          categoryOfExercises={this.state.categoryOfExercises}
-          isCustomExercises={this.state.isCustomExercises}
-          getCustomExercisesList={this.getCustomExercisesList}
-          getExercisesList={this.getExercisesList}
-        />
-
-        {this.state.exercisesList.length ? (
-          <CreateTrainingSessionExcersises
-            exercisesList={this.state.exercisesList}
-            addWorkout={this.addWorkout}
+        <div className="create-train-page__wrapper">
+          <CreateTrainingSessionPageTitle title="Запланируй тренировку" />
+          <CreateTrainingSessionProperties
+            currentDate={currentDate}
+            handleDateChange={this.handleDateChange}
+            trainName={trainName}
+            handleTrainName={this.handleTrainName}
           />
-        ) : null}
 
-        {this.state.createTrain.length ? (
-          <CreateTrainingSessionTrainProgram
-            createTrain={this.state.createTrain}
-            handleNumberRepetitions={this.handleNumberRepetitions}
-            handleworkingWeight={this.handleworkingWeight}
-            removeWorkout={this.removeWorkout}
+          <CreateTrainingSessionActions
+            getCategoryOfExercises={this.getCategoryOfExercises}
+            getCustomCategoryOfExercises={this.getCustomCategoryOfExercises}
           />
-        ) : null}
-        {this.state.createTrain.length && trainName && trainDate ? (
-          <CreateTrainigSessionSavedTrain
-            isClicked={this.state.isClicked}
-            recordTrain={this.recordTrain}
+          {this.state.categoryOfExercises.length <= 0 ? null : (
+            <CreateTrainingSessionPageTitle title="Выбери категорию" />
+          )}
+          <CreateTrainingSessionCategories
+            categoryOfExercises={this.state.categoryOfExercises}
+            isCustomExercises={this.state.isCustomExercises}
+            getCustomExercisesList={this.getCustomExercisesList}
+            getExercisesList={this.getExercisesList}
           />
-        ) : null}
 
-        {showDescription ? (
-          <DescriptionWindow
-            title={description.excersise_name}
-            description={description.description}
-            onClick={this.closeDescription}
-          />
-        ) : null}
+          {this.state.exercisesList.length ? (
+            <CreateTrainingSessionExcersises
+              exercisesList={this.state.exercisesList}
+              addWorkout={this.addWorkout}
+            />
+          ) : null}
+
+          {this.state.createTrain.length ? (
+            <CreateTrainingSessionTrainProgram
+              createTrain={this.state.createTrain}
+              handleNumberRepetitions={this.handleNumberRepetitions}
+              handleworkingWeight={this.handleworkingWeight}
+              removeWorkout={this.removeWorkout}
+            />
+          ) : null}
+          {this.state.createTrain.length && trainName && trainDate ? (
+            <CreateTrainigSessionSavedTrain
+              isClicked={this.state.isClicked}
+              recordTrain={this.recordTrain}
+            />
+          ) : null}
+
+          {showDescription ? (
+            <DescriptionWindow
+              title={description.excersise_name}
+              description={description.description}
+              onClick={this.closeDescription}
+            />
+          ) : null}
+        </div>
       </div>
     );
   }
