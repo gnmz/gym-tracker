@@ -60,7 +60,7 @@ export class EditExcersise extends Component {
   }
 
   getAllCategories = () => {
-    fetch("http://localhost:3001/custom-categories", {
+    fetch("/custom-categories", {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
@@ -68,7 +68,7 @@ export class EditExcersise extends Component {
   };
 
   // getAllExcersises = () => {
-  //   fetch("http://localhost:3001/custom-excersises", {
+  //   fetch("/custom-excersises", {
   //     headers: { token: localStorage.getItem("token") },
   //   })
   //     .then((res) => res.json())
@@ -76,7 +76,7 @@ export class EditExcersise extends Component {
   // };
 
   getFullData = () => {
-    fetch(`http://localhost:3001/custom-categories-all`, {
+    fetch(`/custom-categories-all`, {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
