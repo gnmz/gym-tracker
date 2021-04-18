@@ -9,6 +9,9 @@ import "./EditExcersise.css";
 import BottomMenuList from "../../components/BottomMenuList/BottomMenuList";
 import NavigationSidebar from "../../components/NavigationSidebar/NavigationSidebar";
 
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+
 export class EditExcersise extends Component {
   state = {
     sidebarItemActive: "edit",
@@ -63,7 +66,7 @@ export class EditExcersise extends Component {
   }
 
   getAllCategories = () => {
-    fetch("/custom-categories", {
+    fetch("http://localhost:3001/custom-categories", {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
@@ -71,7 +74,7 @@ export class EditExcersise extends Component {
   };
 
   // getAllExcersises = () => {
-  //   fetch("/custom-excersises", {
+  //   fetch("http://localhost:3001/custom-excersises", {
   //     headers: { token: localStorage.getItem("token") },
   //   })
   //     .then((res) => res.json())
@@ -79,7 +82,7 @@ export class EditExcersise extends Component {
   // };
 
   getFullData = () => {
-    fetch(`/custom-categories-all`, {
+    fetch(`http://localhost:3001/custom-categories-all`, {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
@@ -126,15 +129,15 @@ export class EditExcersise extends Component {
       isCreateExercise,
     } = this.state;
     if (isCategory && item === "Категории") {
-      return "exercise-settings-list__item  exercise-settings-list__item-active";
+      return "contained";
     } else if (isExercises && item === "Упражнения") {
-      return "exercise-settings-list__item  exercise-settings-list__item-active";
+      return "contained";
     } else if (isCreateCategory && item === "Создать категорию") {
-      return "exercise-settings-list__item  exercise-settings-list__item-active";
+      return "contained";
     } else if (isCreateExercise && item === "Создать упражнение") {
-      return "exercise-settings-list__item  exercise-settings-list__item-active";
+      return "contained";
     } else {
-      return "exercise-settings-list__item";
+      return "outlined";
     }
   };
 
@@ -157,6 +160,7 @@ export class EditExcersise extends Component {
       menuList,
       newCategoryOfExercises,
     } = this.state;
+
     return (
       <div className="edit-exercise-page">
         <BottomMenuList />
@@ -167,19 +171,23 @@ export class EditExcersise extends Component {
           <div className="exercise-settings-wrapper__content">
             <div className="exercise-settings">
               <h2 className="exercise-settings__title">Настройка Упражнений</h2>
-              <ul className="exercise-settings-list">
+              <ButtonGroup
+                className="exercise-settings-list"
+                color="primary"
+                aria-label="outlined primary button group"
+              >
                 {menuList.map((item) => (
-                  <li
-                    className={this.chooseActionClass(item.title)}
+                  <Button
+                    variant={this.chooseActionClass(item.title)}
                     key={item.id}
                     onClick={() => {
                       this.chooseAction(item.title);
                     }}
                   >
                     {item.title}
-                  </li>
+                  </Button>
                 ))}
-              </ul>
+              </ButtonGroup>
               {this.state.isCategory ? (
                 <Categories
                   categoryOfExercises={categoryOfExercises}

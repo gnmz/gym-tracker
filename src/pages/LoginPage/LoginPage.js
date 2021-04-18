@@ -66,7 +66,7 @@ class LoginPage extends Component {
         },
       },
       () => {
-        fetch(`/reg`, {
+        fetch(`http://localhost:3001/reg`, {
           method: "POST",
           headers: {
             "Content-type": "application/json",
@@ -85,7 +85,7 @@ class LoginPage extends Component {
         },
       },
       () => {
-        fetch(`/auth`, {
+        fetch(`http://localhost:3001/auth`, {
           method: "POST",
           headers: {
             "Content-type": "application/json",

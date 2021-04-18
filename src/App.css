@@ -12,7 +12,8 @@ body {
 
 .app {
   max-width: 800px;
-  height: 100vh;
+  min-height: 95vh;
+  height: 100%;
   margin: 5px auto;
   display: flex;
   align-items: center;

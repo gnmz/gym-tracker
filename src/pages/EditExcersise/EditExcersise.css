@@ -26,29 +26,8 @@
 
 .exercise-settings-list {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-bottom: 20px;
-}
-
-.exercise-settings-list__item-active {
-  color: red;
-}
-
-.exercise-settings-list__item {
-  list-style: none;
-  padding: 5px;
-  background-color: #fff;
-  border: 1px solid #4285f4;
-  border-radius: 5px;
-}
-
-.exercise-settings-list__item:hover {
-  color: #4285f4;
-  cursor: pointer;
-}
-
-.exercise-settings-list__item-active:hover {
-  color: red;
 }
 
 @media screen and (min-width: 320px) and (max-width: 991px) {

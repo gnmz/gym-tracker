@@ -25,7 +25,7 @@ class MainPage extends Component {
   }
   //Получаем список созданных тренировок и сортируем их от ближайшей даты
   getCreatedTrainingSessinos = () => {
-    fetch("/trains?type=plan", {
+    fetch("http://localhost:3001/trains?type=plan", {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())

@@ -55,7 +55,7 @@ class CreateTrainingSession extends Component {
     const { isCustomExercises, categoryOfExercises } = this.state;
     if (!isCustomExercises || categoryOfExercises.length <= 0) {
       this.setState({ isCustomExercises: true, exercisesList: [] }, () => {
-        fetch("/categories")
+        fetch("http://localhost:3001/categories")
           .then((res) => res.json())
           .then((data) => this.setState({ categoryOfExercises: data }));
       });
@@ -63,7 +63,7 @@ class CreateTrainingSession extends Component {
   };
   //получаем список упражнений по id категорий
   getExercisesList = (id) => {
-    fetch(`/excersise?categoryId=${id}`)
+    fetch(`http://localhost:3001/excersise?categoryId=${id}`)
       .then((res) => res.json())
       .then((data) => this.setState({ exercisesList: data }));
   };
@@ -73,7 +73,7 @@ class CreateTrainingSession extends Component {
     const { isCustomExercises, categoryOfExercises } = this.state;
     if (isCustomExercises || categoryOfExercises.length <= 0) {
       this.setState({ isCustomExercises: false, exercisesList: [] }, () => {
-        fetch("/custom-categories", {
+        fetch("http://localhost:3001/custom-categories", {
           headers: { token: localStorage.getItem("token") },
         })
           .then((res) => res.json())
@@ -83,7 +83,7 @@ class CreateTrainingSession extends Component {
   };
 
   getCustomExercisesList = (id) => {
-    fetch(`/custom-excersises?categoryId=${id}`, {
+    fetch(`http://localhost:3001/custom-excersises?categoryId=${id}`, {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
@@ -120,7 +120,7 @@ class CreateTrainingSession extends Component {
         isClicked: true,
       },
       () => {
-        fetch(`/trains`, {
+        fetch(`http://localhost:3001/trains`, {
           method: "POST",
           headers: {
             "Content-type": "application/json",

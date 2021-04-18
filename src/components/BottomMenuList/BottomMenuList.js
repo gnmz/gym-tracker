@@ -14,7 +14,7 @@ import "./BottomMenuList.css";
 
 export class BottomMenuList extends Component {
   logout = () => {
-    fetch("/logout", {
+    fetch("http://localhost:3001/logout", {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.text())

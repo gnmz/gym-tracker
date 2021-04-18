@@ -37,7 +37,7 @@ class TrainPage extends Component {
 
   //получаем тренировку
   getCurrentTrain = (id) => {
-    fetch(`/trains/${id}`, {
+    fetch(`http://localhost:3001/trains/${id}`, {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
@@ -73,7 +73,7 @@ class TrainPage extends Component {
       is_completed: true,
       stopTrain: new Date(),
     };
-    fetch(`/trains`, {
+    fetch(`http://localhost:3001/trains`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",

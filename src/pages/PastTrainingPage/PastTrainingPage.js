@@ -28,7 +28,7 @@ class PastTrainingPage extends Component {
     this.getCurrentPastTrain(id);
   }
   getCurrentPastTrain = (id) => {
-    fetch(`/trains/${id}`, {
+    fetch(`http://localhost:3001/trains/${id}`, {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
