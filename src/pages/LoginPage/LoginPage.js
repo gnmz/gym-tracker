@@ -66,7 +66,7 @@ class LoginPage extends Component {
         },
       },
       () => {
-        fetch(`/reg`, {
+        fetch(`http://localhost:3001/reg`, {
           method: "POST",
           headers: {
             "Content-type": "application/json",
@@ -85,7 +85,7 @@ class LoginPage extends Component {
         },
       },
       () => {
-        fetch(`/auth`, {
+        fetch(`http://192.168.1.45:3001/auth`, {
           method: "POST",
           headers: {
             "Content-type": "application/json",
@@ -125,6 +125,7 @@ class LoginPage extends Component {
 
     return (
       <div className="auth">
+        <h1 className="header__title">Gym's Tracker</h1>
         {enter ? (
           <div className="auth-choose-action">
             <Button

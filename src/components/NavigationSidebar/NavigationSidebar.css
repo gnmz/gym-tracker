@@ -1,0 +1,14 @@
+.navigation-sidebar {
+  width: 15%;
+  margin-top: 30px;
+}
+
+.navigation-sidebar-list {
+  list-style: none;
+}
+
+@media screen and (min-width: 320px) and (max-width: 991px) {
+  .navigation-sidebar {
+    display: none;
+  }
+}

@@ -88,3 +88,9 @@
     transform: rotate(360deg);
   }
 }
+
+@media screen and (min-width: 320px) and (max-width: 991px) {
+  .loader {
+    flex-grow: 1;
+  }
+}

@@ -10,3 +10,9 @@
 .MuiTypography-body1 {
   font-size: 12px !important;
 }
+
+@media screen and (min-width: 320px) and (max-width: 991px) {
+  .bread-crumbs {
+    display: none;
+  }
+}

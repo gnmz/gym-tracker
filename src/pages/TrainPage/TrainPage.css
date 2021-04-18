@@ -1,7 +1,15 @@
 .train-page {
-  padding: 0 30px 50px;
   width: 100%;
   box-sizing: border-box;
+}
+
+.train-page-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.train-page-wrapper__content {
+  width: 75%;
 }
 
 .train-disabled {
@@ -80,6 +88,17 @@ a {
 }
 
 @media screen and (min-width: 320px) and (max-width: 991px) {
+  .train-page-wrapper {
+    margin-top: 70px;
+  }
+
+  .train-page-wrapper__content {
+    width: 100%;
+  }
+  .train-page-item {
+    margin: 0 5px;
+  }
+
   .train-page-item__title {
     width: 60%;
     font-size: 12px;

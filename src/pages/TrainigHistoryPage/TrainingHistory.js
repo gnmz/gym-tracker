@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import "./TrainingHistory.css";
 import Loader from "../../components/Loader/Loader";
 import BreadCrumbsGymsTracker from "../../components/BreadCrumbsGymsTracker/BreadCrumbsGymsTracker";
+import BottomMenuList from "../../components/BottomMenuList/BottomMenuList";
+import Header from "../../components/Header";
+import NavigationSidebar from "../../components/NavigationSidebar/NavigationSidebar";
 
 class TrainingHistory extends Component {
   state = {
@@ -18,7 +21,7 @@ class TrainingHistory extends Component {
   }
   //Получаем список истории тренировок и сортируем его
   getTrainingHistoryList = () => {
-    fetch("/trains?type=hist", {
+    fetch("http://localhost:3001/trains?type=hist", {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
@@ -36,25 +39,35 @@ class TrainingHistory extends Component {
   render() {
     const { historyTrainList, trainHistoryPage } = this.state;
     return (
-      <div>
-        {historyTrainList.length > 0 ? (
-          <>
-            <BreadCrumbsGymsTracker breadCrumb={trainHistoryPage} />
-            <div className="history-page">
-              {/* <h2 className="history-page__title">Прошедшие тренировки</h2> */}
-              <div className="history-page__trains">
-                {historyTrainList.map((item) => (
-                  <Link to={`/train-history/${item.id}`} key={item.id}>
-                    <ChooseTrain date={item.DATE} title={item.title} />
-                  </Link>
-                ))}
-              </div>
+      <>
+        <div className="history-page">
+          <BottomMenuList />
+          <Header />
+          <BreadCrumbsGymsTracker breadCrumb={trainHistoryPage} />
+          <div className="history-page-wrapper">
+            <NavigationSidebar />
+            <div className="history-page-wrapper__content">
+              <h2 className="main-page__title">История тренировок</h2>
+              {historyTrainList.length > 0 ? (
+                <>
+                  <div className="history-page">
+                    {/* <h2 className="history-page__title">Прошедшие тренировки</h2> */}
+                    <div className="history-page__trains">
+                      {historyTrainList.map((item) => (
+                        <Link to={`/train-history/${item.id}`} key={item.id}>
+                          <ChooseTrain date={item.DATE} title={item.title} />
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <Loader />
+              )}
             </div>
-          </>
-        ) : (
-          <Loader />
-        )}
-      </div>
+          </div>
+        </div>
+      </>
     );
   }
 }

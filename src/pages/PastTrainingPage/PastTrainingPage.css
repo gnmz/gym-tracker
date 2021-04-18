@@ -2,6 +2,14 @@
   display: flex;
   justify-content: space-between;
 }
+.past-train-page-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.past-train-page-wrapper__content {
+  width: 75%;
+}
 
 .past-train-page__button-back {
   display: block;
@@ -22,7 +30,6 @@
 }
 
 .past-train-page {
-  padding: 0 30px 50px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -63,5 +70,15 @@
     font-size: 12px;
     margin-right: 10px;
     width: 40%;
+  }
+  .past-train-page-wrapper__content {
+    width: 100%;
+  }
+  .past-train-page-wrapper {
+    margin: 70px 5px 0;
+  }
+  .past-train-page {
+    min-height: 100vh;
+    height: 100%;
   }
 }

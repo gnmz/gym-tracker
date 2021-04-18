@@ -1,5 +1,4 @@
 .history-page {
-  padding: 0 30px 50px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -22,7 +21,25 @@
   color: black;
 }
 
+.history-page-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.history-page-wrapper__content {
+  width: 75%;
+}
+
 @media screen and (min-width: 320px) and (max-width: 991px) {
+  .history-page {
+    min-height: 100vh;
+  }
+
+  .history-page-wrapper__content {
+    width: 100%;
+    margin: 70px 5px 0;
+  }
+
   .history-page__trains {
     width: 100%;
     display: grid;

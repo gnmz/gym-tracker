@@ -35,7 +35,7 @@ export class Exercises extends Component {
     };
     const isLoading = this.props.isLoading;
     this.setState({ deleteExercises: false }, () => {
-      fetch("/custom-excersises", {
+      fetch("http://localhost:3001/custom-excersises", {
         method: "DELETE",
         headers: {
           "Content-type": "application/json",
@@ -127,7 +127,7 @@ export class Exercises extends Component {
       newTitle: newTitle,
     };
     const isLoading = this.props.isLoading;
-    fetch("/custom-excersises", {
+    fetch("http://localhost:3001/custom-excersises", {
       method: "PUT",
       headers: {
         "Content-type": "application/json",

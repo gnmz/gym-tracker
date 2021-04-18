@@ -1,0 +1,16 @@
+.bottom-navigation {
+  display: block;
+  position: fixed;
+  z-index: 20;
+  top: 0;
+}
+
+@media screen and (min-width: 320px) and (max-width: 991px) {
+  .bottom-navigation {
+    display: block;
+    width: 100vw;
+  }
+  .MuiBottomNavigationAction-root {
+    min-width: 20vw !important;
+  }
+}

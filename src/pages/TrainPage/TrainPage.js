@@ -8,6 +8,9 @@ import TrainPageHeader from "../../components/TrainPage/TrainPageHeader/TrainPag
 import TrainPageList from "../../components/TrainPage/TrainPageList/TrainPageList";
 import TrainPageComment from "../../components/TrainPage/TrainPageComment/TrainPageComment";
 import BreadCrumbsGymsTracker from "../../components/BreadCrumbsGymsTracker/BreadCrumbsGymsTracker";
+import Header from "../../components/Header";
+import NavigationSidebar from "../../components/NavigationSidebar/NavigationSidebar";
+import BottomMenuList from "../../components/BottomMenuList/BottomMenuList";
 
 class TrainPage extends Component {
   state = {
@@ -34,7 +37,7 @@ class TrainPage extends Component {
 
   //получаем тренировку
   getCurrentTrain = (id) => {
-    fetch(`/trains/${id}`, {
+    fetch(`http://localhost:3001/trains/${id}`, {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.json())
@@ -70,7 +73,7 @@ class TrainPage extends Component {
       is_completed: true,
       stopTrain: new Date(),
     };
-    fetch(`/trains`, {
+    fetch(`http://localhost:3001/trains`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -124,39 +127,48 @@ class TrainPage extends Component {
   render() {
     const { start } = this.state;
     return (
-      <div>
+      <div className="train-page">
+        <BottomMenuList />
+        <Header />
         {this.state.id.length <= 0 ? null : (
           <BreadCrumbsGymsTracker breadCrumb={this.state.trainPage} />
         )}
-        <div className={this.disabledTrain()}>
-          {this.state.id.length <= 0 ? (
-            <Loader />
-          ) : (
-            <>
-              <TrainPageHeader
-                trainDate={this.state.date}
-                trainTitle={this.state.title}
-                startTrain={this.startTrain}
-                start={this.state.start}
-              />
-              <TrainPageList
-                excersises={this.state.excersises}
-                startTrain={this.state.start}
-                handleFactNumberRepetitions={this.handleFactNumberRepetitions}
-                handleFactWeight={this.handleFactWeight}
-              />
-              <TrainPageComment
-                getComment={this.getComment}
-                startTrain={start}
-              />
+        <div className="train-page-wrapper">
+          <NavigationSidebar />
+          <div className="train-page-wrapper__content">
+            <div className={this.disabledTrain()}>
+              {this.state.id.length <= 0 ? (
+                <Loader />
+              ) : (
+                <>
+                  <TrainPageHeader
+                    trainDate={this.state.date}
+                    trainTitle={this.state.title}
+                    startTrain={this.startTrain}
+                    start={this.state.start}
+                  />
+                  <TrainPageList
+                    excersises={this.state.excersises}
+                    startTrain={this.state.start}
+                    handleFactNumberRepetitions={
+                      this.handleFactNumberRepetitions
+                    }
+                    handleFactWeight={this.handleFactWeight}
+                  />
+                  <TrainPageComment
+                    getComment={this.getComment}
+                    startTrain={start}
+                  />
 
-              <TrainPageFinishedTrain
-                endOfTraining={this.endOfTraining}
-                isClicked={this.state.isClicked}
-                startTrain={this.state.start}
-              />
-            </>
-          )}
+                  <TrainPageFinishedTrain
+                    endOfTraining={this.endOfTraining}
+                    isClicked={this.state.isClicked}
+                    startTrain={this.state.start}
+                  />
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     );
