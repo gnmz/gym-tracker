@@ -16,14 +16,14 @@
   grid-gap: 0.5rem;
 }
 
-.history-page a {
-  text-decoration: none;
-  color: black;
-}
-
 .history-page-wrapper {
   display: flex;
   justify-content: space-between;
+}
+
+.history-page__trains-link {
+  text-decoration: none;
+  color: black;
 }
 
 .history-page-wrapper__content {

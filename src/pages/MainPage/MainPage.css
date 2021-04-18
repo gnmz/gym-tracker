@@ -34,13 +34,14 @@
   padding: 0 20px;
 }
 
+.main-page__trains-link {
+  text-decoration: none;
+  color: black;
+}
+
 .main-page__choose-action-btn:hover {
   color: #4285f4;
   cursor: pointer;
-}
-.main-page a {
-  text-decoration: none;
-  color: black;
 }
 
 .main-page__title {

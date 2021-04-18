@@ -27,10 +27,6 @@ body {
   width: 100%;
 }
 
-.header a {
-  text-decoration: none;
-}
-
 .header__title {
   text-align: center;
   font-family: "Montserrat Alternates", sans-serif;

@@ -14,6 +14,12 @@ export class NavigationSidebar extends Component {
     }
     if (item === "create train" && item === acitveItem) {
       return "contained";
+    }
+    if (item === "train history" && item === acitveItem) {
+      return "contained";
+    }
+    if (item === "edit" && item === acitveItem) {
+      return "contained";
     } else {
       return "outlined";
     }
@@ -45,13 +51,16 @@ export class NavigationSidebar extends Component {
             Создать тренировку
           </Button>
           <Button
+            variant={this.isActive("train history")}
             className="navigation-sidebar-list__item"
             component={Link}
             to="/train-history"
           >
             История тренировок
           </Button>
+
           <Button
+            variant={this.isActive("edit")}
             className="navigation-sidebar-list__item"
             component={Link}
             to="/edit-exercises"

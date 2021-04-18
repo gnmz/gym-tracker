@@ -62,6 +62,7 @@ class MainPage extends Component {
                     to={`/train/${item.id}`}
                     className="train-link"
                     key={item.id}
+                    className="main-page__trains-link"
                   >
                     <ChooseTrain date={item.DATE} title={item.title} />
                   </Link>

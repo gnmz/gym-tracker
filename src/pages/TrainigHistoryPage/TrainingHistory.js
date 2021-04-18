@@ -10,6 +10,7 @@ import NavigationSidebar from "../../components/NavigationSidebar/NavigationSide
 
 class TrainingHistory extends Component {
   state = {
+    sidebarItemActive: "train history",
     historyTrainList: [],
     trainHistoryPage: [
       { id: 1, title: "Главная", link: "/main" },
@@ -45,7 +46,7 @@ class TrainingHistory extends Component {
           <Header />
           <BreadCrumbsGymsTracker breadCrumb={trainHistoryPage} />
           <div className="history-page-wrapper">
-            <NavigationSidebar />
+            <NavigationSidebar acitveItem={this.state.sidebarItemActive} />
             <div className="history-page-wrapper__content">
               <h2 className="main-page__title">История тренировок</h2>
               {historyTrainList.length > 0 ? (
@@ -54,7 +55,11 @@ class TrainingHistory extends Component {
                     {/* <h2 className="history-page__title">Прошедшие тренировки</h2> */}
                     <div className="history-page__trains">
                       {historyTrainList.map((item) => (
-                        <Link to={`/train-history/${item.id}`} key={item.id}>
+                        <Link
+                          to={`/train-history/${item.id}`}
+                          key={item.id}
+                          className="history-page__trains-link"
+                        >
                           <ChooseTrain date={item.DATE} title={item.title} />
                         </Link>
                       ))}

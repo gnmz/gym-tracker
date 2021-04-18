@@ -11,6 +11,7 @@ import NavigationSidebar from "../../components/NavigationSidebar/NavigationSide
 
 export class EditExcersise extends Component {
   state = {
+    sidebarItemActive: "edit",
     isCategory: false,
     isExercises: false,
     isCreateExercise: false,
@@ -162,7 +163,7 @@ export class EditExcersise extends Component {
         <Header />
         <BreadCrumbsGymsTracker breadCrumb={this.state.editExcersisePage} />
         <div className="exercise-settings-wrapper">
-          <NavigationSidebar />
+          <NavigationSidebar acitveItem={this.state.sidebarItemActive} />
           <div className="exercise-settings-wrapper__content">
             <div className="exercise-settings">
               <h2 className="exercise-settings__title">Настройка Упражнений</h2>
