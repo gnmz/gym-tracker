@@ -29,7 +29,6 @@ export class CreateCategories extends Component {
             bodyModal: `${data.error} - ${this.state.categories_title}`,
           });
         } else {
-          // alert(`Категория ${this.state.categories_title} успешно добавлена`);
           this.setState({
             bodyModal: `Категория ${this.state.categories_title} успешно добавлена`,
             isOpenModal: true,

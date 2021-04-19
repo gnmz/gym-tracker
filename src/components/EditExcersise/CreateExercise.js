@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+
+import EditExcersiseModalNotificationWindow from "./EditExcersiseModalNotificationWindow/EditExcersiseModalNotificationWindow";
+
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -21,6 +24,8 @@ export class CreateExercise extends Component {
     isOptionSelected: false,
     checkbox: false,
     exerciseDescription: "",
+    isOpenModal: false,
+    bodyModal: "",
   };
 
   createExcersise = () => {
@@ -36,10 +41,16 @@ export class CreateExercise extends Component {
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          alert(`${data.error}`);
+          this.setState({
+            isOpenModal: true,
+            bodyModal: `${data.error}`,
+          });
         }
         if (data.message) {
-          alert(`${data.message}`);
+          this.setState({
+            bodyModal: `${data.message}`,
+            isOpenModal: true,
+          });
           isLoading(true);
         }
       });
@@ -71,6 +82,10 @@ export class CreateExercise extends Component {
     } else if (checkbox) {
       this.setState({ checkbox: false });
     }
+  };
+
+  handleClose = (item) => {
+    this.setState({ isOpenModal: item });
   };
 
   render() {
@@ -166,6 +181,11 @@ export class CreateExercise extends Component {
             </Paper>
           </>
         )}
+        <EditExcersiseModalNotificationWindow
+          open={this.state.isOpenModal}
+          body={this.state.bodyModal}
+          handleClose={this.handleClose}
+        />
       </div>
     );
   }

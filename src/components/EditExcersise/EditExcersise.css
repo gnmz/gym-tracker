@@ -17,6 +17,7 @@
 }
 
 .create-exercise {
+  position: relative;
   display: flex;
   justify-content: space-between;
 }
