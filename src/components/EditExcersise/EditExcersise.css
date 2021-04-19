@@ -25,70 +25,13 @@
   width: 35%;
 }
 
-.create-exercise-drop-down-container,
-.create-exercise-drop-down-container-active {
-  padding: 5px;
-  background-color: #fff;
-  border: 1px solid #4285f4;
-  border-radius: 5px;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-}
-
-.create-exercise-drop-down-container-active {
-  border: 2px solid #4285f4;
-}
-
-.create-exercise-drop-down-list {
-  background: #ffffff;
-  border: 1px solid #4285f4;
-  box-sizing: border-box;
-  box-shadow: 0px 4px 8px rgba(44, 39, 56, 0.04),
-    0px 20px 20px rgba(44, 39, 56, 0.04);
-  border-radius: 6px;
-  margin-top: 4px;
-  padding: 12px 0;
-  position: relative;
-}
-
-.create-exercise-drop-down-list-item {
-  list-style-type: none;
-  padding: 5px;
-}
-
-.create-exercise-drop-down-list-item:hover {
-  background-color: #ebf4f8;
-  color: #4285f4;
-  cursor: pointer;
-}
-
-.strelka-bottom-3 {
-  margin: 0;
-  width: 16px;
-  height: 9px;
-  cursor: pointer;
-  margin-right: 11px;
-}
-
-.strelka-bottom-3 path {
-  fill: #4285f4;
-  transition: fill 0.5s ease-out;
-}
-.strelka-bottom-3 {
-  transform: rotate(90deg);
-}
-
 .select-test-option:active {
   color: #4285f4;
 }
 
 .create-exercise-properties {
-  width: 60%;
   height: 250px;
   padding: 0 5px;
-  border: 1px solid #4285f4;
-  border-radius: 6px;
 }
 
 .create-exercise-properties__item {
@@ -103,10 +46,8 @@
 
 .create-exercise-properties__item-input {
   display: block;
-  border: 1px solid #ababab;
-  padding: 5px;
-  border-radius: 5px;
-  box-sizing: border-box;
+  margin-top: 10px !important;
+  width: 100%;
 }
 
 .create-exercise-properties__item-text-area {
@@ -121,22 +62,12 @@
 
 .create-exercise-properties_submit {
   display: block;
-  margin: 20px auto 0;
+  margin: 20px auto 0 !important;
   padding: 5px;
   background-color: #fff;
   border: 1px solid #4285f4;
   border-radius: 5px;
   outline: none;
-}
-
-.create-exercise-properties_submit:hover {
-  cursor: pointer;
-  color: #4285f4;
-}
-
-.create-exercise-properties_submit:active {
-  padding-top: 6px;
-  border: 2px solid #4285f4;
 }
 
 .create-exercise-properties__item-settings {
@@ -146,4 +77,16 @@
 
 .create-exercise-properties__item-checkbox {
   margin-top: 10px;
+}
+
+.create-exercise-properties__wrapper {
+  width: 60% !important;
+}
+
+.MuiPaper-root {
+  top: 350px !important;
+}
+
+.MuiFormControl-root {
+  width: 100%;
 }

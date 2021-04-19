@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import DropDownHeaderCreateExercise from "./DropDownHeaderCreateExercise";
+import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
+import Checkbox from "@material-ui/core/Checkbox";
+import TextField from "@material-ui/core/TextField";
+
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 export class CreateExercise extends Component {
   state = {
@@ -36,16 +45,6 @@ export class CreateExercise extends Component {
       });
   };
 
-  toggle = () => {
-    const { isOpen } = this.state;
-    if (isOpen) {
-      this.setState({ isOpen: false });
-    }
-    if (!isOpen) {
-      this.setState({ isOpen: true });
-    }
-  };
-
   onOptionSelected = (option, id) => {
     const { isOptionSelected } = this.state;
     if (!isOptionSelected) {
@@ -75,7 +74,7 @@ export class CreateExercise extends Component {
   };
 
   render() {
-    const { defaultValueDropDownTitle } = this.state;
+    console.log(this.state.current);
     const { categoryOfExercises } = this.props;
     return (
       <div className="create-exercise">
@@ -86,85 +85,85 @@ export class CreateExercise extends Component {
         ) : (
           <>
             <div className="create-exercise-drop-down">
-              {!this.state.isOpen ? (
-                <DropDownHeaderCreateExercise
-                  className={"create-exercise-drop-down-container"}
-                  title={defaultValueDropDownTitle}
-                  onClick={this.toggle}
-                />
-              ) : (
-                <DropDownHeaderCreateExercise
-                  className={"create-exercise-drop-down-container-active"}
-                  title={defaultValueDropDownTitle}
-                  onClick={this.toggle}
-                />
-              )}
-              {this.state.isOpen ? (
-                <div>
-                  <ul className="create-exercise-drop-down-list">
-                    {categoryOfExercises.map((item) => (
-                      <li
-                        className="create-exercise-drop-down-list-item"
-                        key={item.id}
-                        onClick={() => {
-                          this.onOptionSelected(item.title, item.id);
-                        }}
-                      >
-                        {item.title}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
+              <FormControl variant="outlined">
+                <InputLabel id="demo-simple-select-outlined-label">
+                  Категории
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-outlined-label"
+                  id="demo-simple-select-outlined"
+                  value={this.state.CreateCategoryTitle}
+                  onChange={(e) => {
+                    this.setState({
+                      CreateCategoryTitle: e.target.value,
+                    });
+                  }}
+                  label="Категории"
+                >
+                  {categoryOfExercises.map((item) => (
+                    <MenuItem
+                      value={item.title}
+                      onClick={() => {
+                        this.onOptionSelected(item.title, item.id);
+                      }}
+                    >
+                      {item.title}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </div>
-            <div className="create-exercise-properties">
-              <label
-                className="create-exercise-properties__item"
-                htmlFor="create-exercise-properties__item-input"
-              >
-                <span className="create-exercise-properties__item-title">
-                  Название упражнения:
-                </span>
-                <input
-                  id="create-exercise-properties__item-input"
+            <Paper
+              variant="outlined"
+              square
+              className="create-exercise-properties__wrapper"
+            >
+              <div className="create-exercise-properties">
+                <TextField
+                  size="small"
                   className="create-exercise-properties__item-input"
-                  type="text"
+                  id="outlined-basic"
+                  label="Название упражнения"
+                  variant="outlined"
                   value={this.state.CreateExcersiseTitle}
                   onChange={(e) => {
                     this.setState({ CreateExcersiseTitle: e.target.value });
                   }}
                 />
-              </label>
-              <label className="create-exercise-properties__item">
-                <div className="create-exercise-properties__item-settings">
-                  <span className="create-exercise-properties__item-title">
-                    Описание упраженения:
-                  </span>
-                  <input
-                    type="checkbox"
-                    className="create-exercise-properties__item-checkbox"
-                    onClick={this.checkboxToggle}
-                  />
-                </div>
-                <textarea
-                  disabled={!this.state.checkbox}
-                  className="create-exercise-properties__item-text-area"
-                  onChange={(e) => {
-                    this.setState({ exerciseDescription: e.target.value });
-                  }}
-                ></textarea>
-              </label>
-              <button
-                className="create-exercise-properties_submit"
-                onClick={this.createExcersise}
-                disabled={
-                  !this.state.CreateExcersiseTitle ||
-                  this.state.defaultValueDropDownTitle === "Категории"
-                }
-              >
-                Добавить упражнение
-              </button>
-            </div>
+                <label className="create-exercise-properties__item">
+                  <div className="create-exercise-properties__item-settings">
+                    <span className="create-exercise-properties__item-title">
+                      Описание упраженения:
+                    </span>
+                    <Checkbox
+                      color="primary"
+                      className="create-exercise-properties__item-checkbox"
+                      onClick={this.checkboxToggle}
+                    />
+                  </div>
+                  <textarea
+                    disabled={!this.state.checkbox}
+                    className="create-exercise-properties__item-text-area"
+                    onChange={(e) => {
+                      this.setState({ exerciseDescription: e.target.value });
+                    }}
+                  ></textarea>
+                </label>
+                <Button
+                  className="create-exercise-properties_submit"
+                  onClick={this.createExcersise}
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  disabled={
+                    !this.state.CreateExcersiseTitle ||
+                    this.state.defaultValueDropDownTitle === "Категории"
+                  }
+                >
+                  Добавить упражнение
+                </Button>
+              </div>
+            </Paper>
           </>
         )}
       </div>
