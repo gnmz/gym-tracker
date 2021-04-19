@@ -1,0 +1,25 @@
+.edit-excersise-modal__wrapper {
+  position: absolute;
+  top: -50px;
+  width: 80%;
+  left: 50px;
+  z-index: 2;
+}
+
+.edit-excersise-modal__wrapper-content {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.edit-excersise-modal__wrapper-content-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.edit-excersise-modal__wrapper-text {
+  text-align: center;
+  height: 50px;
+  padding-bottom: 10px;
+}

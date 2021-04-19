@@ -14,7 +14,7 @@ import "./BottomMenuList.css";
 
 export class BottomMenuList extends Component {
   logout = () => {
-    fetch("http://localhost:3001/logout", {
+    fetch("/logout", {
       headers: { token: localStorage.getItem("token") },
     })
       .then((res) => res.text())
@@ -27,9 +27,9 @@ export class BottomMenuList extends Component {
   render() {
     return (
       <div className="bottom-navigation">
-        <BottomNavigation>
+        <BottomNavigation showLabels={false}>
           <Link href="/main">
-            <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+            <BottomNavigationAction icon={<HomeIcon />} />
           </Link>
 
           <Link href="/create-trainig-session">

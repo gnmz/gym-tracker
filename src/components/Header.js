@@ -3,7 +3,6 @@ import Logout from "./Logout/Logout";
 
 class Header extends Component {
   render() {
-    console.log(this.prevProps);
     return (
       <div className="header">
         <Logout />

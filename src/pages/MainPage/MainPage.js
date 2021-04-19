@@ -60,7 +60,6 @@ class MainPage extends Component {
                 {this.state.createdTrainingSessions.map((item) => (
                   <Link
                     to={`/train/${item.id}`}
-                    className="train-link"
                     key={item.id}
                     className="main-page__trains-link"
                   >
