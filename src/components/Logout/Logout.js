@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import "./Logout.css";
+import Button from "@material-ui/core/Button";
 
 class Logout extends Component {
   state = {
@@ -27,9 +28,15 @@ class Logout extends Component {
   render() {
     return (
       <div className="logout">
-        <button className="logout-btn" onClick={this.logout}>
+        <Button
+          variant="outlined"
+          color="primary"
+          className="logout-btn"
+          onClick={this.logout}
+          size="small"
+        >
           Выход
-        </button>
+        </Button>
         {this.state.isLogged ? <Redirect to="/" /> : null}
       </div>
     );

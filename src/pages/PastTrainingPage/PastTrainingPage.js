@@ -8,6 +8,8 @@ import Header from "../../components/Header";
 import NavigationSidebar from "../../components/NavigationSidebar/NavigationSidebar";
 import BottomMenuList from "../../components/BottomMenuList/BottomMenuList";
 
+import Button from "@material-ui/core/Button";
+
 class PastTrainingPage extends Component {
   state = {
     id: "",
@@ -97,9 +99,13 @@ class PastTrainingPage extends Component {
                     to="/train-history"
                     className="past-train-page__link-back"
                   >
-                    <button className="past-train-page__button-back">
+                    <Button
+                      color="primary"
+                      variant="outlined"
+                      className="past-train-page__button-back"
+                    >
                       В историю тренировок
-                    </button>
+                    </Button>
                   </Link>
                 </div>
               </>
