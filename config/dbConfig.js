@@ -14,10 +14,12 @@
 //   database: "gymstracker",
 // };
 
-module.exports = {
+const connect = {
   host: "freedb.tech",
   port: 3306,
   user: "freedbtech_magicgnum",
   password: "QF2-Ud8xN4aXe_f",
   database: "freedbtech_gymstracker",
 };
+
+module.exports = connect;
