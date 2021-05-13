@@ -39,13 +39,11 @@ export class EditExcersise extends Component {
   };
   componentDidMount() {
     this.getAllCategories();
-    // this.getAllExcersises();
     this.getFullData();
   }
 
   componentWillUnmount() {
     this.getAllCategories();
-    // this.getAllExcersises();
     this.getFullData();
   }
 
@@ -55,10 +53,6 @@ export class EditExcersise extends Component {
       this.getFullData();
       this.setState({ isGetAllCategories: false });
     }
-    // if (this.state.isGetAllExcersises !== prevState.isGetAllExcersises) {
-    //   this.getAllExcersises();
-    //   this.setState({ isGetAllExcersises: false });
-    // }
     if (this.state.isGetFullData !== prevState.isGetFullData) {
       this.getFullData();
       this.setState({ isGetFullData: false });
@@ -72,14 +66,6 @@ export class EditExcersise extends Component {
       .then((res) => res.json())
       .then((data) => this.setState({ categoryOfExercises: data }));
   };
-
-  // getAllExcersises = () => {
-  //   fetch("/custom-excersises", {
-  //     headers: { token: localStorage.getItem("token") },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => this.setState({ exercisesList: data }));
-  // };
 
   getFullData = () => {
     fetch(`/custom-categories-all`, {
@@ -122,12 +108,8 @@ export class EditExcersise extends Component {
   };
 
   chooseActionClass = (item) => {
-    const {
-      isCategory,
-      isExercises,
-      isCreateCategory,
-      isCreateExercise,
-    } = this.state;
+    const { isCategory, isExercises, isCreateCategory, isCreateExercise } =
+      this.state;
     if (isCategory && item === "Категории") {
       return "contained";
     } else if (isExercises && item === "Упражнения") {
@@ -179,6 +161,7 @@ export class EditExcersise extends Component {
                 {menuList.map((item) => (
                   <Button
                     variant={this.chooseActionClass(item.title)}
+                    className="choose-settings-btn"
                     key={item.id}
                     onClick={() => {
                       this.chooseAction(item.title);

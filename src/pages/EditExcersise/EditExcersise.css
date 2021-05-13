@@ -1,7 +1,6 @@
 .exercise-settings {
   padding: 0 30px 50px;
   width: 100%;
-  box-sizing: border-box;
 }
 
 .edit-exercise-page {
@@ -31,19 +30,29 @@
 }
 
 @media screen and (min-width: 320px) and (max-width: 991px) {
+  .exercise-settings-wrapper__content {
+    width: 100%;
+  }
   .exercise-settings-wrapper {
     display: flex;
     flex-direction: column;
     padding-top: 70px;
+  }
+  .exercise-settings {
+    width: 100%;
+    padding: 0 0 30px;
   }
 
   .edit-exercise-page {
     min-height: 100vh;
   }
   .exercise-settings-list {
-    display: grid;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 0.5rem;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-gap: 0.5rem !important;
+  }
+  .choose-settings-btn {
+    height: 50px !important;
+    border-right-color: rgba(63, 81, 181, 0.5) !important;
   }
 }

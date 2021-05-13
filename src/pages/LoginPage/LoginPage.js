@@ -50,12 +50,8 @@ class LoginPage extends Component {
     this.setState({ newUserEmail: e.target.value });
   };
   registerNewUser = () => {
-    const {
-      newUserName,
-      newUserLogin,
-      newUserPassword,
-      newUserEmail,
-    } = this.state;
+    const { newUserName, newUserLogin, newUserPassword, newUserEmail } =
+      this.state;
     this.setState(
       {
         newUser: {

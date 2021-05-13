@@ -213,13 +213,8 @@ class CreateTrainingSession extends Component {
   };
 
   render() {
-    const {
-      description,
-      showDescription,
-      trainDate,
-      trainName,
-      currentDate,
-    } = this.state;
+    const { description, showDescription, trainDate, trainName, currentDate } =
+      this.state;
     return (
       <>
         <BottomMenuList />

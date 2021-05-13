@@ -4,7 +4,7 @@ const randtoken = require("rand-token");
 
 const auth = (req, res) => {
   const { user_login, user_password } = req.body;
-  let query = `SELECT * FROM users WHERE user_login = '${user_login}';`;
+  let query = `SELECT * FROM users WHERE user_login = '${user_login.toLowerCase()}';`;
   connection.query(query, (err, data) => {
     if (!err && data.length) {
       const user = data[0];
@@ -12,7 +12,6 @@ const auth = (req, res) => {
         user_password,
         user.user_salt
       );
-      console.log(user);
 
       if (user.user_hashedpassword === user_hashedpassword) {
         const token = randtoken.generate(15);

@@ -1,6 +1,7 @@
 .create-categories {
   margin-top: 30px;
   position: relative;
+  width: 100%;
 }
 
 .create-categories__input {
@@ -90,4 +91,11 @@
 
 .MuiFormControl-root {
   width: 100%;
+}
+
+@media screen and (min-width: 320px) and (max-width: 991px) {
+  .create-categories__input {
+    width: 50% !important;
+    margin: 0 auto !important;
+  }
 }
