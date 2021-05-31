@@ -10,5 +10,7 @@
     display: block;
     width: 100vw;
   }
-  
+  .MuiBottomNavigationAction-root {
+    min-width: 0 !important;
+  }
 }

@@ -89,13 +89,13 @@ export class CreateExercise extends Component {
   };
 
   render() {
-    console.log(this.state.current);
+    
     const { categoryOfExercises } = this.props;
     return (
       <div className="create-exercise">
         {categoryOfExercises.length <= 0 ? (
           <>
-            <h2>У вас еще нет категорий</h2>
+            <h2 style={{textAlign: 'center'}}>У вас еще нет категорий для добавления упражнений</h2>
           </>
         ) : (
           <>

@@ -1,7 +1,7 @@
 .exercises-header {
   display: flex;
   justify-content: space-around;
-  padding: 5px 0;
+  padding: 5px;
 }
 
 .exercises-header-item__exercise-title {
