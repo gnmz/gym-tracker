@@ -118,7 +118,7 @@ class LoginPage extends Component {
       newUserPassword,
       newUserEmail,
     } = this.state;
-
+    
     return (
       <div className="auth">
         <h1 className="header__title">Gym's Tracker</h1>

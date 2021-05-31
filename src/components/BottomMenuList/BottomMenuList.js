@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Link} from 'react-router-dom'
 
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
@@ -8,7 +9,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import HomeIcon from "@material-ui/icons/Home";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import Link from "@material-ui/core/Link";
+
 
 import "./BottomMenuList.css";
 
@@ -28,25 +29,12 @@ export class BottomMenuList extends Component {
     return (
       <div className="bottom-navigation">
         <BottomNavigation showLabels={false}>
-          <Link href="/main">
-            <BottomNavigationAction icon={<HomeIcon />} />
-          </Link>
+          <BottomNavigationAction component={Link} to='/main' icon={<HomeIcon />} />
+          <BottomNavigationAction component={Link} to='/create-trainig-session' icon={<AddBoxIcon />} />
+          <BottomNavigationAction component={Link} to='/train-history' icon={<RestoreIcon />} />
+          <BottomNavigationAction component={Link} to='/edit-exercises' icon={<EditIcon />} />
+          <BottomNavigationAction  component={Link} to='/' icon={<ExitToAppIcon />} onClick={this.logout} />
 
-          <Link href="/create-trainig-session">
-            <BottomNavigationAction icon={<AddBoxIcon />} />
-          </Link>
-
-          <Link href="/train-history">
-            <BottomNavigationAction icon={<RestoreIcon />} />
-          </Link>
-
-          <Link href="/edit-exercises">
-            <BottomNavigationAction icon={<EditIcon />} />
-          </Link>
-
-          <Link onClick={this.logout} href="/">
-            <BottomNavigationAction icon={<ExitToAppIcon />} />
-          </Link>
         </BottomNavigation>
       </div>
     );
