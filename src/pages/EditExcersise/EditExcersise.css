@@ -1,5 +1,5 @@
 .exercise-settings {
-  padding: 0 30px 50px;
+  padding: 0 0 50px;
   width: 100%;
 }
 
@@ -28,6 +28,7 @@
   justify-content: space-between;
   margin-bottom: 20px;
 }
+
 
 @media screen and (min-width: 320px) and (max-width: 991px) {
   .exercise-settings-wrapper__content {
