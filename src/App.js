@@ -9,6 +9,7 @@ import TrainPage from "./pages/TrainPage/TrainPage";
 import PastTrainingPage from "./pages/PastTrainingPage/PastTrainingPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import EditExcersise from "./pages/EditExcersise/EditExcersise";
+import CalorieCalculationPage from "./pages/CalorieCalculationPage/CalorieCalculationPage";
 
 class App extends Component {
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
         <Route path="/train/:id" exact component={TrainPage} />
         <Route path="/train-history/:id" exact component={PastTrainingPage} />
         <Route path="/edit-exercises" exact component={EditExcersise} />
+        <Route path='/calorie-calculation' exact component={CalorieCalculationPage} />
       </div>
     );
   }

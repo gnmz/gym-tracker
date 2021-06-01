@@ -1,0 +1,15 @@
+.calorie-calculation-page {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.calorie-calculation-page-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.calorie-calculation-page-wrapper__content{
+    width: 75%;
+}

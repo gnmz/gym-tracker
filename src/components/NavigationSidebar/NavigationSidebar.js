@@ -20,7 +20,10 @@ export class NavigationSidebar extends Component {
     }
     if (item === "edit" && item === acitveItem) {
       return "contained";
-    } else {
+    } if (item === "calorie-calculation" && item === acitveItem) {
+      return "contained";
+    }
+    else {
       return "outlined";
     }
   };
@@ -66,6 +69,14 @@ export class NavigationSidebar extends Component {
             to="/edit-exercises"
           >
             Редактировать упраженения
+          </Button>
+          <Button
+            variant={this.isActive("calorie-calculation")}
+            className="navigation-sidebar-list__item"
+            component={Link}
+            to="/calorie-calculation"
+          >
+            Калькулятор калорий
           </Button>
         </ButtonGroup>
       </div>
